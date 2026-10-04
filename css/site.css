@@ -55,6 +55,8 @@ h1,h2,h3,p,ol,ul{margin:0;}
 .btn--sm{padding:12px 18px;}
 .btn--light{background:var(--nude);color:var(--vinho);}
 .btn--light:hover{background:var(--bege);color:var(--vinho);}
+.btn--ghost{background:transparent;color:var(--vinho);border:1px solid var(--vinho);padding:14px 21px;}
+.btn--ghost:hover{background:var(--vinho);color:var(--nude);}
 .link-soft{color:var(--musgo);font-size:15px;}
 .link-caps{color:var(--bordo);align-self:flex-start;}
 .actions{display:flex;align-items:center;gap:30px;flex-wrap:wrap;}
@@ -69,7 +71,9 @@ h1,h2,h3,p,ol,ul{margin:0;}
 .topbar{position:sticky;top:0;z-index:50;background:rgba(227,211,202,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
 .topbar__inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:16px;padding-bottom:16px;}
 .topbar__logo img{height:clamp(52px,5.4vw,72px);width:auto;}
-.topbar__actions{display:flex;align-items:center;gap:22px;}
+.topbar__actions{display:flex;align-items:center;gap:30px;}
+.topbar__link{font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--musgo);}
+.topbar__link:hover{color:var(--vinho);}
 .menu-btn{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;color:var(--vinho);padding:10px 0;}
 .menu-btn:focus-visible{outline:2px solid var(--vinho);outline-offset:4px;}
 .menu-btn__icon{position:relative;width:24px;height:10px;}
@@ -151,8 +155,6 @@ h1,h2,h3,p,ol,ul{margin:0;}
 .card--wide .eyebrow{color:var(--nude);}
 .card--wide em{color:var(--bege);}
 .card.card--wide p{color:var(--nude);max-width:720px;}
-.card--wide .btn{background:var(--nude);color:var(--vinho);}
-.card--wide .btn:hover{background:var(--bege);}
 .card h3{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.4vw,32px);line-height:1.2;letter-spacing:-.01em;text-wrap:balance;}
 .card p{font-size:16px;font-weight:300;line-height:1.65;color:var(--musgo);}
 .card .link-caps,.card .btn{margin-top:auto;}
@@ -178,7 +180,7 @@ h1,h2,h3,p,ol,ul{margin:0;}
 [data-pendente]{cursor:default;}
 
 @media (max-width:640px){
-  .topbar__cta{display:none;}
+  .topbar__link{display:none;}
   .menu{padding-top:96px;}
   .menu__ilu{display:none;}
   .lead--top{padding-top:0;}

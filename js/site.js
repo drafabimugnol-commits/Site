@@ -1,7 +1,7 @@
 // Configuração editável
 const CONFIG = {
   whatsapp: "5551999999999", // número com DDI + DDD, só dígitos
-  mensagem: "Olá! Gostaria de agendar uma consulta com a Dra. Fabiana Mugnol.",
+  mensagem: "Olá! Gostaria de mais informações sobre o trabalho da Dra. Fabiana Mugnol.",
 };
 
 // Links do WhatsApp
