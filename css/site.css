@@ -186,7 +186,7 @@ em { font-style: italic; }
 
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; flex-wrap: wrap; }
 .nav__logo { flex: none; display: flex; align-items: center; }
-.nav__logo img { height: 38px; width: auto; }
+.nav__logo img { height: 42px; width: auto; }
 .nav__links { display: flex; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap; font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; }
 .nav__links a { color: var(--musgo); }
 .nav__links a:hover { color: var(--vinho-texto); }
@@ -434,23 +434,24 @@ em { font-style: italic; }
   /* em uma coluna, blocos presos ao topo passariam por baixo do texto */
   .fixa, .atuacao__fixa, .caminhar__intro, .nome__fixa { position: static; }
 
-  .nav__logo img { height: 30px; }
-  .nav__paciente { font-size: 10px; letter-spacing: .14em; padding: 0 0 2px; border: 0; border-bottom: 1px solid var(--rose); border-radius: 0; white-space: normal; text-align: right; line-height: 1.4; }
+  .nav__paciente { font-size: 10px; letter-spacing: .14em; padding: 0 0 2px; border: 0; border-bottom: 1px solid var(--rose); border-radius: 0; white-space: nowrap; line-height: 1.4; }
   .nav__paciente:hover { background: none; color: var(--vinho-texto); }
 
 }
 @media (max-width: 1399px) {
   /* menu: botão que abre a lista em tela cheia */
-  .nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 22px 0; }
-  .nav__logo { order: 1; justify-self: center; }
-  .nav__paciente { order: 2; justify-self: end; }
+  /* logo em destaque no centro; Menu e Área do paciente numa linha abaixo */
+  .nav { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "logo logo" "menu paciente"; align-items: center; gap: 18px 16px; padding: 22px 0 18px; }
+  .nav__logo img { height: clamp(42px, 6vw, 52px); }
+  .nav__logo { grid-area: logo; justify-self: center; }
+  .nav__paciente { grid-area: paciente; justify-self: end; }
   .nav__links .so-celular { display: block; }
   .nav__menu {
     all: unset; cursor: pointer; position: relative; z-index: 6;
     font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--vinho);
   }
   .nav__menu:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
-  .nav__menu { order: 0; justify-self: start; }
+  .nav__menu { grid-area: menu; justify-self: start; }
   .nav__links {
     position: fixed; inset: 0; z-index: 5; display: none;
     flex-direction: column; justify-content: center; gap: 26px; padding: 0 var(--gutter);
