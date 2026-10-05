@@ -47,6 +47,23 @@ if (window.Lenis && !calmo) {
   lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true, anchors: true });
 }
 
+// ---------- Menu do celular ----------
+(() => {
+  const btn = document.querySelector(".nav__menu");
+  const links = document.getElementById("nav-links");
+  if (!btn || !links) return;
+  const set = (aberto) => {
+    document.documentElement.classList.toggle("menu-aberto", aberto);
+    btn.setAttribute("aria-expanded", String(aberto));
+    btn.textContent = aberto ? "Fechar" : "Menu";
+    if (lenis) aberto ? lenis.stop() : lenis.start();
+    document.body.style.overflow = aberto ? "hidden" : "";
+  };
+  btn.addEventListener("click", () => set(btn.getAttribute("aria-expanded") !== "true"));
+  links.addEventListener("click", (e) => { if (e.target.closest("a")) set(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
+})();
+
 // ---------- Elementos acompanhados a cada quadro ----------
 const secs = [...document.querySelectorAll("[data-tom]")].map((el) => ({ el, c: hex(el.dataset.tom) }));
 const fio = document.getElementById("fio");

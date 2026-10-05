@@ -391,6 +391,30 @@ em { font-style: italic; }
   .hero__slot { position: absolute; height: 100%; opacity: .55; }
   .marcos { grid-template-columns: minmax(0, 1fr); }
   .mapa { grid-template-columns: minmax(0, 1fr); }
+
+  /* em uma coluna, blocos presos ao topo passariam por baixo do texto */
+  .fixa, .atuacao__fixa, .caminhar__intro, .nome__fixa { position: static; }
+
+  /* menu: botão que abre a lista em tela cheia */
+  .nav { flex-wrap: nowrap; padding: 22px 0; }
+  .nav__logo img { height: 24px; }
+  .nav__wa { padding: 10px 16px; margin-left: auto; }
+  .nav__menu {
+    all: unset; cursor: pointer; order: 3; position: relative; z-index: 6;
+    font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--vinho);
+  }
+  .nav__menu:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
+  .nav__links {
+    position: fixed; inset: 0; z-index: 5; display: none;
+    flex-direction: column; justify-content: center; gap: 26px; padding: 0 var(--gutter);
+    background: var(--nude); font-size: 14px;
+  }
+  .nav__links a { font-family: var(--serif); font-weight: 300; font-size: 34px; letter-spacing: -.02em; text-transform: none; color: var(--vinho); }
+  .menu-aberto .nav__links { display: flex; }
+  .menu-aberto .pilula { display: none; }
+}
+@media (min-width: 760px) {
+  .nav__menu { display: none; }
 }
 @media (max-height: 759px) {
   .hero__faixa { display: none; }
