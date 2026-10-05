@@ -3,7 +3,7 @@
 // botão "Entrar em contato" e as partículas (magnólia no topo, monograma FM no contato).
 
 // Ajustes finos das partículas (equivalem aos controles do protótipo)
-const MAGNOLIA = { profundidade: 70, giro: 0.5, forca: 0.8, vento: 3, fragmento: 3, intensidade: 0.7, tamanho: 7 };
+const MAGNOLIA = { profundidade: 70, giro: 0.5, forca: 0.8, vento: 3, fragmento: 3, intensidade: 0.7, tamanho: 7, escalaCelular: 0.85 };
 const MONOGRAMA = { forca: 0, vento: 1, densidade: 0, intensidade: 0.6, tamanho: 4.5 };
 
 const raiz = document.getElementById("raiz");
@@ -217,7 +217,9 @@ async function iniciarParticulas() {
     const W = window.innerWidth, H = window.innerHeight;
 
     const passo = MAGNOLIA.fragmento;
-    const cssH = Math.min(r.height * 0.96, r.width * 0.96 * img.height / img.width);
+    // no celular o ramo fica ~15% menor, centralizado no mesmo espaço
+    const escala = window.innerWidth < 760 ? MAGNOLIA.escalaCelular : 1;
+    const cssH = Math.min(r.height * 0.96, r.width * 0.96 * img.height / img.width) * escala;
     const cssW = cssH * img.width / img.height;
     const flor = amostrar(img, cssW, cssH, passo);
 

@@ -426,7 +426,9 @@ em { font-style: italic; }
 @media (max-width: 759px) {
   /* título em cima, magnólia logo abaixo, sem sobrepor */
   .hero { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; align-items: stretch; }
-  .hero__texto { padding: clamp(8px, 2vh, 24px) 0 0; }
+  /* mais respiro entre cabeçalho, título e flor; ramo ~15% menor e centralizado */
+  .hero { row-gap: clamp(8px, 2vh, 20px); }
+  .hero__texto { padding: clamp(14px, 3.5vh, 36px) 0 0; }
   .hero__slot { height: auto; min-height: 0; max-width: none; justify-self: stretch; }
   .marcos { grid-template-columns: minmax(0, 1fr); }
   .mapa { grid-template-columns: minmax(0, 1fr); }
