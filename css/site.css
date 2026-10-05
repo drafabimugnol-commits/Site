@@ -185,8 +185,15 @@ em { font-style: italic; }
 .pin__tela { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; flex-wrap: wrap; }
-.nav__logo { flex: none; }
-.nav__logo img { height: 30px; width: auto; }
+.nav__logo { flex: none; display: flex; align-items: center; gap: 14px; }
+.nav__logo img { height: 38px; width: auto; }
+/* monograma FM estático, na cor vinho (a imagem serve de máscara) */
+.nav__mono {
+  display: block; height: 46px; aspect-ratio: 953 / 759; background: var(--vinho);
+  -webkit-mask: url("../assets/img/monograma.webp") center / contain no-repeat;
+  mask: url("../assets/img/monograma.webp") center / contain no-repeat;
+}
+.faixa-topo { display: none; }
 .nav__links { display: flex; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap; font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; }
 .nav__links a { color: var(--musgo); }
 .nav__links a:hover { color: var(--vinho-texto); }
@@ -434,11 +441,20 @@ em { font-style: italic; }
   /* em uma coluna, blocos presos ao topo passariam por baixo do texto */
   .fixa, .atuacao__fixa, .caminhar__intro, .nome__fixa { position: static; }
 
-  .nav__logo img { height: 24px; }
+  .nav__logo { gap: 10px; }
+  .nav__logo img { height: 30px; }
+  .nav__mono { height: 36px; }
+  .nav { padding: 12px 0 20px; }
+  .nav__paciente { display: none; }
+  .faixa-topo {
+    display: flex; justify-content: flex-end; padding-top: 14px;
+    font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+  }
+  .faixa-topo a { color: var(--vinho-texto); border-bottom: 1px solid var(--rose); padding-bottom: 2px; }
   .nav__paciente { font-size: 11px; letter-spacing: .14em; padding: 10px 14px; margin-left: auto; }
 
 }
-@media (max-width: 1199px) {
+@media (max-width: 1399px) {
   /* menu: botão que abre a lista em tela cheia */
   .nav { flex-wrap: nowrap; padding: 22px 0; }
   .nav { gap: 18px; }
@@ -458,9 +474,9 @@ em { font-style: italic; }
   .menu-aberto .nav__links { display: flex; }
   .menu-aberto .contato-flutuante { display: none; }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
   .nav { flex-wrap: nowrap; }
-  .nav__links { gap: clamp(16px, 1.9vw, 30px); flex-wrap: nowrap; white-space: nowrap; }
+  .nav__links { gap: 20px; flex-wrap: nowrap; white-space: nowrap; }
   .nav__menu { display: none; }
 }
 @media (max-height: 759px) {
