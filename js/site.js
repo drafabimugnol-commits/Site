@@ -91,11 +91,13 @@ function tick(t) {
   if (lenis) lenis.raf(t);
   const H = window.innerHeight;
 
-  // fundo: interpola para o tom da seção quando o topo dela cruza 60% da tela
+  // fundo: interpola para o tom da seção enquanto o topo dela sobe de 80% a
+  // 30% da tela, com curva suave (começa e termina devagar)
   let c = secs[0].c.slice(), ultimo = 0;
   for (let i = 1; i < secs.length; i++) {
     const top = secs[i].el.getBoundingClientRect().top;
-    const k = Math.min(1, Math.max(0, (H * 0.6 - top) / (H * 0.16)));
+    const x = Math.min(1, Math.max(0, (H * 0.8 - top) / (H * 0.5)));
+    const k = x * x * (3 - 2 * x);
     if (k > 0) {
       c = c.map((v, j) => v + (secs[i].c[j] - v) * k);
       if (i === secs.length - 1) ultimo = k;

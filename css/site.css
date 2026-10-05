@@ -288,7 +288,7 @@ em { font-style: italic; }
 .raiz {
   --t-texto: var(--musgo); --t-titulo: var(--vinho); --t-rotulo: var(--vinho-texto);
   --t-enfase: var(--rose-escuro); --t-destaque: var(--rose); --t-linha: var(--linha);
-  transition: --t-texto .8s ease, --t-titulo .8s ease, --t-rotulo .8s ease, --t-enfase .8s ease, --t-destaque .8s ease, --t-linha .8s ease;
+  transition: --t-texto 1.6s ease, --t-titulo 1.6s ease, --t-rotulo 1.6s ease, --t-enfase 1.6s ease, --t-destaque 1.6s ease, --t-linha 1.6s ease;
 }
 .fundo-escuro .raiz {
   --t-texto: var(--nude); --t-titulo: var(--nude); --t-rotulo: var(--claro-sobre-escuro);
@@ -302,23 +302,23 @@ em { font-style: italic; }
 .fundo-escuro .btn { background: var(--nude); color: var(--vinho); }
 .fundo-escuro .btn:hover { background: var(--branco-quente); color: var(--vinho); }
 
-.nome { padding-top: clamp(40px, 5vw, 70px); border-top: 1px solid var(--linha); }
+.nome { padding-top: clamp(40px, 5vw, 70px); border-top: 1px solid var(--t-linha); }
 .nome__fixa { display: flex; flex-direction: column; gap: 22px; position: sticky; top: 12vh; }
 .foto { margin: 0; display: flex; flex-direction: column; gap: 12px; max-width: 420px; }
 .foto__img { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: var(--card); }
 .foto__img img { width: 100%; height: 100%; object-fit: cover; }
-.foto figcaption { font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--musgo); }
+.foto figcaption { font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--t-texto); }
 .rodas .lead { max-width: 40ch; font-size: clamp(20px, 1.6vw, 24px); }
 .rodas .texto--hist { max-width: 52ch; font-size: 16px; line-height: 1.8; }
 .rodas__existem {
-  margin: 0; padding-top: 22px; border-top: 1px solid var(--linha); max-width: 30ch;
+  margin: 0; padding-top: 22px; border-top: 1px solid var(--t-linha); max-width: 30ch;
   font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic;
-  font-size: clamp(24px, 2.2vw, 32px); line-height: 1.3; letter-spacing: -.01em; color: var(--rose-escuro);
+  font-size: clamp(24px, 2.2vw, 32px); line-height: 1.3; letter-spacing: -.01em; color: var(--t-enfase);
 }
 .rodas__fim { display: flex; flex-direction: column; gap: 30px; align-items: center; text-align: center; }
 .rodas__verbos {
   margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic;
-  font-size: clamp(40px, 6vw, 96px); line-height: 1.02; letter-spacing: -.035em; color: var(--rose-escuro); text-wrap: balance;
+  font-size: clamp(40px, 6vw, 96px); line-height: 1.02; letter-spacing: -.035em; color: var(--t-enfase); text-wrap: balance;
 }
 
 /* ---------- 04 Cursos ---------- */
@@ -327,60 +327,60 @@ em { font-style: italic; }
 .formatos__grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
 .formato { display: flex; flex-direction: column; gap: 16px; transition: background .6s; }
 .formato:hover { background: var(--card-hover); }
-.formato__nome { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(26px, 2.4vw, 34px); letter-spacing: -.02em; color: var(--vinho); }
-.formato__texto { font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--musgo); }
+.formato__nome { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(26px, 2.4vw, 34px); letter-spacing: -.02em; color: var(--t-titulo); }
+.formato__texto { font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--t-texto); }
 
 /* ---------- 05 Palestras ---------- */
 
 .temas { display: flex; flex-direction: column; gap: 20px; }
 .tema {
   display: flex; align-items: baseline; gap: clamp(16px, 3vw, 40px);
-  padding: clamp(20px, 2.4vw, 30px) 0; border-bottom: 1px solid var(--linha); transition: padding .6s var(--ease);
+  padding: clamp(20px, 2.4vw, 30px) 0; border-bottom: 1px solid var(--t-linha); transition: padding .6s var(--ease);
 }
 .tema:hover { padding-left: 16px; }
-.tema__n { flex: none; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic; font-size: 18px; color: var(--rose); }
-.tema p { margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.25; letter-spacing: -.015em; color: var(--vinho); text-wrap: pretty; }
-.tema p em { color: var(--rose-escuro); }
+.tema__n { flex: none; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic; font-size: 18px; color: var(--t-destaque); }
+.tema p { margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.25; letter-spacing: -.015em; color: var(--t-titulo); text-wrap: pretty; }
+.tema p em { color: var(--t-enfase); }
 
 /* ---------- 06 Mutirão ---------- */
 
 .passos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(24px, 3vw, 40px); border-top: 1px solid #b9a196; padding-top: clamp(28px, 3.4vw, 44px); }
 .passo { display: flex; flex-direction: column; gap: 14px; }
-.passo__n { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic; font-size: clamp(40px, 4vw, 60px); line-height: 1; color: var(--rose); }
-.passo__titulo { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(22px, 2vw, 28px); line-height: 1.15; letter-spacing: -.01em; color: var(--vinho); }
-.passo__texto { font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--musgo); }
+.passo__n { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic; font-size: clamp(40px, 4vw, 60px); line-height: 1; color: var(--t-destaque); }
+.passo__titulo { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(22px, 2vw, 28px); line-height: 1.15; letter-spacing: -.01em; color: var(--t-titulo); }
+.passo__texto { font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--t-texto); }
 
 /* ---------- 07 Conteúdos ---------- */
 
-.canais { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); border-top: 1px solid var(--linha); }
-.canal { display: flex; flex-direction: column; gap: 14px; padding: 28px 28px 28px 0; color: var(--vinho); }
-.canal:hover { color: var(--rose-escuro); }
+.canais { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); border-top: 1px solid var(--t-linha); }
+.canal { display: flex; flex-direction: column; gap: 14px; padding: 28px 28px 28px 0; color: var(--t-titulo); }
+.canal:hover { color: var(--t-enfase); }
 .canal__nome { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(28px, 2.8vw, 40px); letter-spacing: -.02em; }
 .canal__nome span { font-family: var(--sans); font-size: 18px; }
-.canal__texto { max-width: 38ch; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--musgo); }
+.canal__texto { max-width: 38ch; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--t-texto); }
 .paineis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 16px; }
 .painel { display: flex; flex-direction: column; gap: 22px; background: var(--card); border-radius: 32px; padding: clamp(28px, 4vw, 56px); }
-.painel h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(28px, 3vw, 44px); line-height: 1.08; letter-spacing: -.02em; color: var(--vinho); }
-.painel h3 em { color: var(--rose-escuro); }
-.painel p { margin: 0; font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--musgo); }
-.painel .painel__frase { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic; font-size: 20px; line-height: 1.4; color: var(--rose-escuro); }
+.painel h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(28px, 3vw, 44px); line-height: 1.08; letter-spacing: -.02em; color: var(--t-titulo); }
+.painel h3 em { color: var(--t-enfase); }
+.painel p { margin: 0; font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--t-texto); }
+.painel .painel__frase { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic; font-size: 20px; line-height: 1.4; color: var(--t-enfase); }
 .painel--vinho { background: var(--vinho); color: var(--nude); }
 .painel--vinho .rotulo { color: var(--claro-sobre-escuro); }
 .painel--vinho h3, .painel--vinho p { color: var(--nude); }
 .subtitulo-italico {
   margin: 0; max-width: 30ch; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic;
-  font-size: clamp(24px, 2.4vw, 34px); line-height: 1.25; letter-spacing: -.01em; color: var(--rose-escuro); text-wrap: pretty;
+  font-size: clamp(24px, 2.4vw, 34px); line-height: 1.25; letter-spacing: -.01em; color: var(--t-enfase); text-wrap: pretty;
 }
 
 /* ---------- 08 Parcerias ---------- */
 
 .principios {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(30px, 5vw, 80px); align-items: center;
-  border: 1px solid var(--linha); border-radius: 32px; padding: clamp(28px, 4vw, 56px);
+  border: 1px solid var(--t-linha); border-radius: 32px; padding: clamp(28px, 4vw, 56px);
 }
-.principios__texto { margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.35; letter-spacing: -.01em; color: var(--vinho); text-wrap: pretty; }
+.principios__texto { margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.35; letter-spacing: -.01em; color: var(--t-titulo); text-wrap: pretty; }
 .principios__acao { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
-.principios__acao p { margin: 0; max-width: 40ch; font-size: 17px; font-weight: 300; line-height: 1.7; color: var(--musgo); }
+.principios__acao p { margin: 0; max-width: 40ch; font-size: 17px; font-weight: 300; line-height: 1.7; color: var(--t-texto); }
 
 /* ---------- Contato ---------- */
 
