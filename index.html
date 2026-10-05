@@ -1,305 +1,553 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dra. Fabiana Mugnol · Neurodesenvolvimento, neurodiversidade e cuidado</title>
-<meta name="description" content="Em família, traduzo neurociência em cuidado e palavras em pontes. Conheça a trajetória, os projetos, cursos, palestras e conteúdos da Dra. Fabiana Mugnol.">
+<title>Dra. Fabiana Mugnol · Neurologista em Porto Alegre</title>
+<meta name="description" content="Dra. Fabiana Mugnol, neurologista em Porto Alegre. Neurociência, comportamento humano e condições neurodesenvolvimentais, com a família no centro do cuidado. CREMERS 24336 · RQE 37821.">
+<link rel="canonical" href="https://drafabimugnol.com.br/">
 <meta name="theme-color" content="#e3d3ca">
-<link rel="canonical" href="https://www.fabianamugnol.com/">
+
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="Dra. Fabiana Mugnol">
-<meta property="og:description" content="Em família, traduzo neurociência em cuidado e palavras em pontes.">
-<meta property="og:url" content="https://www.fabianamugnol.com/">
-<link rel="icon" type="image/png" href="assets/img/favicon.png">
-<link rel="preload" href="assets/fonts/Fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<meta property="og:site_name" content="Dra. Fabiana Mugnol">
+<meta property="og:title" content="Dra. Fabiana Mugnol · Neurologista em Porto Alegre">
+<meta property="og:description" content="Quando família, escola e clínica falam a mesma língua, o progresso aparece.">
+<meta property="og:url" content="https://drafabimugnol.com.br/">
+<meta property="og:image" content="https://drafabimugnol.com.br/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/favicon-48.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site.css">
+<link rel="preload" href="/assets/fonts/Fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Physician",
+  "name": "Dra. Fabiana Mugnol",
+  "description": "Neurologista. Neurociência, comportamento humano e condições neurodesenvolvimentais.",
+  "medicalSpecialty": "Neurologic",
+  "url": "https://drafabimugnol.com.br/",
+  "image": "https://drafabimugnol.com.br/assets/img/og.jpg",
+  "telephone": "+55-51-99217-9578",
+  "identifier": [
+    { "@type": "PropertyValue", "name": "CREMERS", "value": "24336" },
+    { "@type": "PropertyValue", "name": "RQE", "value": "37821" }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "name": "Sinapse Clínica",
+    "streetAddress": "Rua Padre Chagas, 35, Sala 401",
+    "addressLocality": "Porto Alegre",
+    "addressRegion": "RS",
+    "addressCountry": "BR"
+  },
+  "sameAs": ["https://www.instagram.com/fabimugnol/"]
+}
+</script>
 </head>
 <body>
-<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<a class="pular" href="#sobre">Pular para o conteúdo</a>
 
-<header class="topbar">
-  <div class="wrap topbar__inner">
-    <a href="#topo" class="topbar__logo" aria-label="Fabiana Mugnol — início">
-      <img src="assets/img/logo-bordo.webp" alt="fm. Fabiana Mugnol — Neurologista" width="520" height="233">
-    </a>
-    <div class="topbar__actions">
-      <a class="topbar__link" href="#conteudos">Conteúdos</a>
-      <a class="topbar__link" href="#contato">Contato</a>
-      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">
-        <span class="menu-btn__label">Menu</span><span class="menu-btn__icon" aria-hidden="true"></span>
-      </button>
+<div class="raiz" id="raiz">
+  <!-- palco das partículas (three.js); o JS insere o canvas aqui -->
+  <div class="palco" id="palco" aria-hidden="true"></div>
+  <div class="ruido" aria-hidden="true"></div>
+
+  <a class="pilula" id="pilula" href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener"><span>Agendar</span></a>
+
+  <div class="conteudo">
+
+    <!-- ===== Topo: nav + hero fixo com a magnólia ===== -->
+    <div class="container">
+      <div class="pin" id="pin">
+        <div class="pin__tela">
+          <nav class="nav" data-revela aria-label="Principal">
+            <a class="nav__logo" href="#topo"><img src="/assets/img/logo.webp" alt="Fabiana Mugnol — Neurologista" width="600" height="117" style="width:auto"></a>
+            <div class="nav__links">
+              <a href="#sobre">Quem sou</a>
+              <a href="#caminhar">Caminhar Juntos</a>
+              <a href="#rodas">Rodas de Anil</a>
+              <a href="#cursos">Cursos</a>
+              <a href="#palestras">Palestras</a>
+              <a href="#conteudos">Conteúdos</a>
+            </div>
+            <a class="nav__wa" href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener">WhatsApp</a>
+          </nav>
+
+          <section id="topo" class="hero" data-tom="#e3d3ca">
+            <div class="hero__texto">
+              <h1 data-revela>Quando família, escola e clínica falam a <span class="nowrap"><em>mesma língua</em>,</span> o progresso aparece.</h1>
+            </div>
+            <div class="hero__slot" id="slot-flor" role="img" aria-label="Ilustração de um ramo de magnólia">
+              <img src="/assets/img/magnolia.webp" alt="" width="929" height="1578">
+            </div>
+            <div class="hero__faixa" data-revela>
+              <span>Porto Alegre · RS</span>
+              <span>Consultório desde 2002</span>
+              <span>Família no centro do cuidado</span>
+              <span class="rolar">Role para ver surgir</span>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
-  </div>
-</header>
 
-<div class="menu" id="menu" hidden>
-  <div class="wrap menu__inner">
-    <nav aria-label="Menu principal">
-      <ol class="menu__list">
-        <li><a href="#quem-e"><span>01</span>Quem é Fabiana Mugnol</a></li>
-        <li><a href="#caminhando-juntos"><span>02</span>Caminhando Juntos</a></li>
-        <li><a href="#rodas-de-anil"><span>03</span>Rodas de Anil</a></li>
-        <li><a href="#cursos-e-mentorias"><span>04</span>Cursos e Mentorias</a></li>
-        <li><a href="#palestras"><span>05</span>Palestras</a></li>
-        <li><a href="#mutirao-florescer"><span>06</span>Mutirão Florescer</a></li>
-        <li><a href="#conteudos"><span>07</span>Conteúdos</a></li>
-        <li><a href="#parcerias"><span>08</span>Parcerias</a></li>
-        <li><a href="#contato"><span>09</span>Contato</a></li>
-      </ol>
-    </nav>
-    <img class="menu__ilu" src="assets/img/ilustracao-3-rose.webp" alt="" width="480" height="1020" loading="lazy">
+    <!-- ===== 01 · Quem é ===== -->
+    <section id="sobre" data-tom="#e3d3ca">
+      <div class="secao__corpo">
+        <div class="duas duas--centro" style="--min:380px">
+          <div class="retrato" data-revela>
+            <div class="retrato__img">
+              <!-- Para colocar a foto: troque o <span> abaixo por
+                   <img src="/assets/img/fabiana.webp" alt="Retrato da Dra. Fabiana Mugnol" width="800" height="1000"> -->
+              <span class="slot-vazio">Retrato da Dra. Fabiana</span>
+            </div>
+            <span class="rotulo rotulo--p">Dra. Fabiana Mugnol · CREMERS 24336 · RQE 37821</span>
+          </div>
+          <div class="quem__texto">
+            <span class="eyebrow" data-revela>01 · Quem é Fabiana Mugnol</span>
+            <h2 class="h2 h2--menor" data-revela>Conhecimento, experiência e <em>cuidado</em> que caminham juntos.</h2>
+            <p class="lead" data-revela>Sou médica neurologista e dedico minha carreira, há mais de duas décadas e meia, à neurociência, ao comportamento humano e às condições neurodesenvolvimentais.</p>
+            <p class="texto texto--16" style="max-width:50ch" data-revela>Minha medicina parte de uma convicção simples e exigente: cada pessoa tem uma história própria e nenhum diagnóstico é capaz de contá-la por inteiro. Por isso, busco unir ciência e escuta para compreender como cada indivíduo funciona, aprende, sente e se relaciona com o mundo.</p>
+          </div>
+        </div>
+
+        <div class="trajetoria">
+          <div class="trajetoria__topo">
+            <h3 class="h3" data-revela>Trajetória</h3>
+            <p class="texto texto--16" style="max-width:46ch" data-revela>Formação em Medicina, Pediatria e Neurologia, com aprofundamento em epilepsia e mestrado em comportamento humano.</p>
+          </div>
+          <ol class="marcos">
+            <li class="marco" data-revela>
+              <span class="marco__ano">1998</span>
+              <span class="marco__titulo">Medicina</span>
+              <span class="marco__onde">Universidade de Caxias do Sul</span>
+            </li>
+            <li class="marco" data-revela>
+              <span class="marco__ano">1999</span>
+              <span class="marco__titulo">Pediatria</span>
+              <span class="marco__onde">Um ano no Hospital Materno Infantil Presidente Vargas</span>
+            </li>
+            <li class="marco" data-revela>
+              <span class="marco__ano">2000–2001</span>
+              <span class="marco__titulo">Residência em Neurologia</span>
+              <span class="marco__onde">Com ênfase em neurologia infantil, no Hospital São Lucas da PUCRS</span>
+            </li>
+            <li class="marco" data-revela>
+              <span class="marco__ano">Fellowship</span>
+              <span class="marco__titulo">Cirurgia da epilepsia</span>
+              <span class="marco__onde">Hospital São Lucas da PUCRS</span>
+            </li>
+            <li class="marco" data-revela>
+              <span class="marco__ano">Mestrado</span>
+              <span class="marco__titulo">Psiquiatria e Comportamento Humano</span>
+              <span class="marco__onde">Hospital de Clínicas de Porto Alegre</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="duas atuacao" style="gap:40px clamp(40px,7vw,110px)">
+          <div class="atuacao__fixa">
+            <h3 class="h3" data-revela>Atuação</h3>
+            <p class="lead lead--italico" data-revela>Ensino, pesquisa e formação de quem cuida.</p>
+          </div>
+          <div class="linhas">
+            <div class="linha" data-revela>
+              <span class="linha__rotulo">Formação de profissionais</span>
+              <p class="linha__texto">Participo da formação de profissionais da saúde em contextos de reabilitação neurológica como instrutora nos cursos Bobath Baby e Bobath Avançado, contribuindo diretamente para a capacitação técnico-científica de terapeutas em todo o país. Sou responsável pelo desenvolvimento e pela condução de programas de formação continuada dirigidos a profissionais da saúde e da educação, com ênfase na qualificação interdisciplinar das práticas clínicas, pedagógicas e institucionais, promovendo o alinhamento entre evidência científica, ética profissional e impacto social.</p>
+            </div>
+            <div class="linha" data-revela>
+              <span class="linha__rotulo">Produção acadêmica</span>
+              <p class="linha__texto">Sou autora de capítulos de livros e artigos científicos nas áreas de neurociências, desenvolvimento infantil e práticas inclusivas. Essa produção acadêmica sustenta e legitima minha atuação como formadora em diversos níveis da educação profissional e da pós-graduação.</p>
+            </div>
+            <div class="linha" data-revela>
+              <span class="linha__rotulo">Palestras</span>
+              <p class="linha__texto">Participo ativamente como palestrante convidada em eventos científicos, congressos técnicos e encontros institucionais, voltados tanto a especialistas quanto ao público geral, com linguagem acessível e base teórica sólida.</p>
+            </div>
+            <div class="linha" data-revela>
+              <span class="linha__rotulo">Docência e supervisão</span>
+              <p class="linha__texto">Como docente em cursos de pós-graduação <em>lato sensu</em>, articulo fundamentos da neurociência com práticas educacionais adaptadas às necessidades contemporâneas das escolas e das famílias. Também realizo supervisão técnica de casos clínicos e escolares, com foco em análise interdisciplinar, fundamentação ética e tomada de decisão qualificada.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="duas">
+          <div class="coluna"><h3 class="h3 h3--menor" data-revela>Uma forma de compreender a medicina</h3></div>
+          <div class="coluna"><p class="texto" data-revela>Ao longo dos anos, aprendi que o cuidado não termina quando a consulta acaba. Famílias precisam de orientação entre um encontro e outro, de documentos que traduzam com precisão o que cada paciente vive, de momentos de trocas entre várias áreas de saberes. Foi dessa constatação que nasceram os projetos reunidos neste site.</p></div>
+        </div>
+
+        <p class="tres-intro" data-revela>Três palavras sustentam esse trabalho:</p>
+        <div class="tres">
+          <div data-revela>
+            <span class="tres__palavra">Ciência</span>
+            <span class="tres__texto">decisões apoiadas nas melhores evidências disponíveis, revisadas com rigor e explicadas com clareza.</span>
+          </div>
+          <div data-revela>
+            <span class="tres__palavra">Cuidado</span>
+            <span class="tres__texto">acompanhamento longitudinal, que olha para o desenvolvimento ao longo do tempo e não apenas o que se apresenta durante a consulta.</span>
+          </div>
+          <div data-revela>
+            <span class="tres__palavra">Afeto</span>
+            <span class="tres__texto">respeito às singularidades de cada pessoa e do contexto em que está inserida, porque ninguém se desenvolve sozinho.</span>
+          </div>
+        </div>
+
+        <p class="fecho" data-revela><em>Compreender para cuidar melhor.</em>Esse é o compromisso que atravessa cada consulta, aula ou encontro.</p>
+      </div>
+    </section>
+
+    <!-- ===== 02 · Caminhar Juntos ===== -->
+    <section id="caminhar" data-tom="#ece2db">
+      <div class="secao__corpo">
+        <div class="duas" style="--min:400px; gap:clamp(50px,8vw,130px)">
+          <div class="caminhar__intro">
+            <span class="eyebrow" data-revela>02 · Caminhar Juntos</span>
+            <h2 class="h2" data-revela>Cuidar também é <em>acompanhar</em> o caminho.</h2>
+            <p class="texto" data-revela>O desenvolvimento não acontece de uma consulta para outra. Acontece todos os dias: em casa, na escola, nas terapias, no trabalho, nas pequenas conquistas e nos dias difíceis. O Caminhar Juntos foi criado para que as famílias não precisem atravessar esse caminho sozinhas entre um encontro e outro.</p>
+            <p class="texto" data-revela>É a forma como organizo o acompanhamento dos meus pacientes: com consultas planejadas, canais claros de comunicação, orientação e compartilhamento de documentos, relatórios e exames.</p>
+          </div>
+          <div class="fio" id="fio">
+            <span class="fio__trilho" aria-hidden="true"></span>
+            <span class="fio__fill" id="fio-fill" aria-hidden="true"></span>
+            <div class="etapa" data-revela>
+              <span class="etapa__n">01</span>
+              <h3>Primeiro contato</h3>
+              <p>A família solicita atendimento pelo canal de agendamento (secretariado presencial). Após, o secretariado remoto encaminha orientações para o envio de dados de identificação, documentos, exames e demais informações importantes para a primeira consulta.</p>
+            </div>
+            <div class="etapa" data-revela>
+              <span class="etapa__n">02</span>
+              <h3>Consulta e compreensão</h3>
+              <p>A avaliação busca compreender cada um por inteiro: o desenvolvimento, a rotina, a funcionalidade e os diferentes contextos.</p>
+            </div>
+            <div class="etapa" data-revela>
+              <span class="etapa__n">03</span>
+              <h3>Plano de cuidado</h3>
+              <p>Juntos, médica e família definem prioridades, próximos passos e a frequência do acompanhamento.</p>
+            </div>
+            <div class="etapa" data-revela>
+              <span class="etapa__n">04</span>
+              <h3>Entre as consultas</h3>
+              <p>Dúvidas, renovações e solicitações seguem por um canal seguro e cada interação fica registrada no prontuário.</p>
+              <div class="documentos">
+                <span class="rotulo">Documentos: o que você precisa saber</span>
+                <p>Receitas, atestados, declarações e o relatório do atendimento fazem parte do cuidado e são sempre fornecidos, como determina a Resolução CFM 2.381/2024. Relatórios aprofundados, pareceres para perícias e laudos detalhados exigem estudo e tempo de elaboração próprios.</p>
+              </div>
+            </div>
+            <div class="etapa" data-revela>
+              <span class="etapa__n">05</span>
+              <h3>Reavaliação</h3>
+              <p>O acompanhamento de condições crônicas requer consultas regulares, em intervalos não superiores a 180 dias, conforme orienta a Resolução CFM 2.314/2022.</p>
+            </div>
+          </div>
+        </div>
+        <a class="link-seta" data-revela href="/planos/">Área do paciente <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- ===== 03 · Rodas de Anil (fundo vinho) ===== -->
+    <section id="rodas" class="escura rodas" data-tom="#5f454e">
+      <div class="secao__corpo">
+        <div class="coluna">
+          <span class="eyebrow" data-revela>03 · Rodas de Anil</span>
+          <h2 class="h2" data-revela>Quando histórias se encontram, novas possibilidades de <em>cuidado</em> surgem.</h2>
+          <p class="texto" data-revela>As Rodas de Anil são encontros de escuta, troca e aprendizado entre famílias, profissionais e comunidade. Conversas sobre neurodiversidade, direitos, escola, rotina e saúde, em que o conhecimento científico sai do consultório e encontra a vida real, com acolhimento e respeito às singularidades de cada história.</p>
+        </div>
+
+        <div class="duas nome" style="--min:340px">
+          <div class="nome__fixa">
+            <h3 class="h3" data-revela>De onde vem <em>o nome</em></h3>
+            <figure class="foto" data-revela>
+              <div class="foto__img">
+                <!-- Para colocar a foto: troque o <span> por
+                     <img src="/assets/img/moinho.webp" alt="O moinho do nonno Rico, na Linha Palmeiro" width="800" height="600"> -->
+                <span class="slot-vazio">Foto do moinho ou do nonno Rico</span>
+              </div>
+              <figcaption>Linha Palmeiro · Farroupilha</figcaption>
+            </figure>
+          </div>
+          <div class="coluna">
+            <p class="lead" data-revela>Meu avô materno, Henrique Antônio Galafassi, o nonno Rico, tinha um moinho na Linha Palmeiro, em Farroupilha. A grande roda movida pela água recebia o grão bruto e o devolvia em farinha, em sustento. Era esse o seu ofício silencioso: <em>transformar.</em></p>
+            <p class="texto texto--hist" data-revela>De tudo o que guardo daquele lugar, ficou uma cor: o azul do anil que tingia os carimbos de batata das nossas brincadeiras de criança. Aquele azul representa a memória de um tempo em que o cuidado e o acolhimento estavam em cada conversa, e a certeza de que ninguém que tivesse chegado ao moinho voltaria de mãos vazias.</p>
+            <p class="texto texto--hist" data-revela>Agora, vejo todos os dias famílias que chegam ao consultório como o grão chegava ao moinho: com um diagnóstico recente, um cansaço sem nome, dúvidas não acolhidas. Elas merecem voltar diferentes: com saber, com suporte, com caminho.</p>
+            <p class="rodas__existem" data-revela>As Rodas de Anil existem para isso.</p>
+          </div>
+        </div>
+
+        <div class="duas">
+          <div class="coluna"><h3 class="h3" data-revela>O que acontece nas <em>Rodas de Anil</em></h3></div>
+          <div class="linhas">
+            <div class="linha" data-revela><span class="linha__rotulo">Escuta</span><span class="linha__texto">um espaço seguro para que cada família conte o que vive, sem julgamento.</span></div>
+            <div class="linha" data-revela><span class="linha__rotulo">Saber</span><span class="linha__texto">temas conduzidos por profissionais convidados, com linguagem acessível e base científica.</span></div>
+            <div class="linha" data-revela><span class="linha__rotulo">Direitos</span><span class="linha__texto">informação clara sobre os direitos das pessoas neurodivergentes e de suas famílias.</span></div>
+            <div class="linha" data-revela><span class="linha__rotulo">Rede</span><span class="linha__texto">encontros que aproximam família, profissionais, instituições e comunidade.</span></div>
+          </div>
+        </div>
+
+        <div class="rodas__fim">
+          <p class="texto" data-revela>Porque ninguém se cuida sozinho. Porque quem cuida também precisa ser cuidado. Porque a pessoa neurodivergente não é um caso isolado, mas o centro de uma rede que a sustenta.</p>
+          <p class="rodas__verbos" data-revela>Olhar, tocar, abraçar e conectar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 04 · Cursos e Mentorias ===== -->
+    <section id="cursos" data-tom="#ece2db">
+      <div class="secao__corpo">
+        <div class="duas duas--fim" style="--min:380px">
+          <div class="coluna">
+            <span class="eyebrow" data-revela>04 · Cursos e Mentorias</span>
+            <h2 class="h2 h2--menor" data-revela>Conhecimento que se compartilha e se transforma em <em>prática</em>.</h2>
+          </div>
+          <div class="coluna">
+            <p class="texto" data-revela>Profissionais da saúde e da educação enfrentam, todos os dias, situações que nenhum livro descreve por inteiro: a criança que não se encaixa no protocolo, o adulto que recebeu diagnóstico tardio, o relatório que precisa ser preciso e defensável, a escola que pede orientação, a família que espera respostas.</p>
+            <p class="texto" data-revela>Os cursos e mentorias oferecem suporte técnico e científico para transformar conhecimento em decisão, com base em evidências atualizadas, nas normas que regem a prática profissional e em mais de duas décadas de experiência clínica.</p>
+          </div>
+        </div>
+
+        <div class="duas">
+          <div class="coluna"><h3 class="h3 h3--menor" data-revela>Temas de trabalho</h3></div>
+          <div class="linhas">
+            <div class="linha" data-revela><span class="linha__rotulo">Documentação médica e o direito da saúde</span><span class="linha__texto">relatório médico circunstanciado, parecer técnico e documentos para instituições de ensino e atividade laborativa, operadoras de saúde e processos judiciais, com fundamentação clínica, jurídica e normativa.</span></div>
+            <div class="linha" data-revela><span class="linha__rotulo">Inteligência artificial na documentação médica</span><span class="linha__texto">usos possíveis, limites éticos e responsabilidades à luz da regulamentação do CFM.</span></div>
+            <div class="linha" data-revela><span class="linha__rotulo">Neurodesenvolvimento na prática</span><span class="linha__texto">raciocínio clínico, instrumentos de avaliação e acompanhamento longitudinal.</span></div>
+            <div class="linha" data-revela><span class="linha__rotulo">Inclusão escolar</span><span class="linha__texto">como escola, família e equipe de saúde podem construir juntas um plano que funcione.</span></div>
+            <div class="linha" data-revela><span class="linha__rotulo">Terapia canabinoide</span><span class="linha__texto">o uso racional de canabinoides, compreendendo o sistema endocanabinoide, diferentes sítios de ação e potencialização de resultados, a prescrição respeitosa e regulamentada.</span></div>
+          </div>
+        </div>
+
+        <div class="formatos">
+          <h3 class="h3 h3--menor" data-revela>Formatos</h3>
+          <div class="formatos__grade">
+            <div class="card formato" data-revela><span class="formato__nome">Cursos</span><span class="formato__texto">turmas com programa estruturado, online ou presenciais.</span></div>
+            <div class="card formato" data-revela><span class="formato__nome">Mentorias</span><span class="formato__texto">acompanhamento individual ou em pequenos grupos, a partir dos casos e desafios reais de cada profissional.</span></div>
+            <div class="card formato" data-revela><span class="formato__nome">Formação de equipes</span><span class="formato__texto">programas sob medida para clínicas, escolas e instituições.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 05 · Palestras ===== -->
+    <section id="palestras" data-tom="#e3d3ca">
+      <div class="secao__corpo">
+        <div class="duas duas--fim" style="--min:380px">
+          <div class="coluna">
+            <span class="eyebrow" data-revela>05 · Palestras</span>
+            <h2 class="h2" data-revela>Ciência que encontra experiência. <em>Informação que gera conexões.</em></h2>
+          </div>
+          <div class="coluna">
+            <p class="texto" data-revela>Falar de neurodesenvolvimento é falar de pessoas: de crianças que aprendem de jeitos diferentes, de adultos que só recentemente se compreenderam, de famílias, professores e equipes que buscam o melhor caminho para cuidar.</p>
+            <p class="texto" data-revela>Cada palestra é construída a partir do público e dos objetivos do evento. O conteúdo une evidência científica atualizada, histórias da prática clínica, preservada a identidade dos pacientes, e uma comunicação clara, sensível e acolhedora, para que o público saia não apenas mais informado, mas com ferramentas para agir.</p>
+          </div>
+        </div>
+
+        <div class="temas">
+          <span class="rotulo" data-revela>Temas frequentes</span>
+          <div class="linhas">
+            <div class="tema" data-revela><span class="tema__n">01</span><p>Neurodiversidade:<em> o que a ciência diz e o que muda no cotidiano.</em></p></div>
+            <div class="tema" data-revela><span class="tema__n">02</span><p>Neuroplasticidade compartilhada:<em> porque cuidamos de famílias e não de sintomas.</em></p></div>
+            <div class="tema" data-revela><span class="tema__n">03</span><p>Autismo e TDAH na escola:<em> sinais, inclusão e parceria com as famílias.</em></p></div>
+            <div class="tema" data-revela><span class="tema__n">04</span><p>A criança que não dá trabalho:<em> necessidades que passam despercebidas.</em></p></div>
+            <div class="tema" data-revela><span class="tema__n">05</span><p>Neurodiversidade no trabalho:<em> ambientes que acolhem produzem mais e melhor.</em></p></div>
+            <div class="tema" data-revela><span class="tema__n">06</span><p>A neurobiologia da dor e um corpo em colapso.</p></div>
+            <div class="tema" data-revela><span class="tema__n">07</span><p>Calma se empresta, não se exige:<em> corregulação nas neurodiversidades.</em></p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 06 · Mutirão Florescer ===== -->
+    <section id="mutirao" data-tom="#d6c1b5">
+      <div class="secao__corpo">
+        <div class="duas duas--fim" style="--min:380px">
+          <div class="coluna">
+            <span class="eyebrow" data-revela>06 · Mutirão Florescer</span>
+            <h2 class="h2" data-revela>Um dia para acolher, <em>ouvir</em> e cuidar.</h2>
+          </div>
+          <div class="coluna">
+            <p class="texto" data-revela>Para muitas famílias, o caminho até uma avaliação do neurodesenvolvimento é longo demais: filas extensas, deslocamentos difíceis, informações desencontradas. Enquanto isso, o tempo passa.</p>
+            <p class="texto" data-revela>O Mutirão Florescer nasceu do desejo de encurtar essa distância e levar o cuidado interdisciplinar a famílias em situação de vulnerabilidade.</p>
+            <p class="texto" data-revela>Em um mesmo espaço e em um mesmo dia, profissionais de diferentes áreas unem conhecimentos e olhares para oferecer atendimento médico e avaliação das condições do neurodesenvolvimento.</p>
+          </div>
+        </div>
+
+        <div class="passos">
+          <div class="passo" data-revela><span class="passo__n">1</span><span class="passo__titulo">Acolhimento</span><span class="passo__texto">cada família é recebida e orientada sobre as etapas do dia.</span></div>
+          <div class="passo" data-revela><span class="passo__n">2</span><span class="passo__titulo">Escuta estruturada</span><span class="passo__texto">uma psicóloga conduz a anamnese completa, registrando a história do desenvolvimento, da saúde e da rotina do indivíduo.</span></div>
+          <div class="passo" data-revela><span class="passo__n">3</span><span class="passo__titulo">Avaliação médica</span><span class="passo__texto">com essas informações organizadas, a consulta se concentra no que mais importa: compreensão funcional.</span></div>
+          <div class="passo" data-revela><span class="passo__n">4</span><span class="passo__titulo">Orientação e encaminhamento</span><span class="passo__texto">a família sai com orientações claras e com o direcionamento possível dentro da rede.</span></div>
+        </div>
+
+        <div class="duas" style="--min:340px">
+          <div class="coluna">
+            <h3 class="h3 h3--menor" data-revela>Cuidar em rede</h3>
+            <p class="texto" data-revela>Nenhum profissional, sozinho, consegue responder a todas as necessidades de uma criança. O Mutirão Florescer é construído em rede, com saberes que se complementam para ampliar a compreensão, o cuidado e o acompanhamento de cada família. Cuidar em rede também é uma forma de transformar realidades.</p>
+          </div>
+          <div class="coluna">
+            <h3 class="h3 h3--menor" data-revela>Como apoiar</h3>
+            <p class="texto" data-revela>Profissionais voluntários, instituições, espaços parceiros e apoiadores fazem cada edição acontecer. Se você deseja somar, fale conosco.</p>
+            <a class="btn" data-revela href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener">Quero somar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 07 · Conteúdos ===== -->
+    <section id="conteudos" data-tom="#ece2db">
+      <div class="secao__corpo">
+        <div class="duas duas--fim" style="--min:380px">
+          <div class="coluna">
+            <span class="eyebrow" data-revela>07 · Conteúdos</span>
+            <h2 class="h2 h2--menor" data-revela>Conhecimento que continua a conversa para além do <em>consultório</em>.</h2>
+          </div>
+          <div class="coluna">
+            <p class="texto" data-revela>Informação de qualidade também é cuidado. Uma família que compreende o que está vivendo decide melhor, pergunta melhor e se sente menos sozinha. Um professor que entende como uma criança aprende transforma a sala de aula.</p>
+            <p class="texto" data-revela>Aqui você encontra artigos, vídeos, conversas e reflexões sobre neurodesenvolvimento e neurodiversidade, sempre aproximando o conhecimento científico da experiência e da vida real.</p>
+          </div>
+        </div>
+
+        <div class="temas">
+          <span class="rotulo" data-revela>Redes e canais</span>
+          <div class="canais">
+            <a class="canal" data-revela href="https://www.instagram.com/fabimugnol/" target="_blank" rel="noopener">
+              <span class="canal__nome">Instagram<span aria-hidden="true">↗</span></span>
+              <span class="canal__texto">conteúdos, informações e conversas sobre neurodesenvolvimento, neurodiversidade e cuidado. [@fabimugnol]</span>
+            </a>
+            <!-- YouTube: trocar href="#" pelo endereço do canal e remover data-pendente -->
+            <a class="canal" data-revela data-pendente href="#">
+              <span class="canal__nome">YouTube<span aria-hidden="true">↗</span></span>
+              <span class="canal__texto">conteúdo em construção. Em breve, material novo toda semana.</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="paineis">
+          <div class="painel painel--vinho" data-revela>
+            <span class="rotulo">YouTube</span>
+            <h3>Neurodesenvolvimento, neurodiversidade e cuidado</h3>
+            <p>No canal do YouTube, conhecimento e experiência ganham novos formatos. São vídeos sobre desenvolvimento, comportamento, aprendizagem, saúde e relações, explicados de forma acessível e conectados às perguntas que fazem parte do dia a dia de famílias e profissionais.</p>
+          </div>
+          <div class="painel" data-revela>
+            <span class="rotulo">Conversas</span>
+            <h3>Casados com a <em>Neurodiversidade</em></h3>
+            <p class="painel__frase">Diferentes histórias. Diferentes saberes. Novas formas de olhar para o cuidado.</p>
+            <p>Idealizado por Fabiana Mugnol e Alfredo Metzger, o Casados com a Neurodiversidade reúne convidados de diferentes áreas para conversas que conectam conhecimento, experiência profissional e vida real, com profundidade e leveza.</p>
+          </div>
+        </div>
+
+        <div class="duas" style="--min:340px">
+          <div class="coluna">
+            <h3 class="h3 h3--menor" data-revela>Artigos</h3>
+            <p class="subtitulo-italico" data-revela>Informação para compreender o que está acontecendo.</p>
+            <p class="texto" data-revela>Textos sobre temas atuais, dúvidas frequentes e assuntos do cotidiano de famílias e profissionais. Cada artigo busca contextualizar, explicar com clareza e indicar as fontes científicas em que se apoia.</p>
+          </div>
+          <div class="coluna">
+            <h3 class="h3 h3--menor" data-revela>O que vem por aí</h3>
+            <p class="subtitulo-italico" data-revela>Acompanhe os próximos passos.</p>
+            <p class="texto" data-revela>Palestras, entrevistas, podcasts, programas, campanhas, eventos e novos projetos: aqui você acompanha a agenda e fica sabendo onde estarei nos próximos dias.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 08 · Parcerias ===== -->
+    <section id="parcerias" data-tom="#e3d3ca">
+      <div class="secao__corpo">
+        <div class="duas duas--fim" style="--min:380px">
+          <div class="coluna">
+            <span class="eyebrow" data-revela>08 · Parcerias</span>
+            <h2 class="h2 h2--parcerias" data-revela>Boas ideias crescem quando encontram pessoas dispostas a <span class="nowrap">construí‑las <em>juntas</em>.</span></h2>
+          </div>
+          <div class="coluna">
+            <p class="texto" data-revela>Os projetos reunidos aqui nasceram de encontros. Cada roda, cada mutirão e cada curso só existe porque profissionais, instituições e pessoas decidiram somar o que sabem e o que têm.</p>
+            <p class="texto" data-revela>Estou aberta a parcerias com profissionais, empresas, instituições e iniciativas que compartilhem o compromisso com a ciência, a informação de qualidade, o cuidado e a valorização da neurodiversidade.</p>
+          </div>
+        </div>
+
+        <div class="duas">
+          <div class="coluna"><h3 class="h3 h3--menor" data-revela>Caminhos possíveis</h3></div>
+          <div class="linhas">
+            <div class="linha" data-revela><span class="linha__rotulo">Projetos sociais</span><span class="linha__texto">apoio às edições do Mutirão Florescer e das Rodas de Anil.</span></div>
+            <div class="linha" data-revela><span class="linha__rotulo">Educação</span><span class="linha__texto">cursos, formações e conteúdos desenvolvidos em conjunto com instituições de ensino e entidades profissionais.</span></div>
+            <div class="linha" data-revela><span class="linha__rotulo">Eventos e campanhas</span><span class="linha__texto">ações de conscientização e educação em saúde.</span></div>
+            <div class="linha" data-revela><span class="linha__rotulo">Pesquisa e produção de conhecimento</span><span class="linha__texto">projetos, publicações e materiais de psicoeducação.</span></div>
+          </div>
+        </div>
+
+        <div class="principios" data-revela>
+          <div class="coluna" style="gap:18px">
+            <span class="rotulo">Nossos princípios</span>
+            <p class="principios__texto">Toda parceria é transparente e preserva a independência das decisões clínicas. Parcerias não envolvem indicação, endosso ou divulgação de medicamentos, produtos ou serviços de prescrição.</p>
+          </div>
+          <div class="principios__acao">
+            <p>Se você acredita que podemos construir algo relevante juntos, fale com nosso Concierge.</p>
+            <a class="btn" href="https://wa.me/5551999999999?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Concierge." target="_blank" rel="noopener">Falar com o Concierge</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contato (fundo musgo) ===== -->
+    <section id="contato" class="contato escura" data-tom="#52594e">
+      <div class="contato__corpo">
+        <div class="contato__grade">
+          <div class="contato__texto">
+            <span class="eyebrow" data-revela>Contato</span>
+            <h2 data-revela>Fale <em>conosco</em>.</h2>
+            <div class="whats">
+              <a data-revela href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener">
+                <span class="whats__rotulo">Agendamentos e financeiro</span>
+                <span class="whats__num">51 99217-9578<span aria-hidden="true">↗</span></span>
+              </a>
+              <a data-revela href="https://wa.me/5551974019090?text=Ol%C3%A1!%20Preciso%20de%20suporte." target="_blank" rel="noopener">
+                <span class="whats__rotulo">Suporte e assistência</span>
+                <span class="whats__num">51 97401-9090<span aria-hidden="true">↗</span></span>
+              </a>
+              <a data-revela href="https://wa.me/5551999999999?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Concierge." target="_blank" rel="noopener">
+                <span class="whats__rotulo">Concierge</span>
+                <span class="whats__num">51 99999-9999<span aria-hidden="true">↗</span></span>
+              </a>
+            </div>
+          </div>
+          <div class="contato__slot" id="slot-fm" role="img" aria-label="Monograma Fabiana Mugnol">
+            <img src="/assets/img/monograma.webp" alt="" width="953" height="759">
+          </div>
+        </div>
+
+        <div class="mapa" data-revela>
+          <div class="mapa__info">
+            <span class="rotulo">Consultório</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Rua%20Padre%20Chagas%2C%2035%2C%20Moinhos%20de%20Vento%2C%20Porto%20Alegre%2C%20RS" target="_blank" rel="noopener">
+              <strong>Sinapse Clínica</strong>
+              <span>Rua Padre Chagas, 35 · Sala 401</span>
+              <span>Moinhos de Vento · Porto Alegre, RS</span>
+            </a>
+          </div>
+          <div class="mapa__frame">
+            <iframe title="Mapa · Sinapse Clínica" src="https://maps.google.com/maps?q=Rua%20Padre%20Chagas%2C%2035%2C%20Moinhos%20de%20Vento%2C%20Porto%20Alegre%2C%20RS&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+
+        <footer class="rodape">
+          <img src="/assets/img/logo.webp" alt="Fabiana Mugnol" width="600" height="117" style="width:auto">
+          <span>Dra. Fabiana Mugnol · Neurologista · Porto Alegre · CREMERS 24336 · RQE 37821</span>
+        </footer>
+      </div>
+    </section>
+
   </div>
 </div>
 
-<main id="conteudo">
-
-  <!-- Abertura -->
-  <section id="topo" class="wrap hero" aria-labelledby="hero-titulo">
-    <div class="stack stack--lg">
-      <h1 id="hero-titulo" class="display">Em família, traduzo <em>neurociência</em> em cuidado e palavras em <em>pontes</em>.</h1>
-      <p class="lead">Um espaço de informação e troca sobre neurodesenvolvimento, neurodiversidade e cuidado — para famílias e profissionais.</p>
-      <div class="actions">
-        <a class="btn btn--ghost" href="#conteudos">Explore os conteúdos</a>
-        <a class="link-soft" href="#quem-e">Conheça a Fabiana →</a>
-      </div>
-    </div>
-    <div class="hero__art" aria-hidden="true">
-      <canvas id="constelacao"></canvas>
-    </div>
-  </section>
-
-  <!-- Mapa rápido -->
-  <section class="wrap map" aria-label="Mapa rápido do site">
-    <div class="map__col">
-      <h2 class="eyebrow">Para famílias</h2>
-      <a href="#caminhando-juntos">Caminhando Juntos</a>
-      <a href="#rodas-de-anil">Rodas de Anil</a>
-    </div>
-    <div class="map__col">
-      <h2 class="eyebrow">Para profissionais</h2>
-      <a href="#cursos-e-mentorias">Cursos e Mentorias</a>
-      <a href="#palestras">Palestras</a>
-    </div>
-    <div class="map__col">
-      <h2 class="eyebrow">Projeto em destaque</h2>
-      <a href="#mutirao-florescer">Mutirão Florescer</a>
-    </div>
-    <div class="map__col">
-      <h2 class="eyebrow">Conteúdos</h2>
-      <a href="#canais">Instagram, LinkedIn e YouTube</a>
-      <a href="#artigos">Artigos</a>
-      <a href="#casados">Casados com a Neurodiversidade</a>
-      <a href="#agenda">O que vem por aí</a>
-    </div>
-  </section>
-
-  <!-- 01 -->
-  <section id="quem-e" class="wrap section grid grid--center" aria-labelledby="s01">
-    <div class="portrait">
-      <img class="portrait__ilu" src="assets/img/ilustracao-1-rose.webp" alt="" width="480" height="874" loading="lazy">
-      <!-- Substituir pelo retrato: <img src="assets/img/retrato.webp" alt="Dra. Fabiana Mugnol" loading="lazy"> -->
-      <div class="portrait__frame placeholder">Retrato da Dra. Fabiana</div>
-    </div>
-    <div class="stack">
-      <span class="eyebrow"><b>01</b> Quem é Fabiana Mugnol</span>
-      <h2 id="s01" class="h2">Conhecimento, experiência e <em>cuidado</em> que caminham juntos.</h2>
-      <p class="lead">Conheça a trajetória da Dra. Fabiana Mugnol, sua formação, experiência e sua forma de compreender a medicina. Uma atuação construída a partir da ciência, da escuta e da compreensão de que cada pessoa e cada família têm uma história única.</p>
-      <a class="link-caps" href="#quem-e" data-pendente>Conheça a trajetória →</a>
-    </div>
-  </section>
-
-  <!-- 02 -->
-  <section id="caminhando-juntos" class="band band--musgo" aria-labelledby="s02">
-    <img class="band__ilu band__ilu--right" src="assets/img/ilustracao-3-off.webp" alt="" width="480" height="1019" loading="lazy">
-    <div class="wrap section grid grid--center">
-      <div class="stack">
-        <span class="eyebrow"><b>02</b> Caminhando Juntos</span>
-        <h2 id="s02" class="h2">Cuidar também é <em>acompanhar</em> o caminho.</h2>
-      </div>
-      <div class="stack">
-        <p class="lead">Um espaço pensado para estar mais perto dos pacientes e suas famílias ao longo da jornada de cuidado. Aqui, você encontra informações, materiais de apoio e recursos que ajudam a acompanhar cada etapa de forma mais próxima, integrada e segura.</p>
-        <p class="note">Área exclusiva para pacientes e famílias.</p>
-        <a class="btn btn--light" href="#caminhando-juntos" data-pendente>Acessar a área</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 03 -->
-  <section id="rodas-de-anil" class="wrap section grid grid--center" aria-labelledby="s03">
-    <div class="stack">
-      <span class="eyebrow"><b>03</b> Rodas de Anil</span>
-      <h2 id="s03" class="h2">Quando histórias se encontram, novas <em>possibilidades</em> de cuidado surgem.</h2>
-      <p class="lead">Um espaço de encontro, escuta e troca entre famílias e profissionais. As Rodas de Anil promovem conversas sobre neurodiversidade, temas atuais e experiências compartilhadas, aproximando conhecimento científico e vida real com acolhimento e respeito às singularidades de cada história.</p>
-      <a class="link-caps" data-wa data-wa-msg="Olá! Gostaria de saber mais sobre as Rodas de Anil." href="#contato" target="_blank" rel="noopener">Quero participar →</a>
-    </div>
-    <div class="art-frame" aria-hidden="true">
-      <img src="assets/img/ilustracao-2-rose.webp" alt="" width="480" height="831" loading="lazy">
-    </div>
-  </section>
-
-  <!-- 04 e 05 -->
-  <div class="band band--bege">
-    <div class="wrap section pair">
-      <section id="cursos-e-mentorias" class="stack" aria-labelledby="s04">
-        <span class="eyebrow"><b>04</b> Cursos e Mentorias</span>
-        <h2 id="s04" class="h2 h2--sm">Conhecimento que se compartilha e se transforma em <em>prática</em>.</h2>
-        <p class="lead">Suporte técnico e científico para profissionais da saúde e da educação que desejam ampliar conhecimentos, aprofundar sua prática e encontrar caminhos mais individualizados para os desafios do cotidiano.</p>
-        <p class="lead">Cursos, mentorias e encontros podem ser realizados de forma individual ou em grupo, para pessoas físicas, equipes e instituições.</p>
-        <ul class="tags" aria-label="Formatos">
-          <li>Individual</li><li>Em grupo</li><li>Equipes</li><li>Instituições</li>
-        </ul>
-        <a class="link-caps" data-wa data-wa-msg="Olá! Gostaria de saber mais sobre os cursos e mentorias da Dra. Fabiana Mugnol." href="#contato" target="_blank" rel="noopener">Saber mais →</a>
-      </section>
-      <section id="palestras" class="stack" aria-labelledby="s05">
-        <span class="eyebrow"><b>05</b> Palestras</span>
-        <h2 id="s05" class="h2 h2--sm">Ciência que encontra a <em>experiência</em>. Informação que cria <em>conexão</em>.</h2>
-        <p class="lead">Cada encontro é construído de acordo com o público e os objetivos de cada evento, unindo conhecimento científico, vivências da prática e uma comunicação acessível, sensível e acolhedora.</p>
-        <p class="lead">Palestras para empresas, escolas, instituições, profissionais e diferentes públicos que desejam conversar sobre neurodesenvolvimento, neurodiversidade e cuidado.</p>
-        <ul class="tags" aria-label="Públicos">
-          <li>Empresas</li><li>Escolas</li><li>Instituições</li><li>Profissionais</li>
-        </ul>
-        <a class="link-caps" data-wa data-wa-msg="Olá! Gostaria de convidar a Dra. Fabiana Mugnol para uma palestra." href="#contato" target="_blank" rel="noopener">Convidar para uma palestra →</a>
-      </section>
-    </div>
-  </div>
-
-  <!-- 06 -->
-  <section id="mutirao-florescer" class="band band--vinho" aria-labelledby="s06">
-    <img class="band__ilu band__ilu--left" src="assets/img/ilustracao-1-off.webp" alt="" width="480" height="1043" loading="lazy">
-    <div class="wrap section feature">
-      <span class="eyebrow"><b>06</b> Mutirão Florescer · Projeto em destaque</span>
-      <h2 id="s06" class="display">Um dia para <em>acolher</em>, ouvir e cuidar.</h2>
-      <div class="feature__cols">
-        <p class="lead">O Mutirão Florescer nasceu do desejo de aproximar o cuidado interdisciplinar de famílias em situação de vulnerabilidade.</p>
-        <p class="lead">Em um mesmo espaço, profissionais de diferentes áreas e especialidades correlacionadas unem conhecimentos, experiências e diferentes olhares para oferecer atendimento médico e avaliação das condições do neurodesenvolvimento.</p>
-        <p class="lead">Uma iniciativa construída em rede, em que diferentes saberes se complementam para ampliar as possibilidades de compreensão, cuidado e acompanhamento de cada família.</p>
-      </div>
-      <p class="feature__quote">Cuidar em rede também é uma forma de transformar realidades.</p>
-    </div>
-  </section>
-
-  <!-- 07 -->
-  <section id="conteudos" class="wrap section" aria-labelledby="s07">
-    <div class="grid">
-      <div class="stack">
-        <span class="eyebrow"><b>07</b> Conteúdos</span>
-        <h2 id="s07" class="h2">Conhecimento que continua a conversa <em>para além</em> do consultório.</h2>
-      </div>
-      <p class="lead lead--top">Um espaço para acompanhar o trabalho da Fabiana, seus conteúdos e os temas que fazem parte da sua atuação. Aqui você encontra publicações, artigos sobre temas atuais, vídeos, reflexões e informações sobre neurodesenvolvimento e neurodiversidade, sempre aproximando conhecimento científico, experiência e vida real.</p>
-    </div>
-
-    <div id="canais" class="channels">
-      <div class="channels__intro">
-        <h3 class="eyebrow">Redes e canais</h3>
-        <p>Acompanhe a Fabiana também pelas redes sociais e fique por dentro de novos conteúdos, reflexões, informações e momentos do seu dia a dia profissional.</p>
-      </div>
-      <a class="channel" href="https://www.instagram.com/fabimugnol/" target="_blank" rel="noopener">
-        <span class="channel__name">Instagram <span aria-hidden="true">↗</span></span>
-        <span>Conteúdos, informações e conversas sobre neurodesenvolvimento, neurodiversidade e cuidado.</span>
-      </a>
-      <a class="channel" href="#conteudos" data-pendente>
-        <span class="channel__name">LinkedIn <span aria-hidden="true">↗</span></span>
-        <span>Um espaço para acompanhar sua trajetória profissional, projetos, eventos, palestras e conteúdos voltados especialmente para profissionais e instituições.</span>
-      </a>
-      <a class="channel" href="#conteudos" data-pendente>
-        <span class="channel__name">YouTube <span aria-hidden="true">↗</span></span>
-        <span>Conteúdo novo toda semana.</span>
-      </a>
-    </div>
-
-    <div class="cards">
-      <article class="card card--wide">
-        <span class="eyebrow">YouTube</span>
-        <h3>Neurodesenvolvimento, neurodiversidade e <em>cuidado</em></h3>
-        <p>No canal da Fabiana no YouTube, conhecimento e experiência ganham novos formatos. Vídeos sobre neurodesenvolvimento, neurodiversidade, saúde, comportamento e temas relacionados ao cuidado, apresentados de forma acessível e conectada às questões que fazem parte da vida de famílias e profissionais.</p>
-        <a class="btn btn--sm btn--light" href="#conteudos" data-pendente>Conheça o canal no YouTube</a>
-      </article>
-      <article id="casados" class="card">
-        <span class="eyebrow">Casados com a Neurodiversidade</span>
-        <h3>Diferentes histórias. Diferentes saberes. Novas formas de <em>olhar</em> para o cuidado.</h3>
-        <p>Fabiana também participa do Casados com a Neurodiversidade, um projeto que reúne convidados de diferentes áreas para conversas que conectam conhecimento, experiência profissional e vida real.</p>
-        <a class="link-caps" href="#conteudos" data-pendente>Conheça o projeto →</a>
-      </article>
-      <article id="artigos" class="card">
-        <span class="eyebrow">Artigos</span>
-        <h3>Informação para compreender o que está <em>acontecendo</em>.</h3>
-        <p>Artigos sobre temas atuais, questões que despertam dúvidas e assuntos que fazem parte do cotidiano de famílias e profissionais. Conteúdos produzidos para levar informação de qualidade, contextualizar diferentes questões e aproximar a ciência das experiências e desafios do dia a dia.</p>
-        <a class="link-caps" href="#conteudos" data-pendente>Ler artigos →</a>
-      </article>
-      <article id="agenda" class="card">
-        <span class="eyebrow">O que vem por aí</span>
-        <h3>Acompanhe os próximos <em>passos</em>.</h3>
-        <p>Palestras, entrevistas, podcasts, participações em programas, campanhas, eventos e novos projetos: aqui você pode acompanhar a agenda e descobrir onde a Fabiana estará nos próximos dias.</p>
-        <a class="link-caps" href="#conteudos" data-pendente>Ver agenda →</a>
-      </article>
-    </div>
-  </section>
-
-  <!-- 08 -->
-  <section id="parcerias" class="wrap section grid grid--center" aria-labelledby="s08">
-    <div class="stack">
-      <span class="eyebrow"><b>08</b> Parcerias</span>
-      <h2 id="s08" class="h2">Boas ideias crescem quando encontram pessoas dispostas a <em>construí-las juntas</em>.</h2>
-    </div>
-    <div class="stack">
-      <p class="lead">Fabiana está aberta a parcerias com profissionais, empresas, instituições e iniciativas que compartilhem o compromisso com a ciência, a informação, o cuidado e a valorização da neurodiversidade.</p>
-      <p class="lead">Se você acredita que podemos construir algo relevante juntos, entre em contato com nossa equipe.</p>
-      <a class="link-caps" data-wa data-wa-msg="Olá! Gostaria de conversar sobre uma parceria com a Dra. Fabiana Mugnol." href="#contato" target="_blank" rel="noopener">Fale com a equipe →</a>
-    </div>
-  </section>
-</main>
-
-<!-- 09 -->
-<section id="contato" class="band band--musgo contact" aria-labelledby="s09">
-  <img class="band__ilu band__ilu--right" src="assets/img/ilustracao-3-off.webp" alt="" width="480" height="1019" loading="lazy">
-  <div class="wrap contact__inner">
-    <span class="eyebrow"><b>09</b> Contato</span>
-    <h2 id="s09" class="display display--xl">Vamos <em>conversar</em>?</h2>
-    <p class="lead">Para informações sobre atendimento, cursos, mentorias, palestras, projetos, parcerias ou imprensa, nossa equipe está à disposição para direcionar cada solicitação ao profissional responsável.</p>
-
-    <div class="contact__grid">
-      <a class="contact__item" data-wa data-wa-msg="Olá! Gostaria de informações sobre atendimento e acompanhamento com a Dra. Fabiana Mugnol." href="#contato" target="_blank" rel="noopener">
-        <h3>Atendimento e clínica</h3><p>Informações sobre consultas e acompanhamento.</p><span>Falar com a equipe →</span>
-      </a>
-      <a class="contact__item" data-wa data-wa-msg="Olá! Gostaria de informações sobre cursos, palestras e projetos da Dra. Fabiana Mugnol." href="#contato" target="_blank" rel="noopener">
-        <h3>Cursos, palestras e projetos</h3><p>Para instituições, empresas e profissionais.</p><span>Falar com a equipe →</span>
-      </a>
-      <a class="contact__item" data-wa data-wa-msg="Olá! Gostaria de conversar sobre uma parceria com a Dra. Fabiana Mugnol." href="#contato" target="_blank" rel="noopener">
-        <h3>Parcerias</h3><p>Para quem deseja construir projetos e iniciativas em conjunto.</p><span>Falar com a equipe →</span>
-      </a>
-      <a class="contact__item" data-wa data-wa-msg="Olá! Sou da imprensa e gostaria de falar com a assessoria da Dra. Fabiana Mugnol." href="#contato" target="_blank" rel="noopener">
-        <h3>Imprensa</h3><p>Para jornalistas, produtores e veículos de comunicação.</p><span>Falar com a equipe →</span>
-      </a>
-    </div>
-
-    <div class="press">
-      <div>
-        <h3 class="eyebrow">Materiais para imprensa</h3>
-        <p>Fotos profissionais em alta resolução, biografia, informações profissionais e outros materiais autorizados para divulgação.</p>
-      </div>
-      <a class="btn btn--light" href="#contato" data-pendente>Baixar material para imprensa</a>
-    </div>
-
-    <footer class="footer">
-      <img src="assets/img/logo-off.webp" alt="fm. Fabiana Mugnol — Neurologista" width="520" height="233" loading="lazy">
-      <div class="footer__info">
-        <nav class="footer__social" aria-label="Redes sociais">
-          <a href="https://www.instagram.com/fabimugnol/" target="_blank" rel="noopener">Instagram</a>
-          <a href="#contato" data-pendente>LinkedIn</a>
-          <a href="#contato" data-pendente>YouTube</a>
-        </nav>
-        <span>Dra. Fabiana Mugnol · Neurologista · CREMERS [nº] · RQE [nº]</span>
-      </div>
-    </footer>
-  </div>
-</section>
-
-<script src="js/magnolia.js" defer></script>
-<script src="js/site.js" defer></script>
+<script src="/js/vendor/lenis.min.js" defer></script>
+<script type="module" src="/js/site.js"></script>
 </body>
 </html>

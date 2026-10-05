@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /planos/
+Disallow: /design/
+
+Sitemap: https://drafabimugnol.com.br/sitemap.xml
