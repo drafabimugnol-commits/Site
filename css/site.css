@@ -386,9 +386,10 @@ em { font-style: italic; }
 /* ---------- Responsivo ---------- */
 
 @media (max-width: 759px) {
-  /* a magnólia fica atrás do texto, dentro da tela fixa */
-  .hero { grid-template-columns: minmax(0, 1fr); }
-  .hero__slot { position: absolute; height: 100%; opacity: .55; }
+  /* título em cima, magnólia logo abaixo, sem sobrepor */
+  .hero { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; align-items: stretch; }
+  .hero__texto { padding: clamp(8px, 2vh, 24px) 0 0; }
+  .hero__slot { height: auto; min-height: 0; max-width: none; justify-self: stretch; }
   .marcos { grid-template-columns: minmax(0, 1fr); }
   .mapa { grid-template-columns: minmax(0, 1fr); }
 
