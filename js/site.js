@@ -1,9 +1,9 @@
 // Dra. Fabiana Mugnol — comportamento da página
 // Rolagem suave (Lenis), revelação de texto, fundo por seção, fio do Caminhar Juntos,
-// botão "Agendar" e as partículas (magnólia no topo, monograma FM no contato).
+// botão "Entrar em contato" e as partículas (magnólia no topo, monograma FM no contato).
 
 // Ajustes finos das partículas (equivalem aos controles do protótipo)
-const MAGNOLIA = { profundidade: 70, giro: 0.5, forca: 0.8, vento: 3, fragmento: 3, intensidade: 0.7, tamanho: 7 };
+const MAGNOLIA = { profundidade: 70, giro: 0.5, forca: 0.8, vento: 3, fragmento: 3, intensidade: 0.7, tamanho: 7, escalaCelular: 0.85 };
 const MONOGRAMA = { forca: 0, vento: 1, densidade: 0, intensidade: 0.6, tamanho: 4.5 };
 
 const raiz = document.getElementById("raiz");
@@ -47,6 +47,34 @@ if (window.Lenis && !calmo) {
   lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true, anchors: true });
 }
 
+// ---------- Menu do celular ----------
+(() => {
+  const btn = document.querySelector(".nav__menu");
+  const links = document.getElementById("nav-links");
+  if (!btn || !links) return;
+  const set = (aberto) => {
+    document.documentElement.classList.toggle("menu-aberto", aberto);
+    btn.setAttribute("aria-expanded", String(aberto));
+    btn.textContent = aberto ? "Fechar" : "Menu";
+    if (lenis) aberto ? lenis.stop() : lenis.start();
+    document.body.style.overflow = aberto ? "hidden" : "";
+  };
+  btn.addEventListener("click", () => set(btn.getAttribute("aria-expanded") !== "true"));
+  links.addEventListener("click", (e) => { if (e.target.closest("a")) set(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
+})();
+
+// ---------- Botão "Entrar em contato": escolha entre os 3 WhatsApps ----------
+const escolha = document.getElementById("escolha-contato");
+const abrirEscolha = (aberto) => {
+  escolha.hidden = !aberto;
+  document.getElementById("pilula").setAttribute("aria-expanded", String(aberto));
+};
+document.getElementById("pilula").addEventListener("click", () => abrirEscolha(escolha.hidden));
+escolha.addEventListener("click", (e) => { if (e.target.closest("a")) abrirEscolha(false); });
+document.addEventListener("click", (e) => { if (!e.target.closest(".contato-flutuante")) abrirEscolha(false); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscolha(false); });
+
 // ---------- Elementos acompanhados a cada quadro ----------
 const secs = [...document.querySelectorAll("[data-tom]")].map((el) => ({ el, c: hex(el.dataset.tom) }));
 const fio = document.getElementById("fio");
@@ -56,31 +84,37 @@ const pin = document.getElementById("pin");
 const slotFlor = document.getElementById("slot-flor");
 const slotFM = document.getElementById("slot-fm");
 let pilulaOn = null;
+let fundoEscuro = null;
 let particulas = null; // preenchido quando o three.js carregar
 
 function tick(t) {
   if (lenis) lenis.raf(t);
   const H = window.innerHeight;
 
-  // fundo: interpola para o tom da seção quando o topo dela cruza 60% da tela
+  // fundo: interpola para o tom da seção enquanto o topo dela sobe de 80% a
+  // 30% da tela, com curva suave (começa e termina devagar)
   let c = secs[0].c.slice(), ultimo = 0;
   for (let i = 1; i < secs.length; i++) {
     const top = secs[i].el.getBoundingClientRect().top;
-    const k = Math.min(1, Math.max(0, (H * 0.6 - top) / (H * 0.16)));
+    const x = Math.min(1, Math.max(0, (H * 0.8 - top) / (H * 0.5)));
+    const k = x * x * (3 - 2 * x);
     if (k > 0) {
       c = c.map((v, j) => v + (secs[i].c[j] - v) * k);
       if (i === secs.length - 1) ultimo = k;
     }
   }
+  // texto acompanha o fundo: claro quando o fundo fica escuro
+  const escuro = (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255 < 0.55;
+  if (escuro !== fundoEscuro) { fundoEscuro = escuro; document.documentElement.classList.toggle("fundo-escuro", escuro); }
   raiz.style.background = `rgb(${c.map(Math.round).join(",")})`;
 
   // fio do Caminhar Juntos
   const fr = fio.getBoundingClientRect();
   fioFill.style.transform = `scaleY(${Math.min(1, Math.max(0, (H * 0.6 - fr.top) / fr.height)).toFixed(4)})`;
 
-  // botão "Agendar": aparece depois do topo e some no contato
-  const on = window.scrollY > pin.offsetHeight - H + H * 0.3 && ultimo < 0.3;
-  if (on !== pilulaOn) { pilulaOn = on; pilula.classList.toggle("on", on); }
+  // visível desde o topo; some só no Contato, onde os números já estão na tela
+  const on = ultimo < 0.3;
+  if (on !== pilulaOn) { pilulaOn = on; pilula.classList.toggle("on", on); if (!on) abrirEscolha(false); }
 
   if (particulas) particulas.tick();
 }
@@ -183,7 +217,9 @@ async function iniciarParticulas() {
     const W = window.innerWidth, H = window.innerHeight;
 
     const passo = MAGNOLIA.fragmento;
-    const cssH = Math.min(r.height * 0.96, r.width * 0.96 * img.height / img.width);
+    // no celular o ramo fica ~15% menor, centralizado no mesmo espaço
+    const escala = window.innerWidth < 760 ? MAGNOLIA.escalaCelular : 1;
+    const cssH = Math.min(r.height * 0.96, r.width * 0.96 * img.height / img.width) * escala;
     const cssW = cssH * img.width / img.height;
     const flor = amostrar(img, cssW, cssH, passo);
 

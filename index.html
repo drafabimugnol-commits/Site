@@ -63,7 +63,22 @@
   <div class="palco" id="palco" aria-hidden="true"></div>
   <div class="ruido" aria-hidden="true"></div>
 
-  <a class="pilula" id="pilula" href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener"><span>Agendar</span></a>
+  <!-- botão flutuante: abre a escolha entre os 3 WhatsApps -->
+  <div class="contato-flutuante">
+    <div class="escolha" id="escolha-contato" role="dialog" aria-label="Escolha o contato" hidden>
+      <span class="escolha__titulo">Falar pelo WhatsApp</span>
+      <a href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener">
+        <span class="escolha__rotulo">Agendamentos e financeiro</span><span class="escolha__num">51 99217-9578</span>
+      </a>
+      <a href="https://wa.me/5551974019090?text=Ol%C3%A1!%20Preciso%20de%20suporte." target="_blank" rel="noopener">
+        <span class="escolha__rotulo">Suporte e assistência</span><span class="escolha__num">51 97401-9090</span>
+      </a>
+      <a href="https://wa.me/5551999999999?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Concierge." target="_blank" rel="noopener">
+        <span class="escolha__rotulo">Concierge</span><span class="escolha__num">51 99999-9999</span>
+      </a>
+    </div>
+    <button class="pilula" id="pilula" type="button" aria-expanded="false" aria-controls="escolha-contato"><span>Entrar em contato</span></button>
+  </div>
 
   <div class="conteudo">
 
@@ -73,15 +88,17 @@
         <div class="pin__tela">
           <nav class="nav" data-revela aria-label="Principal">
             <a class="nav__logo" href="#topo"><img src="/assets/img/logo.webp" alt="Fabiana Mugnol — Neurologista" width="600" height="117" style="width:auto"></a>
-            <div class="nav__links">
+            <button class="nav__menu" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+            <div class="nav__links" id="nav-links">
               <a href="#sobre">Quem sou</a>
               <a href="#caminhar">Caminhar Juntos</a>
               <a href="#rodas">Rodas de Anil</a>
               <a href="#cursos">Cursos</a>
               <a href="#palestras">Palestras</a>
               <a href="#conteudos">Conteúdos</a>
+              <a class="so-celular" href="#contato">Contato</a>
             </div>
-            <a class="nav__wa" href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener">WhatsApp</a>
+            <a class="nav__paciente" href="/planos/">Área do paciente</a>
           </nav>
 
           <section id="topo" class="hero" data-tom="#e3d3ca">
@@ -105,12 +122,10 @@
     <!-- ===== 01 · Quem é ===== -->
     <section id="sobre" data-tom="#e3d3ca">
       <div class="secao__corpo">
-        <div class="duas duas--centro" style="--min:380px">
+        <div class="duas duas--centro quem" style="--min:380px">
           <div class="retrato" data-revela>
             <div class="retrato__img">
-              <!-- Para colocar a foto: troque o <span> abaixo por
-                   <img src="/assets/img/fabiana.webp" alt="Retrato da Dra. Fabiana Mugnol" width="800" height="1000"> -->
-              <span class="slot-vazio">Retrato da Dra. Fabiana</span>
+              <img src="/assets/img/fabiana.webp" alt="Retrato da Dra. Fabiana Mugnol" width="800" height="1000" loading="lazy" decoding="async">
             </div>
             <span class="rotulo rotulo--p">Dra. Fabiana Mugnol · CREMERS 24336 · RQE 37821</span>
           </div>
@@ -207,7 +222,7 @@
     </section>
 
     <!-- ===== 02 · Caminhar Juntos ===== -->
-    <section id="caminhar" data-tom="#ece2db">
+    <section id="caminhar" data-tom="#e1d1c8">
       <div class="secao__corpo">
         <div class="duas" style="--min:400px; gap:clamp(50px,8vw,130px)">
           <div class="caminhar__intro">
@@ -250,12 +265,11 @@
             </div>
           </div>
         </div>
-        <a class="link-seta" data-revela href="/planos/">Área do paciente <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
-    <!-- ===== 03 · Rodas de Anil (fundo vinho) ===== -->
-    <section id="rodas" class="escura rodas" data-tom="#5f454e">
+    <!-- ===== 03 · Rodas de Anil ===== -->
+    <section id="rodas" class="rodas" data-tom="#dfcec5">
       <div class="secao__corpo">
         <div class="coluna">
           <span class="eyebrow" data-revela>03 · Rodas de Anil</span>
@@ -301,7 +315,7 @@
     </section>
 
     <!-- ===== 04 · Cursos e Mentorias ===== -->
-    <section id="cursos" data-tom="#ece2db">
+    <section id="cursos" data-tom="#ddccc3">
       <div class="secao__corpo">
         <div class="duas duas--fim" style="--min:380px">
           <div class="coluna">
@@ -337,7 +351,7 @@
     </section>
 
     <!-- ===== 05 · Palestras ===== -->
-    <section id="palestras" data-tom="#e3d3ca">
+    <section id="palestras" data-tom="#dbcac0">
       <div class="secao__corpo">
         <div class="duas duas--fim" style="--min:380px">
           <div class="coluna">
@@ -366,7 +380,7 @@
     </section>
 
     <!-- ===== 06 · Mutirão Florescer ===== -->
-    <section id="mutirao" data-tom="#d6c1b5">
+    <section id="mutirao" data-tom="#d9c7be">
       <div class="secao__corpo">
         <div class="duas duas--fim" style="--min:380px">
           <div class="coluna">
@@ -402,7 +416,7 @@
     </section>
 
     <!-- ===== 07 · Conteúdos ===== -->
-    <section id="conteudos" data-tom="#ece2db">
+    <section id="conteudos" data-tom="#d7c5bb">
       <div class="secao__corpo">
         <div class="duas duas--fim" style="--min:380px">
           <div class="coluna">
@@ -459,8 +473,8 @@
       </div>
     </section>
 
-    <!-- ===== 08 · Parcerias ===== -->
-    <section id="parcerias" data-tom="#e3d3ca">
+    <!-- ===== 08 · Parcerias (fundo vinho) ===== -->
+    <section id="parcerias" data-tom="#5f454e">
       <div class="secao__corpo">
         <div class="duas duas--fim" style="--min:380px">
           <div class="coluna">
@@ -497,7 +511,7 @@
     </section>
 
     <!-- ===== Contato (fundo musgo) ===== -->
-    <section id="contato" class="contato escura" data-tom="#52594e">
+    <section id="contato" class="contato" data-tom="#52594e">
       <div class="contato__corpo">
         <div class="contato__grade">
           <div class="contato__texto">
