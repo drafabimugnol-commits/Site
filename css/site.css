@@ -59,7 +59,7 @@ em { font-style: italic; }
 .pular:focus { top: 16px; color: var(--nude); }
 
 /* raiz: o fundo é interpolado pelo JS conforme a seção (data-tom) */
-.raiz { position: relative; background: var(--nude); color: var(--vinho); min-height: 100vh; overflow-x: clip; }
+.raiz { position: relative; background: var(--nude); color: var(--t-titulo); min-height: 100vh; overflow-x: clip; }
 .palco { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 .palco canvas { display: block; }
 .ruido {
@@ -86,44 +86,44 @@ em { font-style: italic; }
 
 .eyebrow {
   display: flex; align-items: center; gap: 14px;
-  font-size: 12px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--vinho-texto);
+  font-size: 12px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--t-rotulo);
 }
 .eyebrow::before { content: ""; display: block; width: 34px; height: 1px; background: currentColor; }
-.rotulo { font-size: 12px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--vinho-texto); }
-.rotulo--p { font-size: 11px; color: var(--musgo); }
+.rotulo { font-size: 12px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--t-rotulo); }
+.rotulo--p { font-size: 11px; color: var(--t-texto); }
 
 .serif { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; }
 .h2 {
   margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100;
-  font-size: clamp(40px, 5.4vw, 84px); line-height: 1.02; letter-spacing: -.035em; color: var(--vinho); text-wrap: balance;
+  font-size: clamp(40px, 5.4vw, 84px); line-height: 1.02; letter-spacing: -.035em; color: var(--t-titulo); text-wrap: balance;
 }
 .h2--menor { font-size: clamp(34px, 3.6vw, 56px); line-height: 1.06; letter-spacing: -.03em; }
 .h2--parcerias { font-size: clamp(36px, 4.2vw, 64px); line-height: 1.06; letter-spacing: -.03em; }
-.h2 em, .h3 em, .destaque em { color: var(--rose-escuro); }
+.h2 em, .h3 em, .destaque em { color: var(--t-enfase); }
 .h3 {
   margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100;
-  font-size: clamp(34px, 3.6vw, 56px); line-height: 1.06; letter-spacing: -.03em; color: var(--vinho);
+  font-size: clamp(34px, 3.6vw, 56px); line-height: 1.06; letter-spacing: -.03em; color: var(--t-titulo);
 }
 .h3--menor { font-size: clamp(26px, 2.6vw, 38px); line-height: 1.1; letter-spacing: -.02em; }
 
 .lead {
   margin: 0; max-width: 40ch; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100;
-  font-size: clamp(19px, 1.45vw, 21px); line-height: 1.5; letter-spacing: -.005em; color: var(--vinho); text-wrap: pretty;
+  font-size: clamp(19px, 1.45vw, 21px); line-height: 1.5; letter-spacing: -.005em; color: var(--t-titulo); text-wrap: pretty;
 }
-.lead--italico { font-style: italic; color: var(--rose-escuro); max-width: 34ch; }
-.texto { margin: 0; max-width: 62ch; font-size: 17px; font-weight: 300; line-height: 1.75; color: var(--musgo); text-wrap: pretty; }
+.lead--italico { font-style: italic; color: var(--t-enfase); max-width: 34ch; }
+.texto { margin: 0; max-width: 62ch; font-size: 17px; font-weight: 300; line-height: 1.75; color: var(--t-texto); text-wrap: pretty; }
 .texto--16 { font-size: 16px; }
 .nowrap { white-space: nowrap; }
 
 /* linhas de lista (rótulo + texto) */
-.linhas { display: flex; flex-direction: column; border-top: 1px solid var(--linha); }
+.linhas { display: flex; flex-direction: column; border-top: 1px solid var(--t-linha); }
 .linha {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
   gap: 10px clamp(24px, 4vw, 64px); align-items: baseline;
-  padding: clamp(22px, 2.6vw, 32px) 0; border-bottom: 1px solid var(--linha);
+  padding: clamp(22px, 2.6vw, 32px) 0; border-bottom: 1px solid var(--t-linha);
 }
-.linha__rotulo { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(22px, 2vw, 28px); line-height: 1.2; letter-spacing: -.01em; color: var(--vinho); }
-.linha__texto { max-width: 58ch; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--musgo); text-wrap: pretty; }
+.linha__rotulo { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(22px, 2vw, 28px); line-height: 1.2; letter-spacing: -.01em; color: var(--t-titulo); }
+.linha__texto { max-width: 58ch; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--t-texto); text-wrap: pretty; }
 
 /* botões */
 .btn {
@@ -133,7 +133,7 @@ em { font-style: italic; }
 }
 .btn:hover { background: var(--musgo); color: var(--nude); }
 .link-seta {
-  align-self: flex-start; display: inline-flex; align-items: center; gap: 12px; color: var(--vinho-texto);
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 12px; color: var(--t-rotulo);
   font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
   border-bottom: 1px solid var(--rose); padding-bottom: 4px;
 }
@@ -160,8 +160,8 @@ em { font-style: italic; }
 .pilula::before { content: ""; display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--rose); }
 .pilula.on { opacity: 1; transform: none; pointer-events: auto; }
 .pilula:hover { background: var(--musgo); color: var(--nude); }
-.pilula.sobre-escuro { background: var(--nude); color: var(--vinho); }
-.pilula.sobre-escuro:hover { background: var(--branco-quente); color: var(--vinho); }
+.fundo-escuro .pilula { background: var(--nude); color: var(--vinho); }
+.fundo-escuro .pilula:hover { background: var(--branco-quente); color: var(--vinho); }
 .pilula { border: 0; font-family: inherit; cursor: pointer; }
 .pilula[aria-expanded="true"] { opacity: 1; transform: none; pointer-events: auto; }
 
@@ -208,15 +208,15 @@ em { font-style: italic; }
   margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100;
   font-size: clamp(30px, min(5.6vw, 8.6vh), 104px); line-height: .98; letter-spacing: -.035em; text-wrap: balance;
 }
-.hero h1 em { color: var(--rose-escuro); }
+.hero h1 em { color: var(--t-enfase); }
 .hero__slot { position: relative; inset: 0; z-index: 1; width: 100%; height: min(80vh, calc(100vh - 200px)); max-width: 680px; justify-self: end; }
 /* sem WebGL: a magnólia aparece como imagem estática */
 .hero__slot img, .contato__slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 1s var(--ease); }
 .sem-webgl .hero__slot img, .sem-webgl .contato__slot img { opacity: 1; }
 .hero__faixa {
   grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
-  gap: 16px 32px; padding: 22px 0 30px; border-top: 1px solid var(--linha);
-  font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--musgo);
+  gap: 16px 32px; padding: 22px 0 30px; border-top: 1px solid var(--t-linha);
+  font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--t-texto);
 }
 .hero__faixa .rolar { justify-self: end; display: flex; align-items: center; gap: 12px; }
 .hero__faixa .rolar::after { content: ""; display: block; width: 1px; height: 22px; background: var(--vinho); }
@@ -235,11 +235,11 @@ em { font-style: italic; }
 .trajetoria { display: flex; flex-direction: column; gap: clamp(48px, 6vw, 88px); }
 .trajetoria__topo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px clamp(40px, 7vw, 110px); align-items: end; }
 .marcos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: 8px; }
-.marco { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 30px 24px 0 0; border-top: 1px solid var(--linha); }
+.marco { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 30px 24px 0 0; border-top: 1px solid var(--t-linha); }
 .marco::before { content: ""; position: absolute; top: -5px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--vinho); }
-.marco__ano { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic; font-size: clamp(26px, 2.3vw, 34px); line-height: 1; letter-spacing: -.02em; color: var(--rose); }
-.marco__titulo { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(19px, 1.5vw, 22px); line-height: 1.25; color: var(--vinho); }
-.marco__onde { font-size: 14px; font-weight: 300; line-height: 1.6; color: var(--musgo); }
+.marco__ano { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic; font-size: clamp(26px, 2.3vw, 34px); line-height: 1; letter-spacing: -.02em; color: var(--t-destaque); }
+.marco__titulo { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(19px, 1.5vw, 22px); line-height: 1.25; color: var(--t-titulo); }
+.marco__onde { font-size: 14px; font-weight: 300; line-height: 1.6; color: var(--t-texto); }
 
 .atuacao__fixa { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 14vh; }
 .atuacao .linha { grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 10px clamp(24px, 3vw, 48px); padding: clamp(24px, 2.6vw, 34px) 0; }
@@ -248,50 +248,59 @@ em { font-style: italic; }
 
 .tres-intro {
   margin: 0 0 calc(-1 * clamp(30px, 5vw, 80px)); font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100;
-  font-style: italic; font-size: clamp(22px, 2vw, 28px); line-height: 1.3; letter-spacing: -.01em; color: var(--rose-escuro);
+  font-style: italic; font-size: clamp(22px, 2vw, 28px); line-height: 1.3; letter-spacing: -.01em; color: var(--t-enfase);
 }
-.tres { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(30px, 4vw, 60px); border-top: 1px solid var(--linha); padding-top: clamp(30px, 4vw, 50px); }
+.tres { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(30px, 4vw, 60px); border-top: 1px solid var(--t-linha); padding-top: clamp(30px, 4vw, 50px); }
 .tres > div { display: flex; flex-direction: column; gap: 18px; }
-.tres__palavra { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic; font-size: clamp(44px, 5vw, 76px); line-height: 1; letter-spacing: -.03em; color: var(--rose); }
-.tres__texto { max-width: 36ch; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--musgo); }
+.tres__palavra { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-style: italic; font-size: clamp(44px, 5vw, 76px); line-height: 1; letter-spacing: -.03em; color: var(--t-destaque); }
+.tres__texto { max-width: 36ch; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--t-texto); }
 .fecho {
   margin: 0 auto; max-width: 26ch; text-align: center; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100;
-  font-size: clamp(32px, 4vw, 60px); line-height: 1.15; letter-spacing: -.025em; color: var(--vinho); text-wrap: balance;
+  font-size: clamp(32px, 4vw, 60px); line-height: 1.15; letter-spacing: -.025em; color: var(--t-titulo); text-wrap: balance;
 }
-.fecho em { display: block; color: var(--rose-escuro); }
+.fecho em { display: block; color: var(--t-enfase); }
 
 /* ---------- 02 Caminhar Juntos ---------- */
 
 .caminhar__intro { display: flex; flex-direction: column; gap: 28px; position: sticky; top: 12vh; }
 .fio { position: relative; display: flex; flex-direction: column; gap: clamp(56px, 7vw, 96px); padding: 10px 0 10px 56px; }
-.fio__trilho, .fio__fill { position: absolute; left: 7px; top: 16px; bottom: 16px; width: 1px; background: var(--linha); }
+.fio__trilho, .fio__fill { position: absolute; left: 7px; top: 16px; bottom: 16px; width: 1px; background: var(--t-linha); }
 .fio__fill { background: var(--vinho); transform-origin: top; transform: scaleY(0); }
 .etapa { position: relative; display: flex; flex-direction: column; gap: 12px; }
 .etapa::before { content: ""; position: absolute; left: -55px; top: 6px; width: 15px; height: 15px; border-radius: 50%; background: var(--nude); border: 1px solid var(--vinho); }
-.etapa__n { font-size: 12px; font-weight: 500; letter-spacing: .22em; color: var(--vinho-texto); }
+.etapa__n { font-size: 12px; font-weight: 500; letter-spacing: .22em; color: var(--t-rotulo); }
 .etapa h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: clamp(28px, 2.8vw, 40px); line-height: 1.08; letter-spacing: -.02em; }
-.etapa p { margin: 0; max-width: 48ch; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--musgo); text-wrap: pretty; }
+.etapa p { margin: 0; max-width: 48ch; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--t-texto); text-wrap: pretty; }
 .documentos { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; padding: 20px 22px; max-width: 48ch; background: var(--card); border-radius: 16px; }
 .documentos .rotulo { font-size: 11px; }
 .etapa .documentos p { font-size: 15px; }
 
-/* ---------- Seções escuras (Rodas de Anil, Contato) ---------- */
-
-.escura { color: var(--nude); }
-.escura .eyebrow { color: var(--claro-sobre-escuro); }
-.escura .h2, .escura .h3, .escura .lead, .escura .texto, .escura .linha__rotulo, .escura .linha__texto { color: var(--nude); }
-.escura .h2 em, .escura .h3 em, .escura .lead em { color: var(--rose-claro-2); }
-.escura .linhas, .escura .linha { border-color: var(--linha-vinho); }
-/* seção que pinta o próprio fundo: degradês suaves nos respiros de cima e de baixo */
-.fundo-proprio {
-  --faixa: clamp(90px, 11vw, 170px);
-  background: linear-gradient(to bottom, var(--de) 0, var(--vinho) var(--faixa), var(--vinho) calc(100% - var(--faixa)), var(--para) 100%);
+/* ---------- Texto acompanha o fundo ----------
+   Quando o fundo da página escurece (Parcerias, Contato), o JS põe
+   .fundo-escuro no <html> e o texto passa aos tons claros, com transição
+   suave. Dentro dos cards o texto continua escuro. */
+@property --t-texto { syntax: "<color>"; inherits: true; initial-value: #52594e; }
+@property --t-titulo { syntax: "<color>"; inherits: true; initial-value: #5f454e; }
+@property --t-rotulo { syntax: "<color>"; inherits: true; initial-value: #7d4f50; }
+@property --t-enfase { syntax: "<color>"; inherits: true; initial-value: #96625f; }
+@property --t-destaque { syntax: "<color>"; inherits: true; initial-value: #a87776; }
+@property --t-linha { syntax: "<color>"; inherits: true; initial-value: #c4ada2; }
+.raiz {
+  --t-texto: var(--musgo); --t-titulo: var(--vinho); --t-rotulo: var(--vinho-texto);
+  --t-enfase: var(--rose-escuro); --t-destaque: var(--rose); --t-linha: var(--linha);
+  transition: --t-texto .8s ease, --t-titulo .8s ease, --t-rotulo .8s ease, --t-enfase .8s ease, --t-destaque .8s ease, --t-linha .8s ease;
 }
-.escura .rotulo { color: var(--claro-sobre-escuro); }
-.escura .btn { background: var(--nude); color: var(--vinho); }
-.escura .btn:hover { background: var(--branco-quente); color: var(--vinho); }
-.escura .principios { border-color: var(--linha-vinho); }
-.escura .principios__texto, .escura .principios__acao p { color: var(--nude); }
+.fundo-escuro .raiz {
+  --t-texto: var(--nude); --t-titulo: var(--nude); --t-rotulo: var(--claro-sobre-escuro);
+  --t-enfase: var(--rose-claro-2); --t-destaque: var(--rose-claro); --t-linha: var(--linha-vinho);
+}
+.card, .painel, .documentos {
+  --t-texto: var(--musgo); --t-titulo: var(--vinho); --t-rotulo: var(--vinho-texto);
+  --t-enfase: var(--rose-escuro); --t-destaque: var(--rose); --t-linha: var(--linha);
+}
+.btn { transition: background .5s, color .5s; }
+.fundo-escuro .btn { background: var(--nude); color: var(--vinho); }
+.fundo-escuro .btn:hover { background: var(--branco-quente); color: var(--vinho); }
 
 .nome { padding-top: clamp(40px, 5vw, 70px); border-top: 1px solid var(--linha); }
 .nome__fixa { display: flex; flex-direction: column; gap: 22px; position: sticky; top: 12vh; }

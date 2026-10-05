@@ -76,7 +76,7 @@ document.addEventListener("click", (e) => { if (!e.target.closest(".contato-flut
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscolha(false); });
 
 // ---------- Elementos acompanhados a cada quadro ----------
-const secs = [...document.querySelectorAll("[data-tom]")].map((el) => ({ el, c: hex(el.dataset.tom), proprio: el.classList.contains("fundo-proprio") }));
+const secs = [...document.querySelectorAll("[data-tom]")].map((el) => ({ el, c: hex(el.dataset.tom) }));
 const fio = document.getElementById("fio");
 const fioFill = document.getElementById("fio-fill");
 const pilula = document.getElementById("pilula");
@@ -84,28 +84,26 @@ const pin = document.getElementById("pin");
 const slotFlor = document.getElementById("slot-flor");
 const slotFM = document.getElementById("slot-fm");
 let pilulaOn = null;
+let fundoEscuro = null;
 let particulas = null; // preenchido quando o three.js carregar
 
 function tick(t) {
   if (lenis) lenis.raf(t);
   const H = window.innerHeight;
 
-  // fundo: interpola para o tom da seção quando o topo dela cruza 60% da tela.
-  // Seções com fundo próprio (Parcerias) pintam a si mesmas e ficam de fora;
-  // a seção seguinte a elas só muda o fundo da página depois que o topo da
-  // seção pintada saiu da tela, para o texto anterior nunca ficar sobre a cor errada.
+  // fundo: interpola para o tom da seção quando o topo dela cruza 60% da tela
   let c = secs[0].c.slice(), ultimo = 0;
   for (let i = 1; i < secs.length; i++) {
-    if (secs[i].proprio) continue;
-    const ant = secs[i - 1];
-    const k = ant.proprio
-      ? Math.min(1, Math.max(0, -ant.el.getBoundingClientRect().top / (H * 0.16)))
-      : Math.min(1, Math.max(0, (H * 0.6 - secs[i].el.getBoundingClientRect().top) / (H * 0.16)));
+    const top = secs[i].el.getBoundingClientRect().top;
+    const k = Math.min(1, Math.max(0, (H * 0.6 - top) / (H * 0.16)));
     if (k > 0) {
       c = c.map((v, j) => v + (secs[i].c[j] - v) * k);
       if (i === secs.length - 1) ultimo = k;
     }
   }
+  // texto acompanha o fundo: claro quando o fundo fica escuro
+  const escuro = (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255 < 0.55;
+  if (escuro !== fundoEscuro) { fundoEscuro = escuro; document.documentElement.classList.toggle("fundo-escuro", escuro); }
   raiz.style.background = `rgb(${c.map(Math.round).join(",")})`;
 
   // fio do Caminhar Juntos
@@ -115,11 +113,6 @@ function tick(t) {
   // visível desde o topo; some só no Contato, onde os números já estão na tela
   const on = ultimo < 0.3;
   if (on !== pilulaOn) { pilulaOn = on; pilula.classList.toggle("on", on); if (!on) abrirEscolha(false); }
-  // sobre fundo escuro (Parcerias) o botão fica claro
-  if (on) {
-    const sob = secs.find(({ el }) => { const r = el.getBoundingClientRect(); return r.top < H - 40 && r.bottom > H - 40; });
-    pilula.classList.toggle("sobre-escuro", !!(sob && sob.el.classList.contains("escura")));
-  }
 
   if (particulas) particulas.tick();
 }
