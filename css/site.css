@@ -9,10 +9,10 @@
 :root {
   /* cores */
   --nude: #e3d3ca;
-  --nude-claro: #ece2db; /* fora da paleta; não usado nos fundos */
+  --nude-claro: #ece2db;
   --nude-profundo: #d6c1b5;
-  --card: #cfbcb2;
-  --card-hover: #c7b2a7;
+  --card: #d9c5ba;
+  --card-hover: #d3bdb1;
   --vinho: #5f454e;
   --vinho-texto: #7d4f50;
   --rose: #a87776;
