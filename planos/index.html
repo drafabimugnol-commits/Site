@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Área do paciente · Dra. Fabiana Mugnol</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#e3d3ca">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/favicon-48.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+<div class="planos">
+  <div class="container">
+    <nav class="nav" aria-label="Principal">
+      <a class="nav__logo" href="/"><img src="/assets/img/logo.webp" alt="Fabiana Mugnol — Neurologista" width="600" height="117" style="width:auto"></a>
+      <div class="nav__acoes">
+        <button type="button" id="sair" hidden>Sair</button>
+        <a href="/#caminhar"><span aria-hidden="true">←</span> Voltar ao site</a>
+      </div>
+    </nav>
+
+    <section class="login" id="tela-login">
+      <div class="login__texto">
+        <span class="eyebrow">Área do paciente</span>
+        <h1>Acesso para <em>famílias</em> em acompanhamento</h1>
+        <p class="texto texto--16" style="max-width:44ch">Entre com os dados enviados pelo secretariado.</p>
+      </div>
+      <form id="form-login">
+        <label>E-mail
+          <input type="email" name="email" required placeholder="nome@email.com" autocomplete="username">
+        </label>
+        <label>Senha
+          <input type="password" name="senha" required placeholder="••••••••" autocomplete="current-password">
+        </label>
+        <button type="submit">Entrar</button>
+        <a class="sem-acesso" href="https://wa.me/5551974019090?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20acesso%20%C3%A0%20%C3%A1rea%20do%20paciente." target="_blank" rel="noopener">Não tenho acesso</a>
+      </form>
+    </section>
+
+    <section class="modalidades" id="tela-planos" hidden>
+      <span class="eyebrow">Caminhar Juntos · Modalidades</span>
+      <div class="modalidades__card">
+        <h1>Quando maior proximidade é <em>imprescindível</em></h1>
+        <p class="texto" style="max-width:60ch">Casos de maior complexidade precisam de presença. Dessa forma, o acompanhamento é oferecido em três modalidades: Essencial, Integrado e Intensivo, que se diferenciam pela frequência dos encontros e pela intensidade do suporte entre eles. Nosso concierge está à disposição para auxiliar nas melhores decisões.</p>
+        <div class="etiquetas">
+          <span>Essencial</span>
+          <span>Integrado</span>
+          <span>Intensivo</span>
+        </div>
+        <a class="btn" href="https://wa.me/5551999999999?text=Ol%C3%A1!%20Gostaria%20de%20saber%20sobre%20as%20modalidades%20de%20acompanhamento." target="_blank" rel="noopener">Falar com o Concierge</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+// ATENÇÃO: login provisório, igual ao protótipo. Qualquer e-mail e senha entram
+// e nada é verificado. Antes de colocar conteúdo sigiloso aqui, trocar por
+// autenticação real no servidor (ver README, "Área do paciente").
+(() => {
+  const CHAVE = "fm-area-paciente";
+  const login = document.getElementById("tela-login");
+  const planos = document.getElementById("tela-planos");
+  const sair = document.getElementById("sair");
+  const ler = () => { try { return sessionStorage.getItem(CHAVE) === "1"; } catch (e) { return false; } };
+  const mostrar = (logado) => { login.hidden = logado; planos.hidden = !logado; sair.hidden = !logado; };
+  document.getElementById("form-login").addEventListener("submit", (e) => {
+    e.preventDefault();
+    try { sessionStorage.setItem(CHAVE, "1"); } catch (_) {}
+    mostrar(true);
+  });
+  sair.addEventListener("click", () => { try { sessionStorage.removeItem(CHAVE); } catch (_) {} mostrar(false); });
+  mostrar(ler());
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lenis@1.3.4/dist/lenis.min.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+@font-face{font-family:'Fraunces';src:url('./assets/Fraunces.ttf') format('truetype');font-weight:100 900;font-style:normal;font-display:swap;}
+@font-face{font-family:'Fraunces';src:url('./assets/Fraunces-Italic.ttf') format('truetype');font-weight:100 900;font-style:italic;font-display:swap;}
+html,body{margin:0;padding:0;background:#e3d3ca;}
+html.lenis,html.lenis body{height:auto;}
+.lenis.lenis-smooth{scroll-behavior:auto !important;}
+body{font-family:'Jost',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#5f454e;}
+a{color:#7d4f50;text-decoration:none;}
+a:hover{color:#5f454e;}
+*{box-sizing:border-box;}
+::selection{background:#a87776;color:#e3d3ca;}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="position:relative; background:#e3d3ca; color:#5f454e; min-height:100vh; overflow-x:clip;">
+  <div ref="{{ stageRef }}" aria-hidden="true" style="position:fixed; inset:0; z-index:0; pointer-events:none;"></div>
+  <div aria-hidden="true" style="position:fixed; inset:0; pointer-events:none; z-index:3; opacity:0.06; mix-blend-mode:multiply; background-image:url(&quot;data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>&quot;);"></div>
+
+  <a ref="{{ pillRef }}" href="{{ waLink }}" target="_blank" style="position:fixed; right:clamp(16px,3vw,36px); bottom:clamp(16px,3vw,36px); z-index:4; display:flex; align-items:center; gap:12px; background:#5f454e; color:#e3d3ca; border-radius:999px; padding:14px 22px 14px 16px; font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; opacity:0; transform:translateY(20px); pointer-events:none; transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1), background .5s; box-shadow:0 18px 40px -18px rgba(60,40,45,.55);" style-hover="background:#52594e; color:#e3d3ca;">
+    <span style="display:block; width:8px; height:8px; border-radius:50%; background:#a87776;"></span>
+    <span>Agendar</span>
+  </a>
+
+  <div style="position:relative; z-index:1;">
+  <div style="max-width:1360px; margin:0 auto; padding:0 clamp(22px,5vw,72px);">
+
+    <div ref="{{ pinRef }}" style="position:relative; height:230vh;">
+    <div style="position:sticky; top:0; height:100vh; display:flex; flex-direction:column; overflow:hidden;">
+    <nav data-revela="1" style="display:flex; align-items:center; justify-content:space-between; gap:24px; padding:28px 0; flex-wrap:wrap;">
+      <a href="#topo" style="display:flex; align-items:center;"><img src="./assets/logo-4-bordo.png" alt="Fabiana Mugnol — Neurologista" style="height:30px; width:auto; display:block;"></a>
+      <div style="display:flex; gap:clamp(18px,2.6vw,34px); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; flex-wrap:wrap;">
+        <a href="#sobre" style="color:#52594e;" style-hover="color:#7d4f50;">Quem sou</a>
+        <a href="#caminhar" style="color:#52594e;" style-hover="color:#7d4f50;">Caminhar Juntos</a>
+        <a href="#rodas" style="color:#52594e;" style-hover="color:#7d4f50;">Rodas de Anil</a>
+        <a href="#cursos" style="color:#52594e;" style-hover="color:#7d4f50;">Cursos</a>
+        <a href="#palestras" style="color:#52594e;" style-hover="color:#7d4f50;">Palestras</a>
+        <a href="#conteudos" style="color:#52594e;" style-hover="color:#7d4f50;">Conteúdos</a>
+      </div>
+      <a href="{{ waLink }}" target="_blank" style="display:inline-flex; align-items:center; gap:10px; color:#5f454e; font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; border:1px solid #5f454e; border-radius:999px; padding:12px 20px; transition:background .5s, color .5s;" style-hover="background:#5f454e; color:#e3d3ca;">WhatsApp</a>
+    </nav>
+
+    <section id="topo" data-tom="#e3d3ca" data-screen-label="01 Chegada" style="position:relative; flex:1; min-height:0; display:grid; grid-template-columns:{{ heroCols }}; grid-template-rows:minmax(0,1fr) auto; align-items:center; column-gap:clamp(20px,3vw,40px); padding:clamp(4px,2vh,24px) 0 0;">
+      <div style="position:relative; z-index:2; display:flex; flex-direction:column; gap:clamp(18px,3.4vh,44px); padding-bottom:clamp(16px,4vh,60px);">
+        <h1 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(30px,min(5.6vw,8.6vh),104px); line-height:0.98; letter-spacing:-0.035em; text-wrap:balance;">Quando família, escola e clínica falam a <span style="white-space:nowrap;"><em style="font-style:italic; color:#96625f;">mesma língua</em>,</span> o progresso aparece.</h1>
+      </div>
+      <div ref="{{ heroSlotRef }}" aria-label="Ilustração de um ramo de magnólia" role="img" style="position:{{ slotPos }}; inset:0; z-index:1; width:100%; height:{{ slotH }}; max-width:680px; justify-self:end; opacity:{{ slotOp }};"></div>
+      <sc-if value="{{ alta }}" hint-placeholder-val="{{ true }}">
+      <div data-revela="1" style="grid-column:1/-1; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr)); gap:16px 32px; padding:22px 0 30px; border-top:1px solid #c4ada2; font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#52594e;">
+        <span>Porto Alegre · RS</span>
+        <span>Consultório desde 2002</span>
+        <span>Família no centro do cuidado</span>
+        <span style="justify-self:end; display:flex; align-items:center; gap:12px;">Role para ver surgir <span style="display:block; width:1px; height:22px; background:#5f454e;"></span></span>
+      </div>
+      </sc-if>
+    </section>
+    </div>
+    </div>
+
+  </div>
+
+  <section id="sobre" data-tom="#e3d3ca" data-screen-label="02 Quem é" style="">
+    <div style="max-width:1360px; margin:0 auto; padding-left:clamp(22px,5vw,72px); padding-right:clamp(22px,5vw,72px); padding-top:clamp(110px,14vw,200px); padding-bottom:clamp(110px,14vw,200px); display:flex; flex-direction:column; gap:clamp(60px,8vw,120px);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(40px,7vw,110px); align-items:center;"><div data-revela="1" style="display:flex; flex-direction:column; gap:16px; max-width:460px;">
+          <div style="position:relative; width:100%; aspect-ratio:4/5; border-radius:0; overflow:hidden; background:#d8c4b8;"><image-slot id="fabiana-retrato" shape="rect" placeholder="Retrato da Dra. Fabiana"></image-slot></div>
+          <span style="font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#52594e;">Dra. Fabiana Mugnol · CREMERS 24336 · RQE 37821</span>
+        </div><div style="display:flex; flex-direction:column; gap:24px; min-width:0; max-width:560px;"><span data-revela="1" style="display:flex; align-items:center; gap:14px; font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;"><span style="display:block; width:34px; height:1px; background:#7d4f50;"></span><span>01 · Quem é Fabiana Mugnol</span></span>
+<h2 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(34px,3.6vw,56px); line-height:1.06; letter-spacing:-0.03em; color:#5f454e; text-wrap:balance;">Conhecimento, experiência e <em style="font-style:italic; color:#96625f;">cuidado</em> que caminham juntos.</h2>
+<p data-revela="1" style="margin:0; max-width:40ch; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(19px,1.45vw,21px); line-height:1.5; letter-spacing:-0.005em; color:#5f454e; text-wrap:pretty;">Sou médica neurologista e dedico minha carreira, há mais de duas décadas e meia, à neurociência, ao comportamento humano e às condições neurodesenvolvimentais.</p>
+<p data-revela="1" style="margin:0; max-width:50ch; font-size:16px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Minha medicina parte de uma convicção simples e exigente: cada pessoa tem uma história própria e nenhum diagnóstico é capaz de contá-la por inteiro. Por isso, busco unir ciência e escuta para compreender como cada indivíduo funciona, aprende, sente e se relaciona com o mundo.</p></div></div>
+      <div data-screen-label="Trajetória" style="display:flex; flex-direction:column; gap:clamp(48px,6vw,88px);">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:20px clamp(40px,7vw,110px); align-items:end;">
+          <h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(34px,3.6vw,56px); line-height:1.06; letter-spacing:-0.03em; color:#5f454e;">Trajetória</h3>
+          <p data-revela="1" style="margin:0; max-width:46ch; font-size:16px; font-weight:300; line-height:1.75; color:#52594e;">Formação em Medicina, Pediatria e Neurologia, com aprofundamento em epilepsia e mestrado em comportamento humano.</p>
+        </div>
+        <ol style="list-style:none; margin:0; padding:0; display:grid; grid-template-columns:{{ trajCols }}; row-gap:8px;">
+          <li data-revela="1" style="position:relative; display:flex; flex-direction:column; gap:10px; padding:30px 24px 0 0; border-top:1px solid #c4ada2;">
+            <span aria-hidden="true" style="position:absolute; top:-5px; left:0; width:9px; height:9px; border-radius:50%; background:#5f454e;"></span>
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(26px,2.3vw,34px); line-height:1; letter-spacing:-0.02em; color:#a87776;">1998</span>
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(19px,1.5vw,22px); line-height:1.25; color:#5f454e;">Medicina</span>
+            <span style="font-size:14px; font-weight:300; line-height:1.6; color:#52594e;">Universidade de Caxias do Sul</span>
+          </li>
+          <li data-revela="1" style="position:relative; display:flex; flex-direction:column; gap:10px; padding:30px 24px 0 0; border-top:1px solid #c4ada2;">
+            <span aria-hidden="true" style="position:absolute; top:-5px; left:0; width:9px; height:9px; border-radius:50%; background:#5f454e;"></span>
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(26px,2.3vw,34px); line-height:1; letter-spacing:-0.02em; color:#a87776;">1999</span>
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(19px,1.5vw,22px); line-height:1.25; color:#5f454e;">Pediatria</span>
+            <span style="font-size:14px; font-weight:300; line-height:1.6; color:#52594e;">Um ano no Hospital Materno Infantil Presidente Vargas</span>
+          </li>
+          <li data-revela="1" style="position:relative; display:flex; flex-direction:column; gap:10px; padding:30px 24px 0 0; border-top:1px solid #c4ada2;">
+            <span aria-hidden="true" style="position:absolute; top:-5px; left:0; width:9px; height:9px; border-radius:50%; background:#5f454e;"></span>
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(26px,2.3vw,34px); line-height:1; letter-spacing:-0.02em; color:#a87776;">2000–2001</span>
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(19px,1.5vw,22px); line-height:1.25; color:#5f454e;">Residência em Neurologia</span>
+            <span style="font-size:14px; font-weight:300; line-height:1.6; color:#52594e;">Com ênfase em neurologia infantil, no Hospital São Lucas da PUCRS</span>
+          </li>
+          <li data-revela="1" style="position:relative; display:flex; flex-direction:column; gap:10px; padding:30px 24px 0 0; border-top:1px solid #c4ada2;">
+            <span aria-hidden="true" style="position:absolute; top:-5px; left:0; width:9px; height:9px; border-radius:50%; background:#5f454e;"></span>
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(26px,2.3vw,34px); line-height:1; letter-spacing:-0.02em; color:#a87776;">Fellowship</span>
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(19px,1.5vw,22px); line-height:1.25; color:#5f454e;">Cirurgia da epilepsia</span>
+            <span style="font-size:14px; font-weight:300; line-height:1.6; color:#52594e;">Hospital São Lucas da PUCRS</span>
+          </li>
+          <li data-revela="1" style="position:relative; display:flex; flex-direction:column; gap:10px; padding:30px 24px 0 0; border-top:1px solid #c4ada2;">
+            <span aria-hidden="true" style="position:absolute; top:-5px; left:0; width:9px; height:9px; border-radius:50%; background:#5f454e;"></span>
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(26px,2.3vw,34px); line-height:1; letter-spacing:-0.02em; color:#a87776;">Mestrado</span>
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(19px,1.5vw,22px); line-height:1.25; color:#5f454e;">Psiquiatria e Comportamento Humano</span>
+            <span style="font-size:14px; font-weight:300; line-height:1.6; color:#52594e;">Hospital de Clínicas de Porto Alegre</span>
+          </li>
+        </ol>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:40px clamp(40px,7vw,110px); align-items:start;">
+        <div style="display:flex; flex-direction:column; gap:20px; position:sticky; top:14vh;">
+          <h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(34px,3.6vw,56px); line-height:1.06; letter-spacing:-0.03em; color:#5f454e;">Atuação</h3>
+          <p data-revela="1" style="margin:0; max-width:34ch; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(19px,1.45vw,21px); line-height:1.5; color:#96625f;">Ensino, pesquisa e formação de quem cuida.</p>
+        </div>
+        <div style="display:flex; flex-direction:column; border-top:1px solid #c4ada2;">
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr)); gap:10px clamp(24px,3vw,48px); align-items:baseline; padding:clamp(24px,2.6vw,34px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(20px,1.7vw,24px); line-height:1.25; color:#5f454e;">Formação de profissionais</span>
+            <p style="grid-column:span 2; margin:0; max-width:60ch; font-size:16px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Participo da formação de profissionais da saúde em contextos de reabilitação neurológica como instrutora nos cursos Bobath Baby e Bobath Avançado, contribuindo diretamente para a capacitação técnico-científica de terapeutas em todo o país. Sou responsável pelo desenvolvimento e pela condução de programas de formação continuada dirigidos a profissionais da saúde e da educação, com ênfase na qualificação interdisciplinar das práticas clínicas, pedagógicas e institucionais, promovendo o alinhamento entre evidência científica, ética profissional e impacto social.</p>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr)); gap:10px clamp(24px,3vw,48px); align-items:baseline; padding:clamp(24px,2.6vw,34px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(20px,1.7vw,24px); line-height:1.25; color:#5f454e;">Produção acadêmica</span>
+            <p style="grid-column:span 2; margin:0; max-width:60ch; font-size:16px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Sou autora de capítulos de livros e artigos científicos nas áreas de neurociências, desenvolvimento infantil e práticas inclusivas. Essa produção acadêmica sustenta e legitima minha atuação como formadora em diversos níveis da educação profissional e da pós-graduação.</p>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr)); gap:10px clamp(24px,3vw,48px); align-items:baseline; padding:clamp(24px,2.6vw,34px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(20px,1.7vw,24px); line-height:1.25; color:#5f454e;">Palestras</span>
+            <p style="grid-column:span 2; margin:0; max-width:60ch; font-size:16px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Participo ativamente como palestrante convidada em eventos científicos, congressos técnicos e encontros institucionais, voltados tanto a especialistas quanto ao público geral, com linguagem acessível e base teórica sólida.</p>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr)); gap:10px clamp(24px,3vw,48px); align-items:baseline; padding:clamp(24px,2.6vw,34px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(20px,1.7vw,24px); line-height:1.25; color:#5f454e;">Docência e supervisão</span>
+            <p style="grid-column:span 2; margin:0; max-width:60ch; font-size:16px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Como docente em cursos de pós-graduação <em>lato sensu</em>, articulo fundamentos da neurociência com práticas educacionais adaptadas às necessidades contemporâneas das escolas e das famílias. Também realizo supervisão técnica de casos clínicos e escolares, com foco em análise interdisciplinar, fundamentação ética e tomada de decisão qualificada.</p>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:clamp(40px,7vw,110px); align-items:start;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.6vw,38px); line-height:1.1; letter-spacing:-0.02em; color:#5f454e;">Uma forma de compreender a medicina</h3></div><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Ao longo dos anos, aprendi que o cuidado não termina quando a consulta acaba. Famílias precisam de orientação entre um encontro e outro, de documentos que traduzam com precisão o que cada paciente vive, de momentos de trocas entre várias áreas de saberes. Foi dessa constatação que nasceram os projetos reunidos neste site.</p></div></div>
+      <p data-revela="1" style="margin:0 0 calc(-1 * clamp(30px,5vw,80px)); font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(22px,2vw,28px); line-height:1.3; letter-spacing:-0.01em; color:#96625f;">Três palavras sustentam esse trabalho:</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:clamp(30px,4vw,60px); border-top:1px solid #c4ada2; padding-top:clamp(30px,4vw,50px);">
+        <div data-revela="1" style="display:flex; flex-direction:column; gap:18px;">
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(44px,5vw,76px); line-height:1; letter-spacing:-0.03em; color:#a87776;">Ciência</span>
+          <span style="max-width:36ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">decisões apoiadas nas melhores evidências disponíveis, revisadas com rigor e explicadas com clareza.</span>
+        </div>
+        <div data-revela="1" style="display:flex; flex-direction:column; gap:18px;">
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(44px,5vw,76px); line-height:1; letter-spacing:-0.03em; color:#a87776;">Cuidado</span>
+          <span style="max-width:36ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">acompanhamento longitudinal, que olha para o desenvolvimento ao longo do tempo e não apenas o que se apresenta durante a consulta.</span>
+        </div>
+        <div data-revela="1" style="display:flex; flex-direction:column; gap:18px;">
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(44px,5vw,76px); line-height:1; letter-spacing:-0.03em; color:#a87776;">Afeto</span>
+          <span style="max-width:36ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">respeito às singularidades de cada pessoa e do contexto em que está inserida, porque ninguém se desenvolve sozinho.</span>
+        </div>
+      </div>
+      <p data-revela="1" style="margin:0 auto; max-width:26ch; text-align:center; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(32px,4vw,60px); line-height:1.15; letter-spacing:-0.025em; color:#5f454e; text-wrap:balance;"><em style="display:block; font-style:italic; color:#96625f;">Compreender para cuidar melhor.</em>Esse é o compromisso que atravessa cada consulta, aula ou encontro.</p>
+    </div>
+  </section>
+  <section id="caminhar" data-tom="#ece2db" data-screen-label="03 Caminhar Juntos" style="">
+    <div style="max-width:1360px; margin:0 auto; padding-left:clamp(22px,5vw,72px); padding-right:clamp(22px,5vw,72px); padding-top:clamp(110px,14vw,200px); padding-bottom:clamp(110px,14vw,200px); display:flex; flex-direction:column; gap:clamp(60px,8vw,120px);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr)); gap:clamp(50px,8vw,130px); align-items:start;">
+        <div style="display:flex; flex-direction:column; gap:28px; position:sticky; top:12vh;">
+          <span data-revela="1" style="display:flex; align-items:center; gap:14px; font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;"><span style="display:block; width:34px; height:1px; background:#7d4f50;"></span><span>02 · Caminhar Juntos</span></span>
+          <h2 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(40px,5.4vw,84px); line-height:1.02; letter-spacing:-0.035em; color:#5f454e; text-wrap:balance;">Cuidar também é <em style="font-style:italic; color:#96625f;">acompanhar</em> o caminho.</h2>
+          <p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">O desenvolvimento não acontece de uma consulta para outra. Acontece todos os dias: em casa, na escola, nas terapias, no trabalho, nas pequenas conquistas e nos dias difíceis. O Caminhar Juntos foi criado para que as famílias não precisem atravessar esse caminho sozinhas entre um encontro e outro.</p>
+          <p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">É a forma como organizo o acompanhamento dos meus pacientes: com consultas planejadas, canais claros de comunicação, orientação e compartilhamento de documentos, relatórios e exames.</p>
+        </div>
+        <div ref="{{ fioRef }}" style="position:relative; display:flex; flex-direction:column; gap:clamp(56px,7vw,96px); padding:10px 0 10px 56px;">
+          <span aria-hidden="true" style="position:absolute; left:7px; top:16px; bottom:16px; width:1px; background:#c4ada2;"></span>
+          <span ref="{{ fioFillRef }}" aria-hidden="true" style="position:absolute; left:7px; top:16px; bottom:16px; width:1px; background:#5f454e; transform-origin:top; transform:scaleY(0);"></span>
+          <div data-revela="1" style="position:relative; display:flex; flex-direction:column; gap:12px;">
+            <span aria-hidden="true" style="position:absolute; left:-55px; top:6px; width:15px; height:15px; border-radius:50%; background:#e3d3ca; border:1px solid #5f454e;"></span>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.22em; color:#7d4f50;">01</span>
+            <h3 style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(28px,2.8vw,40px); line-height:1.08; letter-spacing:-0.02em;">Primeiro contato</h3>
+            <p style="margin:0; max-width:48ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">A família solicita atendimento pelo canal de agendamento (secretariado presencial). Após, o secretariado remoto encaminha orientações para o envio de dados de identificação, documentos, exames e demais informações importantes para a primeira consulta.</p>
+          </div>
+          <div data-revela="1" style="position:relative; display:flex; flex-direction:column; gap:12px;">
+            <span aria-hidden="true" style="position:absolute; left:-55px; top:6px; width:15px; height:15px; border-radius:50%; background:#e3d3ca; border:1px solid #5f454e;"></span>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.22em; color:#7d4f50;">02</span>
+            <h3 style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(28px,2.8vw,40px); line-height:1.08; letter-spacing:-0.02em;">Consulta e compreensão</h3>
+            <p style="margin:0; max-width:48ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">A avaliação busca compreender cada um por inteiro: o desenvolvimento, a rotina, a funcionalidade e os diferentes contextos.</p>
+          </div>
+          <div data-revela="1" style="position:relative; display:flex; flex-direction:column; gap:12px;">
+            <span aria-hidden="true" style="position:absolute; left:-55px; top:6px; width:15px; height:15px; border-radius:50%; background:#e3d3ca; border:1px solid #5f454e;"></span>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.22em; color:#7d4f50;">03</span>
+            <h3 style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(28px,2.8vw,40px); line-height:1.08; letter-spacing:-0.02em;">Plano de cuidado</h3>
+            <p style="margin:0; max-width:48ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">Juntos, médica e família definem prioridades, próximos passos e a frequência do acompanhamento.</p>
+          </div>
+          <div data-revela="1" style="position:relative; display:flex; flex-direction:column; gap:12px;">
+            <span aria-hidden="true" style="position:absolute; left:-55px; top:6px; width:15px; height:15px; border-radius:50%; background:#e3d3ca; border:1px solid #5f454e;"></span>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.22em; color:#7d4f50;">04</span>
+            <h3 style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(28px,2.8vw,40px); line-height:1.08; letter-spacing:-0.02em;">Entre as consultas</h3>
+            <p style="margin:0; max-width:48ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">Dúvidas, renovações e solicitações seguem por um canal seguro e cada interação fica registrada no prontuário.</p>
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px; padding:20px 22px; max-width:48ch; background:#d9c5ba; border-radius:16px;">
+              <span style="font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;">Documentos: o que você precisa saber</span>
+              <p style="margin:0; font-size:15px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">Receitas, atestados, declarações e o relatório do atendimento fazem parte do cuidado e são sempre fornecidos, como determina a Resolução CFM 2.381/2024. Relatórios aprofundados, pareceres para perícias e laudos detalhados exigem estudo e tempo de elaboração próprios.</p>
+            </div>
+          </div>
+          <div data-revela="1" style="position:relative; display:flex; flex-direction:column; gap:12px;">
+            <span aria-hidden="true" style="position:absolute; left:-55px; top:6px; width:15px; height:15px; border-radius:50%; background:#e3d3ca; border:1px solid #5f454e;"></span>
+            <span style="font-size:12px; font-weight:500; letter-spacing:0.22em; color:#7d4f50;">05</span>
+            <h3 style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(28px,2.8vw,40px); line-height:1.08; letter-spacing:-0.02em;">Reavaliação</h3>
+            <p style="margin:0; max-width:48ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">O acompanhamento de condições crônicas requer consultas regulares, em intervalos não superiores a 180 dias, conforme orienta a Resolução CFM 2.314/2022.</p>
+          </div>
+        </div>
+      </div>
+      <a data-revela="1" href="./planos/Planos.dc.html" style="align-self:flex-start; display:inline-flex; align-items:center; gap:12px; color:#7d4f50; font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; border-bottom:1px solid #a87776; padding-bottom:4px;" style-hover="color:#5f454e;">Área do paciente <span>→</span></a>
+    </div>
+  </section>
+  <section id="rodas" data-tom="#5f454e" data-screen-label="04 Rodas de Anil" style="color:#e3d3ca;">
+    <div style="max-width:1360px; margin:0 auto; padding-left:clamp(22px,5vw,72px); padding-right:clamp(22px,5vw,72px); padding-top:clamp(110px,14vw,200px); padding-bottom:clamp(110px,14vw,200px); display:flex; flex-direction:column; gap:clamp(60px,8vw,120px);"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><span data-revela="1" style="display:flex; align-items:center; gap:14px; font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#d8c4b8;"><span style="display:block; width:34px; height:1px; background:#d8c4b8;"></span><span>03 · Rodas de Anil</span></span>
+<h2 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(40px,5.4vw,84px); line-height:1.02; letter-spacing:-0.035em; color:#e3d3ca; text-wrap:balance;">Quando histórias se encontram, novas possibilidades de <em style="font-style:italic; color:#e0b8b2;">cuidado</em> surgem.</h2>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#e3d3ca; text-wrap:pretty;">As Rodas de Anil são encontros de escuta, troca e aprendizado entre famílias, profissionais e comunidade. Conversas sobre neurodiversidade, direitos, escola, rotina e saúde, em que o conhecimento científico sai do consultório e encontra a vida real, com acolhimento e respeito às singularidades de cada história.</p></div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:clamp(40px,7vw,110px); align-items:start; padding-top:clamp(40px,5vw,70px); border-top:1px solid #856b72;">
+        <div style="display:flex; flex-direction:column; gap:22px; position:sticky; top:12vh;">
+          <h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(34px,3.6vw,56px); line-height:1.06; letter-spacing:-0.03em; color:#e3d3ca;">De onde vem <em style="font-style:italic; color:#e0b8b2;">o nome</em></h3>
+          <figure data-revela="1" style="margin:0; display:flex; flex-direction:column; gap:12px; max-width:420px;">
+            <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#6e545c;"><image-slot id="moinho-nonno" shape="rect" placeholder="Foto do moinho ou do nonno Rico"></image-slot></div>
+            <figcaption style="font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#d8c4b8;">Linha Palmeiro · Farroupilha</figcaption>
+          </figure>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:26px; min-width:0;">
+          <p data-revela="1" style="margin:0; max-width:40ch; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(20px,1.6vw,24px); line-height:1.5; color:#e3d3ca; text-wrap:pretty;">Meu avô materno, Henrique Antônio Galafassi, o nonno Rico, tinha um moinho na Linha Palmeiro, em Farroupilha. A grande roda movida pela água recebia o grão bruto e o devolvia em farinha, em sustento. Era esse o seu ofício silencioso: <em style="font-style:italic; color:#e0b8b2;">transformar.</em></p>
+          <p data-revela="1" style="margin:0; max-width:52ch; font-size:16px; font-weight:300; line-height:1.8; color:#e3d3ca; text-wrap:pretty;">De tudo o que guardo daquele lugar, ficou uma cor: o azul do anil que tingia os carimbos de batata das nossas brincadeiras de criança. Aquele azul representa a memória de um tempo em que o cuidado e o acolhimento estavam em cada conversa, e a certeza de que ninguém que tivesse chegado ao moinho voltaria de mãos vazias.</p>
+          <p data-revela="1" style="margin:0; max-width:52ch; font-size:16px; font-weight:300; line-height:1.8; color:#e3d3ca; text-wrap:pretty;">Agora, vejo todos os dias famílias que chegam ao consultório como o grão chegava ao moinho: com um diagnóstico recente, um cansaço sem nome, dúvidas não acolhidas. Elas merecem voltar diferentes: com saber, com suporte, com caminho.</p>
+          <p data-revela="1" style="margin:0; padding-top:22px; border-top:1px solid #856b72; max-width:30ch; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(24px,2.2vw,32px); line-height:1.3; letter-spacing:-0.01em; color:#e0b8b2;">As Rodas de Anil existem para isso.</p>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:clamp(40px,7vw,110px); align-items:start;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(34px,3.6vw,56px); line-height:1.06; letter-spacing:-0.03em; color:#e3d3ca;">O que acontece nas <em style="font-style:italic; color:#e0b8b2;">Rodas de Anil</em></h3></div><div style="display:flex; flex-direction:column; border-top:1px solid #856b72;">
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #856b72;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#e3d3ca;">Escuta</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#e3d3ca; text-wrap:pretty;">um espaço seguro para que cada família conte o que vive, sem julgamento.</span>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #856b72;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#e3d3ca;">Saber</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#e3d3ca; text-wrap:pretty;">temas conduzidos por profissionais convidados, com linguagem acessível e base científica.</span>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #856b72;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#e3d3ca;">Direitos</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#e3d3ca; text-wrap:pretty;">informação clara sobre os direitos das pessoas neurodivergentes e de suas famílias.</span>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #856b72;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#e3d3ca;">Rede</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#e3d3ca; text-wrap:pretty;">encontros que aproximam família, profissionais, instituições e comunidade.</span>
+          </div>
+        </div></div>
+      <div style="display:flex; flex-direction:column; gap:30px; align-items:center; text-align:center;">
+        <p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#e3d3ca; text-wrap:pretty;">Porque ninguém se cuida sozinho. Porque quem cuida também precisa ser cuidado. Porque a pessoa neurodivergente não é um caso isolado, mas o centro de uma rede que a sustenta.</p>
+        <p data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(40px,6vw,96px); line-height:1.02; letter-spacing:-0.035em; color:#e0b8b2; text-wrap:balance;">Olhar, tocar, abraçar e conectar.</p>
+      </div>
+    </div>
+  </section>
+  <section id="cursos" data-tom="#ece2db" data-screen-label="05 Cursos e Mentorias" style="">
+    <div style="max-width:1360px; margin:0 auto; padding-left:clamp(22px,5vw,72px); padding-right:clamp(22px,5vw,72px); padding-top:clamp(110px,14vw,200px); padding-bottom:clamp(110px,14vw,200px); display:flex; flex-direction:column; gap:clamp(60px,8vw,120px);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(40px,7vw,110px); align-items:end;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><span data-revela="1" style="display:flex; align-items:center; gap:14px; font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;"><span style="display:block; width:34px; height:1px; background:#7d4f50;"></span><span>04 · Cursos e Mentorias</span></span>
+<h2 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(34px,3.6vw,56px); line-height:1.06; letter-spacing:-0.03em; color:#5f454e; text-wrap:balance;">Conhecimento que se compartilha e se transforma em <em style="font-style:italic; color:#96625f;">prática</em>.</h2></div><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Profissionais da saúde e da educação enfrentam, todos os dias, situações que nenhum livro descreve por inteiro: a criança que não se encaixa no protocolo, o adulto que recebeu diagnóstico tardio, o relatório que precisa ser preciso e defensável, a escola que pede orientação, a família que espera respostas.</p>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Os cursos e mentorias oferecem suporte técnico e científico para transformar conhecimento em decisão, com base em evidências atualizadas, nas normas que regem a prática profissional e em mais de duas décadas de experiência clínica.</p></div></div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:clamp(40px,7vw,110px); align-items:start;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.6vw,38px); line-height:1.1; letter-spacing:-0.02em; color:#5f454e;">Temas de trabalho</h3></div><div style="display:flex; flex-direction:column; border-top:1px solid #c4ada2;">
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#5f454e;">Documentação médica e o direito da saúde</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">relatório médico circunstanciado, parecer técnico e documentos para instituições de ensino e atividade laborativa, operadoras de saúde e processos judiciais, com fundamentação clínica, jurídica e normativa.</span>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#5f454e;">Inteligência artificial na documentação médica</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">usos possíveis, limites éticos e responsabilidades à luz da regulamentação do CFM.</span>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#5f454e;">Neurodesenvolvimento na prática</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">raciocínio clínico, instrumentos de avaliação e acompanhamento longitudinal.</span>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#5f454e;">Inclusão escolar</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">como escola, família e equipe de saúde podem construir juntas um plano que funcione.</span>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#5f454e;">Terapia canabinoide</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">o uso racional de canabinoides, compreendendo o sistema endocanabinoide, diferentes sítios de ação e potencialização de resultados, a prescrição respeitosa e regulamentada.</span>
+          </div>
+        </div></div>
+      <div style="display:flex; flex-direction:column; gap:30px;">
+        <h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.6vw,38px); line-height:1.1; letter-spacing:-0.02em; color:#5f454e;">Formatos</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:16px;">
+          <div data-revela="1" style="display:flex; flex-direction:column; gap:16px; background:#d9c5ba; border-radius:24px; padding:clamp(24px,3vw,40px); transition:background .6s;" style-hover="background:#d3bdb1;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.4vw,34px); letter-spacing:-0.02em; color:#5f454e;">Cursos</span>
+            <span style="font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">turmas com programa estruturado, online ou presenciais.</span>
+          </div>
+          <div data-revela="1" style="display:flex; flex-direction:column; gap:16px; background:#d9c5ba; border-radius:24px; padding:clamp(24px,3vw,40px); transition:background .6s;" style-hover="background:#d3bdb1;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.4vw,34px); letter-spacing:-0.02em; color:#5f454e;">Mentorias</span>
+            <span style="font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">acompanhamento individual ou em pequenos grupos, a partir dos casos e desafios reais de cada profissional.</span>
+          </div>
+          <div data-revela="1" style="display:flex; flex-direction:column; gap:16px; background:#d9c5ba; border-radius:24px; padding:clamp(24px,3vw,40px); transition:background .6s;" style-hover="background:#d3bdb1;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.4vw,34px); letter-spacing:-0.02em; color:#5f454e;">Formação de equipes</span>
+            <span style="font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">programas sob medida para clínicas, escolas e instituições.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="palestras" data-tom="#e3d3ca" data-screen-label="06 Palestras" style="">
+    <div style="max-width:1360px; margin:0 auto; padding-left:clamp(22px,5vw,72px); padding-right:clamp(22px,5vw,72px); padding-top:clamp(110px,14vw,200px); padding-bottom:clamp(110px,14vw,200px); display:flex; flex-direction:column; gap:clamp(60px,8vw,120px);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(40px,7vw,110px); align-items:end;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><span data-revela="1" style="display:flex; align-items:center; gap:14px; font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;"><span style="display:block; width:34px; height:1px; background:#7d4f50;"></span><span>05 · Palestras</span></span>
+<h2 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(40px,5.4vw,84px); line-height:1.02; letter-spacing:-0.035em; color:#5f454e; text-wrap:balance;">Ciência que encontra experiência. <em style="font-style:italic; color:#96625f;">Informação que gera conexões.</em></h2></div><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Falar de neurodesenvolvimento é falar de pessoas: de crianças que aprendem de jeitos diferentes, de adultos que só recentemente se compreenderam, de famílias, professores e equipes que buscam o melhor caminho para cuidar.</p>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Cada palestra é construída a partir do público e dos objetivos do evento. O conteúdo une evidência científica atualizada, histórias da prática clínica, preservada a identidade dos pacientes, e uma comunicação clara, sensível e acolhedora, para que o público saia não apenas mais informado, mas com ferramentas para agir.</p></div></div>
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <span data-revela="1" style="font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;">Temas frequentes</span>
+        <div style="display:flex; flex-direction:column; border-top:1px solid #c4ada2;">
+          <div data-revela="1" style="display:flex; align-items:baseline; gap:clamp(16px,3vw,40px); padding:clamp(20px,2.4vw,30px) 0; border-bottom:1px solid #c4ada2; transition:padding .6s cubic-bezier(.16,1,.3,1);" style-hover="padding-left:16px;">
+            <span style="flex:none; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:18px; color:#a87776;">01</span>
+            <p style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2.4vw,34px); line-height:1.25; letter-spacing:-0.015em; color:#5f454e; text-wrap:pretty;">Neurodiversidade:<em style="font-style:italic; color:#96625f;"> o que a ciência diz e o que muda no cotidiano.</em></p>
+          </div>
+          <div data-revela="1" style="display:flex; align-items:baseline; gap:clamp(16px,3vw,40px); padding:clamp(20px,2.4vw,30px) 0; border-bottom:1px solid #c4ada2; transition:padding .6s cubic-bezier(.16,1,.3,1);" style-hover="padding-left:16px;">
+            <span style="flex:none; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:18px; color:#a87776;">02</span>
+            <p style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2.4vw,34px); line-height:1.25; letter-spacing:-0.015em; color:#5f454e; text-wrap:pretty;">Neuroplasticidade compartilhada:<em style="font-style:italic; color:#96625f;"> porque cuidamos de famílias e não de sintomas.</em></p>
+          </div>
+          <div data-revela="1" style="display:flex; align-items:baseline; gap:clamp(16px,3vw,40px); padding:clamp(20px,2.4vw,30px) 0; border-bottom:1px solid #c4ada2; transition:padding .6s cubic-bezier(.16,1,.3,1);" style-hover="padding-left:16px;">
+            <span style="flex:none; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:18px; color:#a87776;">03</span>
+            <p style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2.4vw,34px); line-height:1.25; letter-spacing:-0.015em; color:#5f454e; text-wrap:pretty;">Autismo e TDAH na escola:<em style="font-style:italic; color:#96625f;"> sinais, inclusão e parceria com as famílias.</em></p>
+          </div>
+          <div data-revela="1" style="display:flex; align-items:baseline; gap:clamp(16px,3vw,40px); padding:clamp(20px,2.4vw,30px) 0; border-bottom:1px solid #c4ada2; transition:padding .6s cubic-bezier(.16,1,.3,1);" style-hover="padding-left:16px;">
+            <span style="flex:none; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:18px; color:#a87776;">04</span>
+            <p style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2.4vw,34px); line-height:1.25; letter-spacing:-0.015em; color:#5f454e; text-wrap:pretty;">A criança que não dá trabalho:<em style="font-style:italic; color:#96625f;"> necessidades que passam despercebidas.</em></p>
+          </div>
+          <div data-revela="1" style="display:flex; align-items:baseline; gap:clamp(16px,3vw,40px); padding:clamp(20px,2.4vw,30px) 0; border-bottom:1px solid #c4ada2; transition:padding .6s cubic-bezier(.16,1,.3,1);" style-hover="padding-left:16px;">
+            <span style="flex:none; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:18px; color:#a87776;">05</span>
+            <p style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2.4vw,34px); line-height:1.25; letter-spacing:-0.015em; color:#5f454e; text-wrap:pretty;">Neurodiversidade no trabalho:<em style="font-style:italic; color:#96625f;"> ambientes que acolhem produzem mais e melhor.</em></p>
+          </div>
+          <div data-revela="1" style="display:flex; align-items:baseline; gap:clamp(16px,3vw,40px); padding:clamp(20px,2.4vw,30px) 0; border-bottom:1px solid #c4ada2; transition:padding .6s cubic-bezier(.16,1,.3,1);" style-hover="padding-left:16px;">
+            <span style="flex:none; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:18px; color:#a87776;">06</span>
+            <p style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2.4vw,34px); line-height:1.25; letter-spacing:-0.015em; color:#5f454e; text-wrap:pretty;">A neurobiologia da dor e um corpo em colapso.<em style="font-style:italic; color:#96625f;"></em></p>
+          </div>
+          <div data-revela="1" style="display:flex; align-items:baseline; gap:clamp(16px,3vw,40px); padding:clamp(20px,2.4vw,30px) 0; border-bottom:1px solid #c4ada2; transition:padding .6s cubic-bezier(.16,1,.3,1);" style-hover="padding-left:16px;">
+            <span style="flex:none; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:18px; color:#a87776;">07</span>
+            <p style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2.4vw,34px); line-height:1.25; letter-spacing:-0.015em; color:#5f454e; text-wrap:pretty;">Calma se empresta, não se exige:<em style="font-style:italic; color:#96625f;"> corregulação nas neurodiversidades.</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="mutirao" data-tom="#d6c1b5" data-screen-label="07 Mutirão Florescer" style="">
+    <div style="max-width:1360px; margin:0 auto; padding-left:clamp(22px,5vw,72px); padding-right:clamp(22px,5vw,72px); padding-top:clamp(110px,14vw,200px); padding-bottom:clamp(110px,14vw,200px); display:flex; flex-direction:column; gap:clamp(60px,8vw,120px);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(40px,7vw,110px); align-items:end;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><span data-revela="1" style="display:flex; align-items:center; gap:14px; font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;"><span style="display:block; width:34px; height:1px; background:#7d4f50;"></span><span>06 · Mutirão Florescer</span></span>
+<h2 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(40px,5.4vw,84px); line-height:1.02; letter-spacing:-0.035em; color:#5f454e; text-wrap:balance;">Um dia para acolher, <em style="font-style:italic; color:#96625f;">ouvir</em> e cuidar.</h2></div><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Para muitas famílias, o caminho até uma avaliação do neurodesenvolvimento é longo demais: filas extensas, deslocamentos difíceis, informações desencontradas. Enquanto isso, o tempo passa.</p>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">O Mutirão Florescer nasceu do desejo de encurtar essa distância e levar o cuidado interdisciplinar a famílias em situação de vulnerabilidade.</p>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Em um mesmo espaço e em um mesmo dia, profissionais de diferentes áreas unem conhecimentos e olhares para oferecer atendimento médico e avaliação das condições do neurodesenvolvimento.</p></div></div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr)); gap:clamp(24px,3vw,40px); border-top:1px solid #b9a196; padding-top:clamp(28px,3.4vw,44px);">
+        <div data-revela="1" style="display:flex; flex-direction:column; gap:14px;">
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(40px,4vw,60px); line-height:1; color:#a87776;">1</span>
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.15; letter-spacing:-0.01em; color:#5f454e;">Acolhimento</span>
+          <span style="font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">cada família é recebida e orientada sobre as etapas do dia.</span>
+        </div>
+        <div data-revela="1" style="display:flex; flex-direction:column; gap:14px;">
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(40px,4vw,60px); line-height:1; color:#a87776;">2</span>
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.15; letter-spacing:-0.01em; color:#5f454e;">Escuta estruturada</span>
+          <span style="font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">uma psicóloga conduz a anamnese completa, registrando a história do desenvolvimento, da saúde e da rotina do indivíduo.</span>
+        </div>
+        <div data-revela="1" style="display:flex; flex-direction:column; gap:14px;">
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(40px,4vw,60px); line-height:1; color:#a87776;">3</span>
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.15; letter-spacing:-0.01em; color:#5f454e;">Avaliação médica</span>
+          <span style="font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">com essas informações organizadas, a consulta se concentra no que mais importa: compreensão funcional.</span>
+        </div>
+        <div data-revela="1" style="display:flex; flex-direction:column; gap:14px;">
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(40px,4vw,60px); line-height:1; color:#a87776;">4</span>
+          <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.15; letter-spacing:-0.01em; color:#5f454e;">Orientação e encaminhamento</span>
+          <span style="font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">a família sai com orientações claras e com o direcionamento possível dentro da rede.</span>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:clamp(40px,7vw,110px); align-items:start;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.6vw,38px); line-height:1.1; letter-spacing:-0.02em; color:#5f454e;">Cuidar em rede</h3>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Nenhum profissional, sozinho, consegue responder a todas as necessidades de uma criança. O Mutirão Florescer é construído em rede, com saberes que se complementam para ampliar a compreensão, o cuidado e o acompanhamento de cada família. Cuidar em rede também é uma forma de transformar realidades.</p></div><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.6vw,38px); line-height:1.1; letter-spacing:-0.02em; color:#5f454e;">Como apoiar</h3>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Profissionais voluntários, instituições, espaços parceiros e apoiadores fazem cada edição acontecer. Se você deseja somar, fale conosco.</p>
+<a data-revela="1" href="{{ waLink }}" target="_blank" style="align-self:flex-start; display:inline-flex; background:#5f454e; color:#e3d3ca; border-radius:999px; padding:16px 26px; font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; transition:background .5s;" style-hover="background:#52594e; color:#e3d3ca;">Quero somar</a></div></div>
+    </div>
+  </section>
+  <section id="conteudos" data-tom="#ece2db" data-screen-label="08 Conteúdos" style="">
+    <div style="max-width:1360px; margin:0 auto; padding-left:clamp(22px,5vw,72px); padding-right:clamp(22px,5vw,72px); padding-top:clamp(110px,14vw,200px); padding-bottom:clamp(110px,14vw,200px); display:flex; flex-direction:column; gap:clamp(60px,8vw,120px);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(40px,7vw,110px); align-items:end;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><span data-revela="1" style="display:flex; align-items:center; gap:14px; font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;"><span style="display:block; width:34px; height:1px; background:#7d4f50;"></span><span>07 · Conteúdos</span></span>
+<h2 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(34px,3.6vw,56px); line-height:1.06; letter-spacing:-0.03em; color:#5f454e; text-wrap:balance;">Conhecimento que continua a conversa para além do <em style="font-style:italic; color:#96625f;">consultório</em>.</h2></div><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Informação de qualidade também é cuidado. Uma família que compreende o que está vivendo decide melhor, pergunta melhor e se sente menos sozinha. Um professor que entende como uma criança aprende transforma a sala de aula.</p>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Aqui você encontra artigos, vídeos, conversas e reflexões sobre neurodesenvolvimento e neurodiversidade, sempre aproximando o conhecimento científico da experiência e da vida real.</p></div></div>
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <span data-revela="1" style="font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;">Redes e canais</span>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); border-top:1px solid #c4ada2;">
+          <a data-revela="1" href="https://www.instagram.com/fabimugnol/" target="_blank" rel="noopener" style="display:flex; flex-direction:column; gap:14px; padding:28px 28px 28px 0; color:#5f454e;" style-hover="color:#96625f;">
+            <span style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(28px,2.8vw,40px); letter-spacing:-0.02em;">Instagram<span style="font-family:'Jost',sans-serif; font-size:18px;">↗</span></span>
+            <span style="max-width:38ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">conteúdos, informações e conversas sobre neurodesenvolvimento, neurodiversidade e cuidado. [@fabimugnol]</span>
+          </a>
+          <a data-revela="1" href="#" style="display:flex; flex-direction:column; gap:14px; padding:28px 28px 28px 0; color:#5f454e;" style-hover="color:#96625f;">
+            <span style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(28px,2.8vw,40px); letter-spacing:-0.02em;">YouTube<span style="font-family:'Jost',sans-serif; font-size:18px;">↗</span></span>
+            <span style="max-width:38ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e;">conteúdo em construção. Em breve, material novo toda semana.</span>
+          </a>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr)); gap:16px;">
+        <div data-revela="1" style="display:flex; flex-direction:column; gap:22px; background:#5f454e; color:#e3d3ca; border-radius:32px; padding:clamp(28px,4vw,56px);">
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#d8c4b8;">YouTube</span>
+          <h3 style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(28px,3vw,44px); line-height:1.08; letter-spacing:-0.02em; color:#e3d3ca;">Neurodesenvolvimento, neurodiversidade e cuidado</h3>
+          <p style="margin:0; font-size:16px; font-weight:300; line-height:1.75; color:#e3d3ca;">No canal do YouTube, conhecimento e experiência ganham novos formatos. São vídeos sobre desenvolvimento, comportamento, aprendizagem, saúde e relações, explicados de forma acessível e conectados às perguntas que fazem parte do dia a dia de famílias e profissionais.</p>
+        </div>
+        <div data-revela="1" style="display:flex; flex-direction:column; gap:22px; background:#d9c5ba; border-radius:32px; padding:clamp(28px,4vw,56px);">
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;">Conversas</span>
+          <h3 style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(28px,3vw,44px); line-height:1.08; letter-spacing:-0.02em; color:#5f454e;">Casados com a <em style="font-style:italic; color:#96625f;">Neurodiversidade</em></h3>
+          <p style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:20px; line-height:1.4; color:#96625f;">Diferentes histórias. Diferentes saberes. Novas formas de olhar para o cuidado.</p>
+          <p style="margin:0; font-size:16px; font-weight:300; line-height:1.75; color:#52594e;">Idealizado por Fabiana Mugnol e Alfredo Metzger, o Casados com a Neurodiversidade reúne convidados de diferentes áreas para conversas que conectam conhecimento, experiência profissional e vida real, com profundidade e leveza.</p>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:clamp(40px,7vw,110px); align-items:start;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.6vw,38px); line-height:1.1; letter-spacing:-0.02em; color:#5f454e;">Artigos</h3>
+<p data-revela="1" style="margin:0; max-width:30ch; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(24px,2.4vw,34px); line-height:1.25; letter-spacing:-0.01em; color:#96625f; text-wrap:pretty;">Informação para compreender o que está acontecendo.</p>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Textos sobre temas atuais, dúvidas frequentes e assuntos do cotidiano de famílias e profissionais. Cada artigo busca contextualizar, explicar com clareza e indicar as fontes científicas em que se apoia.</p></div><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.6vw,38px); line-height:1.1; letter-spacing:-0.02em; color:#5f454e;">O que vem por aí</h3>
+<p data-revela="1" style="margin:0; max-width:30ch; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-style:italic; font-size:clamp(24px,2.4vw,34px); line-height:1.25; letter-spacing:-0.01em; color:#96625f; text-wrap:pretty;">Acompanhe os próximos passos.</p>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Palestras, entrevistas, podcasts, programas, campanhas, eventos e novos projetos: aqui você acompanha a agenda e fica sabendo onde estarei nos próximos dias.</p></div></div>
+    </div>
+  </section>
+  <section id="parcerias" data-tom="#e3d3ca" data-screen-label="09 Parcerias" style="">
+    <div style="max-width:1360px; margin:0 auto; padding-left:clamp(22px,5vw,72px); padding-right:clamp(22px,5vw,72px); padding-top:clamp(110px,14vw,200px); padding-bottom:clamp(110px,14vw,200px); display:flex; flex-direction:column; gap:clamp(60px,8vw,120px);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(40px,7vw,110px); align-items:end;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><span data-revela="1" style="display:flex; align-items:center; gap:14px; font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;"><span style="display:block; width:34px; height:1px; background:#7d4f50;"></span><span>08 · Parcerias</span></span>
+<h2 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(36px,4.2vw,64px); line-height:1.06; letter-spacing:-0.03em; color:#5f454e; text-wrap:balance;">Boas ideias crescem quando encontram pessoas dispostas a <span style="white-space:nowrap;">construí‑las <em style="font-style:italic; color:#96625f;">juntas</em>.</span></h2></div><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Os projetos reunidos aqui nasceram de encontros. Cada roda, cada mutirão e cada curso só existe porque profissionais, instituições e pessoas decidiram somar o que sabem e o que têm.</p>
+<p data-revela="1" style="margin:0; max-width:62ch; font-size:17px; font-weight:300; line-height:1.75; color:#52594e; text-wrap:pretty;">Estou aberta a parcerias com profissionais, empresas, instituições e iniciativas que compartilhem o compromisso com a ciência, a informação de qualidade, o cuidado e a valorização da neurodiversidade.</p></div></div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:clamp(40px,7vw,110px); align-items:start;"><div style="display:flex; flex-direction:column; gap:26px; min-width:0;"><h3 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(26px,2.6vw,38px); line-height:1.1; letter-spacing:-0.02em; color:#5f454e;">Caminhos possíveis</h3></div><div style="display:flex; flex-direction:column; border-top:1px solid #c4ada2;">
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#5f454e;">Projetos sociais</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">apoio às edições do Mutirão Florescer e das Rodas de Anil.</span>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#5f454e;">Educação</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">cursos, formações e conteúdos desenvolvidos em conjunto com instituições de ensino e entidades profissionais.</span>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#5f454e;">Eventos e campanhas</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">ações de conscientização e educação em saúde.</span>
+          </div>
+          <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px clamp(24px,4vw,64px); align-items:baseline; padding:clamp(22px,2.6vw,32px) 0; border-bottom:1px solid #c4ada2;">
+            <span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); line-height:1.2; letter-spacing:-0.01em; color:#5f454e;">Pesquisa e produção de conhecimento</span>
+            <span style="max-width:58ch; font-size:16px; font-weight:300; line-height:1.7; color:#52594e; text-wrap:pretty;">projetos, publicações e materiais de psicoeducação.</span>
+          </div>
+        </div></div>
+      <div data-revela="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr)); gap:clamp(30px,5vw,80px); align-items:center; border:1px solid #c4ada2; border-radius:32px; padding:clamp(28px,4vw,56px);">
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#7d4f50;">Nossos princípios</span>
+          <p style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2.2vw,30px); line-height:1.35; letter-spacing:-0.01em; color:#5f454e; text-wrap:pretty;">Toda parceria é transparente e preserva a independência das decisões clínicas. Parcerias não envolvem indicação, endosso ou divulgação de medicamentos, produtos ou serviços de prescrição.</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:24px;">
+          <p style="margin:0; max-width:40ch; font-size:17px; font-weight:300; line-height:1.7; color:#52594e;">Se você acredita que podemos construir algo relevante juntos, fale com nosso Concierge.</p>
+          <a href="{{ waConcierge }}" target="_blank" style="display:inline-flex; background:#5f454e; color:#e3d3ca; border-radius:999px; padding:16px 26px; font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; transition:background .5s;" style-hover="background:#52594e; color:#e3d3ca;">Falar com o Concierge</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section ref="{{ contatoRef }}" data-tom="#52594e" data-screen-label="08 Convite" style="position:relative; color:#e3d3ca;">
+    <div style="max-width:1360px; margin:0 auto; padding:clamp(130px,17vw,220px) clamp(22px,5vw,72px) 0;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr)); gap:clamp(40px,6vw,90px); align-items:center;">
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:36px;">
+          <span data-revela="1" style="display:flex; align-items:center; gap:14px; font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#e3d3ca;"><span style="display:block; width:34px; height:1px; background:#e3d3ca;"></span><span>Contato</span></span>
+          <h2 data-revela="1" style="margin:0; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(56px,8.4vw,128px); line-height:0.96; letter-spacing:-0.04em;">Fale <em style="font-style:italic; color:#e0c9bd;">conosco</em>.</h2>
+          <div style="display:flex; flex-direction:column; width:100%; max-width:520px; border-top:1px solid #6b7266;">
+            <a data-revela="1" href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener" style="display:flex; justify-content:space-between; align-items:baseline; gap:20px; flex-wrap:wrap; padding:22px 0; border-bottom:1px solid #6b7266; color:#e3d3ca; transition:padding .6s cubic-bezier(.16,1,.3,1);" style-hover="padding-left:12px; color:#ffffff;">
+              <span style="font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#d6c6bc;">Agendamentos e financeiro</span>
+              <span style="display:flex; align-items:baseline; gap:14px; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); letter-spacing:-0.01em;">51 99217-9578<span style="font-family:'Jost',sans-serif; font-size:16px;">↗</span></span>
+            </a>
+            <a data-revela="1" href="https://wa.me/5551974019090?text=Ol%C3%A1!%20Preciso%20de%20suporte." target="_blank" rel="noopener" style="display:flex; justify-content:space-between; align-items:baseline; gap:20px; flex-wrap:wrap; padding:22px 0; border-bottom:1px solid #6b7266; color:#e3d3ca; transition:padding .6s cubic-bezier(.16,1,.3,1);" style-hover="padding-left:12px; color:#ffffff;">
+              <span style="font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#d6c6bc;">Suporte e assistência</span>
+              <span style="display:flex; align-items:baseline; gap:14px; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); letter-spacing:-0.01em;">51 97401-9090<span style="font-family:'Jost',sans-serif; font-size:16px;">↗</span></span>
+            </a>
+            <a data-revela="1" href="https://wa.me/5551999999999?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Concierge." target="_blank" rel="noopener" style="display:flex; justify-content:space-between; align-items:baseline; gap:20px; flex-wrap:wrap; padding:22px 0; border-bottom:1px solid #6b7266; color:#e3d3ca; transition:padding .6s cubic-bezier(.16,1,.3,1);" style-hover="padding-left:12px; color:#ffffff;">
+              <span style="font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#d6c6bc;">Concierge</span>
+              <span style="display:flex; align-items:baseline; gap:14px; font-family:'Fraunces',Georgia,serif; font-weight:300; font-variation-settings:'SOFT' 100; font-size:clamp(22px,2vw,28px); letter-spacing:-0.01em;">51 99999-9999<span style="font-family:'Jost',sans-serif; font-size:16px;">↗</span></span>
+            </a>
+          </div>
+        </div>
+        <div ref="{{ logoSlotRef }}" aria-label="Monograma Fabiana Mugnol" role="img" style="position:relative; width:100%; aspect-ratio:953/759; max-width:540px; justify-self:center;"></div>
+      </div>
+      <div data-revela="1" style="display:grid; grid-template-columns:{{ mapaCols }}; gap:clamp(24px,4vw,56px); align-items:stretch; margin-top:clamp(60px,8vw,110px); padding-top:clamp(30px,4vw,50px); border-top:1px solid #6b7266;">
+        <div style="display:flex; flex-direction:column; justify-content:space-between; gap:24px;">
+          <span style="font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:#d6c6bc;">Consultório</span>
+          <p style="margin:0; max-width:420px; font-size:18px; font-weight:300; line-height:1.65; color:#e3d3ca;"><a href="https://www.google.com/maps/search/?api=1&query=Rua%20Padre%20Chagas%2C%2035%2C%20Moinhos%20de%20Vento%2C%20Porto%20Alegre%2C%20RS" target="_blank" rel="noopener" style="display:flex; flex-direction:column; gap:4px; color:#e3d3ca;" style-hover="color:#ffffff;"><span style="font-family:'Fraunces',Georgia,serif; font-weight:300; font-size:22px; letter-spacing:-0.01em;">Sinapse Clínica</span><span>Rua Padre Chagas, 35 · Sala 401</span><span>Moinhos de Vento · Porto Alegre, RS</span></a></p>
+        </div>
+        <div style="position:relative; min-height:300px; border-radius:24px; overflow:hidden; background:#5b6357;">
+          <iframe title="Mapa · Sinapse Clínica" src="https://maps.google.com/maps?q=Rua%20Padre%20Chagas%2C%2035%2C%20Moinhos%20de%20Vento%2C%20Porto%20Alegre%2C%20RS&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="position:absolute; inset:0; width:100%; height:100%; border:0; filter:grayscale(0.7) sepia(0.18) contrast(0.95);"></iframe>
+        </div>
+      </div>
+      
+      <footer style="display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; margin-top:clamp(90px,13vw,160px); padding:34px 0 46px; border-top:1px solid #6b7266; font-size:12px; line-height:1.6; color:#d6c6bc;">
+        <img src="./assets/logo-4-bordo.png" alt="Fabiana Mugnol" style="height:22px; width:auto; display:block; filter:brightness(0) invert(0.88) sepia(0.2);">
+        <span>Dra. Fabiana Mugnol · Neurologista · Porto Alegre · CREMERS 24336 · RQE 37821</span>
+      </footer>
+    </div>
+  </section>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;51 99217-9578&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;profundidade&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:70,&quot;min&quot;:0,&quot;max&quot;:400,&quot;step&quot;:10,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Magnólia&quot;},&quot;giro&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.5,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;voltas&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Magnólia&quot;},&quot;forca&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.8,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Magnólia&quot;},&quot;vento&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Magnólia&quot;},&quot;fragmento&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3,&quot;min&quot;:3,&quot;max&quot;:10,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Magnólia&quot;},&quot;intensidade&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.7,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Magnólia&quot;},&quot;tamanho&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:7,&quot;min&quot;:4,&quot;max&quot;:16,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Magnólia&quot;},&quot;fmForca&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Monograma FM&quot;},&quot;fmVento&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Monograma FM&quot;},&quot;fmDensidade&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Monograma FM&quot;},&quot;fmIntensidade&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.6,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Monograma FM&quot;},&quot;fmTamanho&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:4.5,&quot;min&quot;:1.5,&quot;max&quot;:8,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Monograma FM&quot;}}">
+// Paleta: nude #e3d3ca · vinho #5f454e · rosé #a87776 · musgo #52594e
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+
+class Component extends DCLogic {
+  state = { open: 0, narrow: typeof innerWidth !== 'undefined' && innerWidth < 760, alta: typeof innerHeight === 'undefined' || innerHeight >= 760 };
+  rootRef = React.createRef(); stageRef = React.createRef();
+  heroSlotRef = React.createRef(); logoSlotRef = React.createRef(); contatoRef = React.createRef();
+  fioRef = React.createRef(); fioFillRef = React.createRef(); pillRef = React.createRef(); pinRef = React.createRef();
+  mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+  cur = 0; curL = 0;
+
+  async componentDidMount() {
+    this.calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.iniciarRevelacao();
+    if (window.Lenis && !this.calmo) this.lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true });
+    this.t0 = performance.now();
+    const loop = (t) => { this.raf = requestAnimationFrame(loop); if (this.lenis) this.lenis.raf(t); this.tick(); };
+    this.raf = requestAnimationFrame(loop);
+    try { await this.iniciarParticulas(); } catch (e) { console.warn('Partículas indisponíveis', e); }
+  }
+
+  componentWillUnmount() {
+    this.dead = true;
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('pointermove', this.onMove);
+    if (this.io) this.io.disconnect();
+    if (this.lenis) this.lenis.destroy();
+    if (this.points) { this.points.geometry.dispose(); this.points.material.dispose(); }
+    if (this.fm) { this.fm.geometry.dispose(); this.fm.material.dispose(); }
+    if (this.rt) this.rt.dispose();
+    if (this.renderer) { this.renderer.dispose(); this.renderer.domElement.remove(); }
+  }
+
+  // texto que se assenta: leve desfoque + deslocamento
+  iniciarRevelacao() {
+    const root = this.rootRef.current;
+    if (!root || this.calmo || !('IntersectionObserver' in window)) return;
+    const els = [...root.querySelectorAll('[data-revela]')];
+    els.forEach(el => {
+      el.style.opacity = '0'; el.style.transform = 'translateY(26px)'; el.style.filter = 'blur(6px)';
+      el.style.transition = 'opacity 1.2s cubic-bezier(.16,1,.3,1), transform 1.2s cubic-bezier(.16,1,.3,1), filter 1.2s cubic-bezier(.16,1,.3,1), padding .6s cubic-bezier(.16,1,.3,1)';
+    });
+    this.io = new IntersectionObserver(entries => {
+      let i = 0;
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        el.style.transitionDelay = (i++ * 90) + 'ms';
+        el.style.opacity = '1'; el.style.transform = 'none'; el.style.filter = 'none';
+        setTimeout(() => { el.style.transitionDelay = '0ms'; }, 1400);
+        this.io.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => this.io.observe(el));
+  }
+
+  async iniciarParticulas() {
+    const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js');
+    this.THREE = THREE;
+    const el = this.stageRef.current;
+    if (!el || this.dead) return;
+    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    renderer.setPixelRatio(this.dpr);
+    renderer.domElement.style.display = 'block';
+    el.appendChild(renderer.domElement);
+    this.renderer = renderer;
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -10, 10);
+    const load = src => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+    [this.img, this.logo] = await Promise.all([load('./assets/ilu-2-rose.png'), load('./assets/logo-2-off.png')]);
+    if (this.dead) return;
+    this.build();
+    if (document.fonts) document.fonts.ready.then(() => !this.dead && this.build());
+    this.onResize = () => { this.setState({ narrow: innerWidth < 760, alta: innerHeight >= 760 }); clearTimeout(this.rt0); this.rt0 = setTimeout(() => this.build(), 150); };
+    window.addEventListener('resize', this.onResize);
+    this.onMove = e => { this.mouse.tx = e.clientX / innerWidth * 2 - 1; this.mouse.ty = e.clientY / innerHeight * 2 - 1; };
+    window.addEventListener('pointermove', this.onMove, { passive: true });
+  }
+
+  // fragmentos: grade com jitter (um a cada `passo` px) + mapa de espessura para o relevo 3D
+  amostrar(img, cssW, cssH, passo) {
+    const pw = Math.max(1, Math.round(cssW)), ph = Math.max(1, Math.round(cssH));
+    const c = document.createElement('canvas'); c.width = pw; c.height = ph;
+    const ctx = c.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0, pw, ph);
+    const d = ctx.getImageData(0, 0, pw, ph).data;
+    const sw = Math.max(4, Math.round(pw / 10)), sh = Math.max(4, Math.round(ph / 10));
+    const b = document.createElement('canvas'); b.width = sw; b.height = sh;
+    const bx = b.getContext('2d', { willReadFrequently: true });
+    bx.filter = 'blur(2.5px)'; bx.drawImage(img, 0, 0, sw, sh);
+    const bd = bx.getImageData(0, 0, sw, sh).data;
+    const out = [];
+    for (let y = passo / 2; y < ph; y += passo) for (let x = passo / 2; x < pw; x += passo) {
+      const jx = Math.min(pw - 1, Math.max(0, Math.round(x + (Math.random() - 0.5) * passo * 0.9)));
+      const jy = Math.min(ph - 1, Math.max(0, Math.round(y + (Math.random() - 0.5) * passo * 0.9)));
+      const al = d[(jy * pw + jx) * 4 + 3] / 255;
+      if (al < 0.4) continue;
+      const th = bd[(Math.min(sh - 1, Math.floor(jy / ph * sh)) * sw + Math.min(sw - 1, Math.floor(jx / pw * sw))) * 4 + 3] / 255;
+      out.push(jx - cssW / 2, cssH / 2 - jy, th, al);
+    }
+    return out;
+  }
+
+  build() {
+    const THREE = this.THREE, dpr = this.dpr, hs = this.heroSlotRef.current, ls = this.logoSlotRef.current;
+    if (!hs || !ls || !this.img) return;
+    const r = hs.getBoundingClientRect(), lr = ls.getBoundingClientRect();
+    if (r.width < 10 || lr.width < 10) { clearTimeout(this.rt0); this.rt0 = setTimeout(() => this.build(), 120); return; }
+    const W = window.innerWidth, H = window.innerHeight;
+    this.renderer.setSize(W, H);
+    Object.assign(this.camera, { left: -W / 2, right: W / 2, top: H / 2, bottom: -H / 2 });
+    this.camera.updateProjectionMatrix();
+
+    const ss = Math.max(1, Math.min(2, 4096 / (W * dpr), 4096 / (H * dpr)));
+    this.ss = ss;
+    const rw = Math.round(W * dpr * ss), rh = Math.round(H * dpr * ss);
+    if (!this.rt) {
+      this.rt = new THREE.WebGLRenderTarget(rw, rh, { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, depthBuffer: false });
+      this.compScene = new THREE.Scene();
+      this.compCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      this.quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
+        uniforms: { tMap: { value: this.rt.texture } },
+        transparent: true, depthTest: false, depthWrite: false,
+        vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }',
+        fragmentShader: 'uniform sampler2D tMap; varying vec2 vUv; void main(){ vec4 t = texture2D(tMap, vUv); if (t.a < 0.002) discard; gl_FragColor = vec4(t.rgb / t.a, t.a); }'
+      }));
+      this.quad.frustumCulled = false;
+      this.compScene.add(this.quad);
+    } else this.rt.setSize(rw, rh);
+
+    const passo = this.passo = this.props.fragmento ?? 6;
+    const img = this.img;
+    const cssH = Math.min(r.height * 0.96, r.width * 0.96 * img.height / img.width);
+    const cssW = cssH * img.width / img.height;
+    const flor = this.amostrar(img, cssW, cssH, passo);
+    const lg = this.logo;
+    const lH = Math.min(lr.height * 0.94, lr.width * 0.94 * lg.height / lg.width), lW = lH * lg.width / lg.height;
+    const logo = this.amostrar(lg, lW, lH, Math.max(3, passo * 0.8));
+
+    const n = flor.length / 4, m = Math.max(1, logo.length / 4);
+    const pos = new Float32Array(n * 3), seed = new Float32Array(n * 4), alpha = new Float32Array(n), lp = new Float32Array(n * 3), cloud = new Float32Array(n * 3);
+    const order = Array.from({ length: m }, (_, i) => i).sort(() => Math.random() - 0.5);
+    for (let k = 0; k < n; k++) {
+      pos[k * 3] = flor[k * 4]; pos[k * 3 + 1] = flor[k * 4 + 1]; pos[k * 3 + 2] = flor[k * 4 + 2]; alpha[k] = flor[k * 4 + 3];
+      for (let q = 0; q < 4; q++) seed[k * 4 + q] = Math.random();
+      const j = order[k % m] * 4;
+      lp[k * 3] = logo[j] || 0; lp[k * 3 + 1] = logo[j + 1] || 0; lp[k * 3 + 2] = logo[j + 3] || 0;
+      // nuvem inicial: espalhada pela tela e em profundidade
+      cloud[k * 3] = (Math.random() - 0.5) * W * 1.2;
+      cloud[k * 3 + 1] = (Math.random() - 0.5) * H * 1.2;
+      cloud[k * 3 + 2] = -700 + Math.random() * 950;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 4));
+    g.setAttribute('aAlpha', new THREE.BufferAttribute(alpha, 1));
+    g.setAttribute('aLogo', new THREE.BufferAttribute(lp, 3));
+    g.setAttribute('aCloud', new THREE.BufferAttribute(cloud, 3));
+
+    const col = h => new THREE.Color().setStyle(h, THREE.LinearSRGBColorSpace);
+    const prev = this.points;
+    const uniforms = prev ? prev.material.uniforms : {
+      uTime: { value: 0 }, uP: { value: 0 }, uL: { value: 0 },
+      uOrigin: { value: new THREE.Vector2() }, uLogoOrigin: { value: new THREE.Vector2() }, uHalf: { value: new THREE.Vector2() }, uMouse: { value: new THREE.Vector2() },
+      uDpr: { value: 1 }, uDepth: { value: 160 }, uSpin: { value: 1 }, uForce: { value: 1 }, uWind: { value: 1 }, uVeil: { value: 1 }, uSize: { value: 7 }, uLogoSize: { value: 4 },
+      c0: { value: col('#5f454e') }, c1: { value: col('#a87776') }, c2: { value: col('#52594e') }, c3: { value: col('#96625f') }, c4: { value: col('#d8a8a2') }, cNude: { value: col('#e3d3ca') }
+    };
+    uniforms.uHalf.value.set(cssW / 2, cssH / 2);
+    uniforms.uDpr.value = dpr * ss;
+    uniforms.uLogoSize.value = Math.max(3, passo * 0.8) * 1.3;
+
+    const mat = prev ? prev.material : new THREE.ShaderMaterial({
+      uniforms, transparent: true, depthTest: false, depthWrite: false,
+      vertexShader: `
+        attribute vec4 aSeed; attribute float aAlpha; attribute vec3 aLogo; attribute vec3 aCloud;
+        uniform float uTime, uP, uL, uDpr, uDepth, uSpin, uSize, uLogoSize, uForce, uWind, uVeil;
+        uniform vec2 uOrigin, uLogoOrigin, uHalf, uMouse;
+        uniform vec3 c0, c1, c2, c3, c4, cNude;
+        varying vec3 vCol; varying float vA, vRot, vFill, vPx, vLogo;
+        mat2 rot(float a){ float s=sin(a), c=cos(a); return mat2(c,-s,s,c); }
+        void main(){
+          float h = clamp((position.y + uHalf.y) / (2.*uHalf.y), 0., 1.);
+          // relevo: miolo das pétalas avança, bordas recuam
+          vec3 p = vec3(position.xy, (position.z - 0.45) * uDepth * 2. + (aSeed.z - 0.5) * uDepth * 0.4);
+          p.z += sin(uTime*0.9 + aSeed.w*40.) * 5.;
+
+          // surgimento: da base para o topo, cada fragmento com seu atraso
+          float t = clamp(uP * 1.55 - (aSeed.w * 0.4 + h * 0.15), 0., 1.);
+          float e = 1. - pow(1. - t, 3.);
+          vec3 cl = aCloud - vec3(uOrigin, 0.);
+          cl.x += sin(uTime*0.18 + aSeed.x*20.) * 40. * uWind;
+          cl.y += cos(uTime*0.15 + aSeed.y*20.) * 40. * uWind;
+          vec3 q = mix(cl, p, e);
+          q.xz = rot((1. - e) * (aSeed.z - 0.5) * 4. * uForce) * q.xz;
+
+          // giro 3D lento + mouse
+          float gp = clamp(uP, 0., 1.);
+          float giro = (1. - gp*gp*(3. - 2.*gp)) * 6.2832 * uSpin;   // uma volta inteira, assenta de frente
+          float ay = giro + sin(uTime*0.23) * 0.22 + uMouse.x * 0.32;
+          float ax = sin(uTime*0.17 + 1.) * 0.07 + uMouse.y * 0.16;
+          q.xz = rot(ay) * q.xz;
+          q.yz = rot(ax) * q.yz;
+          float persp = 1500. / (1500. - q.z);
+          vec2 sp = q.xy * persp + uOrigin;
+
+          float px = uSize * (0.7 + aSeed.x * 0.75) * persp;
+          vec3 pal = aSeed.y < 0.34 ? c0 : (aSeed.y < 0.56 ? c1 : (aSeed.y < 0.72 ? c3 : (aSeed.y < 0.86 ? c4 : c2)));
+          float fog = clamp(0.55 + q.z / (uDepth * 3. + 1.) * 0.45, 0.3, 1.);
+          float aOn = aAlpha * (0.7 + aSeed.x * 0.3) * fog;
+          float aOff = (0.16 + aSeed.x * 0.22) * uVeil;
+          vA = mix(aOff, aOn, e);
+          vCol = pal;
+          vRot = aSeed.y * 6.2832 + uTime * (aSeed.z - 0.5) * (1.2 - e);
+          vFill = aSeed.z;
+
+          // convite: os fragmentos formam o monograma
+          float tl = clamp(uL * 1.6 - aSeed.w * 0.6, 0., 1.);
+          float eL = tl * tl * (3. - 2. * tl);
+          vec2 lq = uLogoOrigin + aLogo.xy;
+          vec2 dv = lq - sp;
+          sp = mix(sp, lq, eL) + vec2(-dv.y, dv.x) * eL * (1. - eL) * 0.5 * (aSeed.z - 0.5);
+          px = mix(px, uLogoSize, eL);
+          vLogo = eL;
+          vA = mix(vA, aLogo.z * 0.9, eL);
+          vCol = mix(vCol, cNude, eL);
+
+          vPx = px;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(sp, 0., 1.);
+          gl_PointSize = px * uDpr;
+        }`,
+      fragmentShader: `
+        varying vec3 vCol; varying float vA, vRot, vFill, vPx, vLogo;
+        void main(){
+          vec2 uv = (gl_PointCoord - 0.5) * 2.;
+          float c = cos(vRot), s = sin(vRot);
+          uv = mat2(c, -s, s, c) * uv;
+          uv.y = -uv.y * 1.06;
+          float w = 0.44 * (0.55 + 0.45 * smoothstep(-1., 0.55, uv.y)) * (0.85 + vFill * 0.3);
+          float f = length(vec2(uv.x / w, uv.y));
+          float d = (f - 1.) * w * vPx * 0.5;           // distância aproximada em px CSS
+          float shape = 1. - smoothstep(-0.55, 0.55, d);
+          float veio = 0.82 + 0.18 * smoothstep(0., 0.8, abs(uv.x) / w);   // nervura central mais clara
+          // no monograma as pétalas viram pontos redondos e densos (como na v5)
+          float disco = smoothstep(0.5, 0.3, length(gl_PointCoord - 0.5));
+          float a = vA * mix(shape * veio, disco, vLogo);
+          if (a < 0.01) discard;
+          gl_FragColor = vec4(vCol, a);
+        }`
+    });
+    if (prev) { this.scene.remove(prev); prev.geometry.dispose(); }
+    this.points = new THREE.Points(g, mat);
+    this.points.frustumCulled = false;
+    this.scene.add(this.points);
+    this.buildFM(lr, W, H);
+  }
+
+  // FM: traço denso de pétalas nude + halo de poeira que respira ao redor (como na v4)
+  buildFM(lr, W, H) {
+    const THREE = this.THREE, lg = this.logo;
+    const lH = Math.min(lr.height * 0.94, lr.width * 0.94 * lg.height / lg.width), lW = lH * lg.width / lg.height;
+    const st = 1.15, pw = Math.max(1, Math.round(lW / st)), ph = Math.max(1, Math.round(lH / st));
+    const c = document.createElement('canvas'); c.width = pw; c.height = ph;
+    const ctx = c.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(lg, 0, 0, pw, ph);
+    const d = ctx.getImageData(0, 0, pw, ph).data, pts = [];
+    for (let y = 0; y < ph; y++) for (let x = 0; x < pw; x++) {
+      const a = d[(y * pw + x) * 4 + 3] / 255;
+      if (a > 0.12) pts.push((x + 0.5 + (Math.random() - 0.5)) * st - lW / 2, lH / 2 - (y + 0.5 + (Math.random() - 0.5)) * st, a);
+    }
+    const ns = pts.length / 3, dens = this.fmDens = this.props.fmDensidade ?? 0.8;
+    const nh = Math.round(ns * dens), n = ns + nh;
+    const pos = new Float32Array(n * 3), seed = new Float32Array(n * 4), halo = new Float32Array(n);
+    for (let k = 0; k < n; k++) {
+      const j = (k < ns ? k : Math.floor(Math.random() * ns)) * 3;
+      pos[k * 3] = pts[j]; pos[k * 3 + 1] = pts[j + 1]; pos[k * 3 + 2] = pts[j + 2];
+      for (let q = 0; q < 4; q++) seed[k * 4 + q] = Math.random();
+      halo[k] = k < ns ? 0 : 1;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 4));
+    g.setAttribute('aHalo', new THREE.BufferAttribute(halo, 1));
+    const col = h => new THREE.Color().setStyle(h, THREE.LinearSRGBColorSpace);
+    const prev = this.fm;
+    const mat = prev ? prev.material : new THREE.ShaderMaterial({
+      transparent: true, depthTest: false, depthWrite: false,
+      uniforms: { uTime: { value: 0 }, uL: { value: 0 }, uDpr: { value: 1 }, uForce: { value: 1 }, uWind: { value: 1 }, uVeil: { value: 0.45 }, uSize: { value: 3.5 },
+        uOrigin: { value: new THREE.Vector2() }, uView: { value: new THREE.Vector2() }, cNude: { value: col('#e3d3ca') }, cRose: { value: col('#a87776') } },
+      vertexShader: `
+        attribute vec4 aSeed; attribute float aHalo;
+        uniform float uTime, uL, uDpr, uForce, uWind, uVeil, uSize;
+        uniform vec2 uOrigin, uView;
+        uniform vec3 cNude, cRose;
+        varying vec3 vCol; varying float vA, vRot, vFill, vPx;
+        void main(){
+          vec2 home = position.xy;
+          // halo: poeira mais densa junto ao traço, rarefeita ao longe
+          float ang = aSeed.x * 6.2832, rad = pow(aSeed.y, 2.4) * 240. * (0.6 + uForce * 0.4);
+          vec2 hp = home + vec2(cos(ang), sin(ang)) * rad;
+          hp += vec2(sin(uTime*0.3 + aSeed.z*20.) * 18., cos(uTime*0.26 + aSeed.w*20.) * 14.) * uWind;
+          hp.x += sin(uTime*0.5 + home.y*0.012) * 10. * uWind;
+          vec2 dest = mix(home, hp, aHalo);
+          // chegada: as pétalas sobem de baixo e giram até o lugar
+          // origem: anel amplo em todas as direções (inclusive de cima), além das bordas da tela
+          float ca = fract(aSeed.z * 3.71 + aSeed.w * 1.93) * 6.2832;
+          float cr = 0.55 + fract(aSeed.x * 5.17 + aSeed.y * 2.3) * 0.75;
+          vec2 cloud = vec2(cos(ca), sin(ca)) * uView * cr;
+          cloud += vec2(sin(uTime*0.2 + aSeed.y*20.), cos(uTime*0.17 + aSeed.x*20.)) * 40. * uWind;
+          float t = clamp(uL * 1.6 - aSeed.w * 0.6, 0., 1.);
+          float e = 1. - pow(1. - t, 3.);
+          vec2 dv = dest - cloud;
+          // trajeto em espiral larga: ocupa a tela antes de concentrar no traço
+          vec2 q = mix(cloud, dest, e) + vec2(-dv.y, dv.x) * e * (1. - e) * uForce * 1.6 * (aSeed.x - 0.5);
+          q += vec2(sin(aSeed.w*40. + uTime*0.4), cos(aSeed.z*40. + uTime*0.35)) * uView * 0.18 * e * (1. - e) * (0.5 + uWind * 0.5);
+          q += vec2(sin(uTime*1.3 + aSeed.y*30.), cos(uTime*1.1 + aSeed.x*30.)) * 0.6 * uWind * (1. - aHalo);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(q + uOrigin, 0., 1.);
+          vPx = uSize * (0.7 + aSeed.x * 0.6) * mix(1., 0.85, aHalo);
+          gl_PointSize = vPx * uDpr;
+          float aStroke = position.z * 0.95;
+          float aHaloA = uVeil * (0.25 + aSeed.z * 0.75) * (1. - pow(aSeed.y, 1.2) * 0.75);
+          vA = mix(aStroke, aHaloA, aHalo) * smoothstep(0., 0.2, t) * mix(0.6, 1., e);
+          // em voo: cores da página; ao assentar no FM: branco
+          float cs = fract(aSeed.z * 7.31 + aSeed.x * 3.17);
+          vec3 voo = cs < 0.25 ? cRose : (cs < 0.45 ? vec3(0.588, 0.384, 0.373) : (cs < 0.65 ? vec3(0.847, 0.659, 0.635) : (cs < 0.82 ? vec3(0.373, 0.271, 0.306) : cNude)));
+          vCol = mix(voo, vec3(0.984, 0.969, 0.957), smoothstep(0.55, 1., e));
+          vRot = aSeed.y * 6.2832 + uTime * (aSeed.z - 0.5) * 0.5;
+          vFill = aSeed.z;
+        }`,
+      fragmentShader: `
+        varying vec3 vCol; varying float vA, vRot, vFill, vPx;
+        void main(){
+          vec2 uv = (gl_PointCoord - 0.5) * 2.;
+          float c = cos(vRot), s = sin(vRot);
+          uv = mat2(c, -s, s, c) * uv;
+          uv.y = -uv.y * 1.06;
+          float w = 0.44 * (0.55 + 0.45 * smoothstep(-1., 0.55, uv.y)) * (0.85 + vFill * 0.3);
+          float d = (length(vec2(uv.x / w, uv.y)) - 1.) * w * vPx * 0.5;
+          float a = vA * (1. - smoothstep(-0.55, 0.55, d));
+          if (a < 0.01) discard;
+          gl_FragColor = vec4(vCol, a);
+        }`
+    });
+    mat.uniforms.uView.value.set(W, H);
+    mat.uniforms.uDpr.value = this.dpr * this.ss;
+    if (prev) { this.scene.remove(prev); prev.geometry.dispose(); }
+    this.fm = new THREE.Points(g, mat);
+    this.fm.frustumCulled = false;
+    this.scene.add(this.fm);
+  }
+
+  tick() {
+    const W = window.innerWidth, H = window.innerHeight, sy = window.scrollY, root = this.rootRef.current;
+    if (!root) return;
+    if (!this.secs || !this.secs.length) this.secs = [...root.querySelectorAll('[data-tom]')].map(el => ({ el, c: hex(el.dataset.tom) }));
+    let c = this.secs.length ? this.secs[0].c.slice() : hex('#e3d3ca'), last = 0;
+    for (let i = 1; i < this.secs.length; i++) {
+      const top = this.secs[i].el.getBoundingClientRect().top;
+      const t = Math.min(1, Math.max(0, (H * 0.6 - top) / (H * 0.16)));
+      if (t > 0) { c = c.map((v, k) => v + (this.secs[i].c[k] - v) * t); if (i === this.secs.length - 1) last = t; }
+    }
+    root.style.background = `rgb(${c.map(Math.round).join(',')})`;
+
+    const fio = this.fioRef.current, fill = this.fioFillRef.current;
+    if (fio && fill) {
+      const fr = fio.getBoundingClientRect();
+      fill.style.transform = `scaleY(${Math.min(1, Math.max(0, (H * 0.6 - fr.top) / fr.height)).toFixed(4)})`;
+    }
+    const pill = this.pillRef.current, pin = this.pinRef.current;
+    const pinEnd = pin ? pin.offsetHeight - H : H;
+    if (pill) {
+      const on = sy > pinEnd + H * 0.3 && last < 0.3;
+      if (on !== this.pillOn) {
+        this.pillOn = on;
+        pill.style.opacity = on ? '1' : '0';
+        pill.style.transform = on ? 'none' : 'translateY(20px)';
+        pill.style.pointerEvents = on ? 'auto' : 'none';
+      }
+    }
+
+    const hs = this.heroSlotRef.current, ls = this.logoSlotRef.current;
+    if (!this.points || !hs || !ls || !pin) return;
+    if ((this.props.fragmento ?? 6) !== this.passo || (this.props.fmDensidade ?? 0.8) !== this.fmDens) { this.passo = this.props.fragmento ?? 6; this.build(); }
+    const u = this.points.material.uniforms;
+    const r = hs.getBoundingClientRect(), lr = ls.getBoundingClientRect();
+    u.uOrigin.value.set(r.left + r.width / 2 - W / 2, H / 2 - (r.top + r.height / 2));
+    u.uLogoOrigin.value.set(lr.left + lr.width / 2 - W / 2, H / 2 - (lr.top + lr.height / 2));
+    // progresso do surgimento: enquanto a chegada está fixa na tela
+    const pr = pin.getBoundingClientRect();
+    const tP = Math.min(1, Math.max(0, -pr.top / Math.max(1, (pr.height - H) * 0.85)));
+    const tL = Math.min(1, Math.max(0, (H * 1.05 - (lr.top + lr.height / 2)) / (H * 0.5)));
+    const k = this.calmo ? 1 : 0.06;
+    this.cur += ((this.calmo ? 1 : tP) - this.cur) * k; this.curL += (tL - this.curL) * k * 0.8;
+    if (Math.abs(tP - this.cur) < 0.0005) this.cur = this.calmo ? 1 : tP;
+    if (Math.abs(tL - this.curL) < 0.0005) this.curL = tL;
+    const m = this.mouse;
+    m.x += (m.tx - m.x) * 0.04; m.y += (m.ty - m.y) * 0.04;
+    u.uMouse.value.set(this.calmo ? 0 : m.x, this.calmo ? 0 : m.y);
+    u.uP.value = this.cur; u.uL.value = 0;
+    if (this.fm) {
+      const f = this.fm.material.uniforms;
+      f.uOrigin.value.copy(u.uLogoOrigin.value);
+      f.uL.value = this.curL;
+      f.uTime.value = this.calmo ? 0 : (performance.now() - this.t0) / 1000;
+      f.uForce.value = this.props.fmForca ?? 1;
+      f.uWind.value = this.props.fmVento ?? 1;
+      f.uVeil.value = this.props.fmIntensidade ?? 0.45;
+      f.uSize.value = this.props.fmTamanho ?? 3.5;
+    }
+    u.uTime.value = this.calmo ? 0 : (performance.now() - this.t0) / 1000;
+    u.uDepth.value = this.props.profundidade ?? 50;
+    u.uSpin.value = this.props.giro ?? 0.5;
+    u.uSize.value = this.props.tamanho ?? 9;
+    u.uForce.value = this.props.forca ?? 1;
+    u.uWind.value = this.props.vento ?? 1;
+    u.uVeil.value = this.props.intensidade ?? 1;
+    this.renderer.setRenderTarget(this.rt);
+    this.renderer.clear();
+    this.renderer.render(this.scene, this.camera);
+    this.renderer.setRenderTarget(null);
+    this.renderer.clear();
+    this.renderer.render(this.compScene, this.compCam);
+  }
+
+  renderVals() {
+    const num = String(this.props.whatsapp ?? '51 99217-9578').replace(/\D/g, '');
+    const full = num.length <= 11 ? '55' + num : num;
+    const msg = encodeURIComponent('Olá! Gostaria de agendar uma consulta com a Dra. Fabiana Mugnol.');
+    const faqBase = [
+      { q: 'Como agendo a consulta?', a: 'Pelo WhatsApp. A equipe confirma horário, endereço e o que levar.' },
+      { q: 'O que levar na primeira consulta?', a: 'Exames anteriores, relatórios da escola e de terapeutas, e a caderneta da criança, se houver.' },
+      { q: 'Os pais participam da consulta?', a: 'Sim. A família faz parte de todo o processo.' },
+      { q: 'Atende convênio?', a: '[A confirmar.]' }
+    ];
+    return {
+      rootRef: this.rootRef, stageRef: this.stageRef, heroSlotRef: this.heroSlotRef, logoSlotRef: this.logoSlotRef, contatoRef: this.contatoRef,
+      fioRef: this.fioRef, fioFillRef: this.fioFillRef, pillRef: this.pillRef, pinRef: this.pinRef,
+      // em telas estreitas a flor fica atrás do texto, dentro da tela fixa
+      alta: this.state.alta,
+      heroCols: this.state.narrow ? 'minmax(0,1fr)' : 'minmax(0,1.05fr) minmax(0,1fr)',
+      trajCols: this.state.narrow ? 'minmax(0,1fr)' : 'repeat(5,minmax(0,1fr))',
+      mapaCols: this.state.narrow ? 'minmax(0,1fr)' : 'minmax(0,1fr) minmax(0,2fr)',
+      slotPos: this.state.narrow ? 'absolute' : 'relative',
+      slotH: this.state.narrow ? '100%' : 'min(80vh, calc(100vh - 170px))',
+      slotOp: this.state.narrow ? 0.55 : 1,
+      waLink: `https://wa.me/${full}?text=${msg}`,
+      waConcierge: 'https://wa.me/5551999999999?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Concierge.',
+      ajuda: [
+        { n: '01', titulo: 'Escuta da família', texto: 'Os pais contam a história da criança com tempo e sem pressa.' },
+        { n: '02', titulo: 'Diagnóstico explicado', texto: 'Cada etapa é traduzida em linguagem clara, para a família decidir com segurança.' },
+        { n: '03', titulo: 'Ponte com a escola', texto: 'Orientações para que escola, terapeutas e família sigam na mesma direção.' }
+      ],
+      etapas: [
+        { n: '01', titulo: 'Contato pelo WhatsApp', texto: 'A equipe responde e encontra o melhor horário.' },
+        { n: '02', titulo: 'Primeira consulta', texto: '[Duração e formato a confirmar.]' },
+        { n: '03', titulo: 'Acompanhamento', texto: 'Retornos com a família e, quando necessário, conversa com a escola.' }
+      ],
+      trajetoria: [
+        { ano: '[Ano]', marco: '[Formação em Medicina]' },
+        { ano: '[Ano]', marco: '[Residência em Neurologia]' },
+        { ano: '2002', marco: 'Início do consultório' },
+        { ano: 'Hoje', marco: 'Consultório em Porto Alegre' }
+      ],
+      depoimentos: [
+        { texto: '[Depoimento de família a enviar.]', autor: '[Nome] · [mãe/pai de ...]' },
+        { texto: '[Depoimento de família a enviar.]', autor: '[Nome] · [mãe/pai de ...]' }
+      ],
+      faqs: faqBase.map((f, i) => {
+        const open = this.state.open === i;
+        return { ...f, linhas: open ? '1fr' : '0fr', giro: open ? 'rotate(45deg)' : 'rotate(0deg)', toggle: () => this.setState({ open: open ? -1 : i }) };
+      })
+    };
+  }
+}
+
+</script>
+</body>
+</html>
