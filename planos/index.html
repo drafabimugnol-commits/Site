@@ -10,6 +10,7 @@
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://app.armetz.com">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/site.css">
 </head>
@@ -19,7 +20,6 @@
     <nav class="nav" aria-label="Principal">
       <a class="nav__logo" href="/"><img src="/assets/img/logo.webp" alt="Fabiana Mugnol — Neurologista" width="600" height="117" style="width:auto"></a>
       <div class="nav__acoes">
-        <button type="button" id="sair" hidden>Sair</button>
         <a href="/#caminhar"><span aria-hidden="true">←</span> Voltar ao site</a>
       </div>
     </nav>
@@ -28,21 +28,28 @@
       <div class="login__texto">
         <span class="eyebrow">Área do paciente</span>
         <h1>Acesso para <em>famílias</em> em acompanhamento</h1>
-        <p class="texto texto--16" style="max-width:44ch">Entre com os dados enviados pelo secretariado.</p>
+        <p class="texto texto--16" style="max-width:44ch">Entre com o CPF do paciente (ou do responsável) e a data de nascimento da mesma pessoa. Você será levado ao seu espaço no portal Florescer.</p>
       </div>
-      <form id="form-login">
-        <label>E-mail
-          <input type="email" name="email" required placeholder="nome@email.com" autocomplete="username">
+      <form id="form-login" novalidate>
+        <label for="cpf">CPF
+          <input id="cpf" type="text" name="cpf" required inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14" aria-describedby="ajuda-cpf">
+          <span class="ajuda" id="ajuda-cpf">Do paciente ou do responsável que fez o cadastro.</span>
         </label>
-        <label>Senha
-          <input type="password" name="senha" required placeholder="••••••••" autocomplete="current-password">
+        <label for="data_nascimento">Data de nascimento
+          <input id="data_nascimento" type="text" name="data_nascimento" required inputmode="numeric" autocomplete="off" placeholder="DD/MM/AAAA" maxlength="10" aria-describedby="ajuda-data">
+          <span class="ajuda" id="ajuda-data">De quem é o CPF informado acima.</span>
         </label>
+        <p class="erro" id="login-erro" role="alert" hidden></p>
+        <div class="escolha" id="login-escolha" hidden>
+          <p class="escolha__titulo">Encontramos mais de um paciente. De quem é o espaço que você quer abrir?</p>
+          <div class="escolha__lista" id="login-escolha-lista"></div>
+        </div>
         <button type="submit">Entrar</button>
-        <a class="sem-acesso" href="https://wa.me/5551974019090?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20acesso%20%C3%A0%20%C3%A1rea%20do%20paciente." target="_blank" rel="noopener">Não tenho acesso</a>
+        <a class="sem-acesso" href="https://wa.me/5551974019090?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20acesso%20%C3%A0%20%C3%A1rea%20do%20paciente." target="_blank" rel="noopener">Preciso de ajuda para entrar</a>
       </form>
     </section>
 
-    <section class="modalidades" id="tela-planos" hidden>
+    <section class="modalidades" id="tela-planos">
       <span class="eyebrow">Caminhar Juntos · Modalidades</span>
       <div class="modalidades__card">
         <h1>Quando maior proximidade é <em>imprescindível</em></h1>
@@ -58,25 +65,6 @@
   </div>
 </div>
 
-<script>
-// ATENÇÃO: login provisório, igual ao protótipo. Qualquer e-mail e senha entram
-// e nada é verificado. Antes de colocar conteúdo sigiloso aqui, trocar por
-// autenticação real no servidor (ver README, "Área do paciente").
-(() => {
-  const CHAVE = "fm-area-paciente";
-  const login = document.getElementById("tela-login");
-  const planos = document.getElementById("tela-planos");
-  const sair = document.getElementById("sair");
-  const ler = () => { try { return sessionStorage.getItem(CHAVE) === "1"; } catch (e) { return false; } };
-  const mostrar = (logado) => { login.hidden = logado; planos.hidden = !logado; sair.hidden = !logado; };
-  document.getElementById("form-login").addEventListener("submit", (e) => {
-    e.preventDefault();
-    try { sessionStorage.setItem(CHAVE, "1"); } catch (_) {}
-    mostrar(true);
-  });
-  sair.addEventListener("click", () => { try { sessionStorage.removeItem(CHAVE); } catch (_) {} mostrar(false); });
-  mostrar(ler());
-})();
-</script>
+<script type="module" src="/js/area-paciente.js"></script>
 </body>
 </html>
