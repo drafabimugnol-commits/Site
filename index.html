@@ -63,7 +63,22 @@
   <div class="palco" id="palco" aria-hidden="true"></div>
   <div class="ruido" aria-hidden="true"></div>
 
-  <a class="pilula" id="pilula" href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener"><span>Agendar</span></a>
+  <!-- botão flutuante: abre a escolha entre os 3 WhatsApps -->
+  <div class="contato-flutuante">
+    <div class="escolha" id="escolha-contato" role="dialog" aria-label="Escolha o contato" hidden>
+      <span class="escolha__titulo">Falar pelo WhatsApp</span>
+      <a href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener">
+        <span class="escolha__rotulo">Agendamentos e financeiro</span><span class="escolha__num">51 99217-9578</span>
+      </a>
+      <a href="https://wa.me/5551974019090?text=Ol%C3%A1!%20Preciso%20de%20suporte." target="_blank" rel="noopener">
+        <span class="escolha__rotulo">Suporte e assistência</span><span class="escolha__num">51 97401-9090</span>
+      </a>
+      <a href="https://wa.me/5551999999999?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Concierge." target="_blank" rel="noopener">
+        <span class="escolha__rotulo">Concierge</span><span class="escolha__num">51 99999-9999</span>
+      </a>
+    </div>
+    <button class="pilula" id="pilula" type="button" aria-expanded="false" aria-controls="escolha-contato"><span>Entrar em contato</span></button>
+  </div>
 
   <div class="conteudo">
 
@@ -81,8 +96,9 @@
               <a href="#cursos">Cursos</a>
               <a href="#palestras">Palestras</a>
               <a href="#conteudos">Conteúdos</a>
+              <a class="so-celular" href="#contato">Contato</a>
             </div>
-            <a class="nav__wa" href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Fabiana%20Mugnol." target="_blank" rel="noopener">WhatsApp</a>
+            <a class="nav__paciente" href="/planos/">Área do paciente</a>
           </nav>
 
           <section id="topo" class="hero" data-tom="#e3d3ca">
@@ -249,7 +265,6 @@
             </div>
           </div>
         </div>
-        <a class="link-seta" data-revela href="/planos/">Área do paciente <span aria-hidden="true">→</span></a>
       </div>
     </section>
 

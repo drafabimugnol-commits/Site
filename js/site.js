@@ -1,6 +1,6 @@
 // Dra. Fabiana Mugnol — comportamento da página
 // Rolagem suave (Lenis), revelação de texto, fundo por seção, fio do Caminhar Juntos,
-// botão "Agendar" e as partículas (magnólia no topo, monograma FM no contato).
+// botão "Entrar em contato" e as partículas (magnólia no topo, monograma FM no contato).
 
 // Ajustes finos das partículas (equivalem aos controles do protótipo)
 const MAGNOLIA = { profundidade: 70, giro: 0.5, forca: 0.8, vento: 3, fragmento: 3, intensidade: 0.7, tamanho: 7 };
@@ -64,6 +64,17 @@ if (window.Lenis && !calmo) {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
 })();
 
+// ---------- Botão "Entrar em contato": escolha entre os 3 WhatsApps ----------
+const escolha = document.getElementById("escolha-contato");
+const abrirEscolha = (aberto) => {
+  escolha.hidden = !aberto;
+  document.getElementById("pilula").setAttribute("aria-expanded", String(aberto));
+};
+document.getElementById("pilula").addEventListener("click", () => abrirEscolha(escolha.hidden));
+escolha.addEventListener("click", (e) => { if (e.target.closest("a")) abrirEscolha(false); });
+document.addEventListener("click", (e) => { if (!e.target.closest(".contato-flutuante")) abrirEscolha(false); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscolha(false); });
+
 // ---------- Elementos acompanhados a cada quadro ----------
 const secs = [...document.querySelectorAll("[data-tom]")].map((el) => ({ el, c: hex(el.dataset.tom), proprio: el.classList.contains("fundo-proprio") }));
 const fio = document.getElementById("fio");
@@ -101,9 +112,9 @@ function tick(t) {
   const fr = fio.getBoundingClientRect();
   fioFill.style.transform = `scaleY(${Math.min(1, Math.max(0, (H * 0.6 - fr.top) / fr.height)).toFixed(4)})`;
 
-  // botão "Agendar": aparece depois do topo e some no contato
-  const on = window.scrollY > pin.offsetHeight - H + H * 0.3 && ultimo < 0.3;
-  if (on !== pilulaOn) { pilulaOn = on; pilula.classList.toggle("on", on); }
+  // visível desde o topo; some só no Contato, onde os números já estão na tela
+  const on = ultimo < 0.3;
+  if (on !== pilulaOn) { pilulaOn = on; pilula.classList.toggle("on", on); if (!on) abrirEscolha(false); }
   // sobre fundo escuro (Parcerias) o botão fica claro
   if (on) {
     const sob = secs.find(({ el }) => { const r = el.getBoundingClientRect(); return r.top < H - 40 && r.bottom > H - 40; });

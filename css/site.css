@@ -162,6 +162,22 @@ em { font-style: italic; }
 .pilula:hover { background: var(--musgo); color: var(--nude); }
 .pilula.sobre-escuro { background: var(--nude); color: var(--vinho); }
 .pilula.sobre-escuro:hover { background: var(--branco-quente); color: var(--vinho); }
+.pilula { border: 0; font-family: inherit; cursor: pointer; }
+.pilula[aria-expanded="true"] { opacity: 1; transform: none; pointer-events: auto; }
+
+/* escolha entre os 3 WhatsApps */
+.escolha {
+  position: fixed; right: clamp(16px, 3vw, 36px); bottom: calc(clamp(16px, 3vw, 36px) + 62px); z-index: 4;
+  display: flex; flex-direction: column; width: min(340px, calc(100vw - 32px));
+  background: var(--branco-quente); color: var(--vinho); border-radius: 24px; padding: 22px 22px 10px;
+  box-shadow: 0 24px 60px -24px rgba(60, 40, 45, .55);
+}
+.escolha[hidden] { display: none; }
+.escolha__titulo { font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--vinho-texto); padding-bottom: 10px; }
+.escolha a { display: flex; flex-direction: column; gap: 2px; padding: 14px 0; border-top: 1px solid var(--linha); color: var(--vinho); transition: padding .5s var(--ease); }
+.escolha a:hover { padding-left: 8px; color: var(--vinho); }
+.escolha__rotulo { font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--musgo); }
+.escolha__num { font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 100; font-size: 22px; letter-spacing: -.01em; }
 
 /* ---------- Topo: nav + hero fixo ---------- */
 
@@ -169,16 +185,18 @@ em { font-style: italic; }
 .pin__tela { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; flex-wrap: wrap; }
+.nav__logo { flex: none; }
 .nav__logo img { height: 30px; width: auto; }
 .nav__links { display: flex; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap; font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; }
 .nav__links a { color: var(--musgo); }
 .nav__links a:hover { color: var(--vinho-texto); }
-.nav__wa {
-  display: inline-flex; align-items: center; gap: 10px; color: var(--vinho);
+.nav__paciente {
+  display: inline-flex; align-items: center; white-space: nowrap; color: var(--vinho);
   font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
   border: 1px solid var(--vinho); border-radius: 999px; padding: 12px 20px; transition: background .5s, color .5s;
 }
-.nav__wa:hover { background: var(--vinho); color: var(--nude); }
+.nav__paciente:hover { background: var(--vinho); color: var(--nude); }
+.so-celular { display: none; }
 
 .hero {
   position: relative; flex: 1; min-height: 0; display: grid;
@@ -407,10 +425,16 @@ em { font-style: italic; }
   /* em uma coluna, blocos presos ao topo passariam por baixo do texto */
   .fixa, .atuacao__fixa, .caminhar__intro, .nome__fixa { position: static; }
 
+  .nav__logo img { height: 24px; }
+  .nav__paciente { font-size: 11px; letter-spacing: .14em; padding: 10px 14px; margin-left: auto; }
+
+}
+@media (max-width: 1199px) {
   /* menu: botão que abre a lista em tela cheia */
   .nav { flex-wrap: nowrap; padding: 22px 0; }
-  .nav__logo img { height: 24px; }
-  .nav__wa { padding: 10px 16px; margin-left: auto; }
+  .nav { gap: 18px; }
+  .nav__paciente { margin-left: auto; }
+  .nav__links .so-celular { display: block; }
   .nav__menu {
     all: unset; cursor: pointer; order: 3; position: relative; z-index: 6;
     font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--vinho);
@@ -423,9 +447,11 @@ em { font-style: italic; }
   }
   .nav__links a { font-family: var(--serif); font-weight: 300; font-size: 34px; letter-spacing: -.02em; text-transform: none; color: var(--vinho); }
   .menu-aberto .nav__links { display: flex; }
-  .menu-aberto .pilula { display: none; }
+  .menu-aberto .contato-flutuante { display: none; }
 }
-@media (min-width: 760px) {
+@media (min-width: 1200px) {
+  .nav { flex-wrap: nowrap; }
+  .nav__links { gap: clamp(16px, 1.9vw, 30px); flex-wrap: nowrap; white-space: nowrap; }
   .nav__menu { display: none; }
 }
 @media (max-height: 759px) {
