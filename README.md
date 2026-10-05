@@ -18,8 +18,8 @@ de build**: o que está no repositório é exatamente o que vai ao ar.
 - `design/claude-design/`, `design/marca/` — versões anteriores e manual de marca
 
 ## Pendências de conteúdo
-- **Retrato da Dra. Fabiana** (4:5) e **foto do moinho / nonno Rico** (4:3): salvar em
-  `assets/img/` e trocar o marcador no `index.html` (há um comentário explicando em cada um).
+- **Foto do moinho / nonno Rico** (4:3): salvar em
+  `assets/img/` e trocar o marcador no `index.html` (há um comentário explicando).
 - **Concierge**: número provisório `51 99999-9999` (`5551999999999` nos links). Buscar e
   substituir em `index.html` e `planos/index.html`.
 - **YouTube**: link marcado com `data-pendente` em `index.html`.
