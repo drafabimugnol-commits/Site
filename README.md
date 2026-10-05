@@ -6,11 +6,12 @@ de build**: o que está no repositório é exatamente o que vai ao ar.
 
 ## Estrutura
 - `index.html` — página principal (todos os textos ficam aqui)
-- `planos/index.html` — Área do paciente (login + modalidades)
+- `planos/index.html` — Área do paciente (entrada no portal Florescer + modalidades)
 - `css/site.css` — estilos; cores e fontes da marca em variáveis no topo
 - `js/site.js` — rolagem suave, revelação de texto, fundo por seção, fio do
   Caminhar Juntos, botão "Agendar" e as partículas (magnólia e monograma FM).
   Os ajustes das partículas ficam nos objetos `MAGNOLIA` e `MONOGRAMA` no topo.
+- `js/area-paciente.js` — entrada no portal do paciente (fala com o Armetz)
 - `js/vendor/` — three.js 0.170 e Lenis 1.3.4 (cópias locais, sem CDN)
 - `assets/` — fontes Fraunces (OFL) e imagens (WebP), favicon e imagem de compartilhamento
 - `vercel.json`, `robots.txt`, `sitemap.xml` — publicação
@@ -22,11 +23,21 @@ de build**: o que está no repositório é exatamente o que vai ao ar.
   substituir em `index.html` e `planos/index.html`.
 - **YouTube**: link marcado com `data-pendente` em `index.html`.
 
-## Área do paciente — atenção
-O login de `/planos` ainda é o do protótipo: **qualquer e-mail e senha entram**
-(o estado fica só no navegador). Serve para apresentar o fluxo, não protege nada.
-Antes de colocar ali conteúdo restrito, trocar por autenticação real no servidor
-(ex.: Vercel Middleware + Auth.js, Clerk ou Supabase Auth).
+## Área do paciente (`/planos`)
+A "Área do paciente" é a porta de entrada do **portal Florescer**, que vive no
+Armetz (`app.armetz.com`). O site é estático e **não guarda nem confere dado
+nenhum**: `js/area-paciente.js` manda CPF + data de nascimento para
+`POST https://app.armetz.com/api/public/portal/entrar` (CORS liberado só para
+este domínio), o Armetz confere no servidor e devolve um endereço de entrada de
+uso único; o navegador vai para lá e cai dentro do espaço da família.
+
+- Quem entra: qualquer paciente ativo da clínica, pelo CPF do paciente **ou** do
+  responsável, com a data de nascimento da mesma pessoa. Irmãos sob o mesmo
+  responsável escolhem o nome na tela.
+- Erros, bloqueio por tentativas (5 em 15 min) e o aviso "entrada expirada"
+  (`/planos/?erro=expirado`) são tratados em `js/area-paciente.js`.
+- O conteúdo das modalidades é público; nada sigiloso fica neste repositório.
+- Lado do Armetz: `docs/PORTAL_PACIENTE.md` §9 naquele repositório.
 
 ## Visualizar localmente
 ```
