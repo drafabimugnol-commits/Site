@@ -436,6 +436,15 @@ em { font-style: italic; }
   /* em uma coluna, blocos presos ao topo passariam por baixo do texto */
   .fixa, .atuacao__fixa, .caminhar__intro, .nome__fixa { position: static; }
 
+  /* Quem é: título primeiro, depois a foto, depois a apresentação */
+  .quem { display: flex; flex-direction: column; align-items: stretch; gap: 24px; }
+  .quem .quem__texto { display: contents; }
+  .quem .eyebrow { order: 1; }
+  .quem .h2 { order: 2; }
+  .quem .retrato { order: 3; margin: 12px 0; }
+  .quem .lead { order: 4; }
+  .quem .texto { order: 5; }
+
   .nav__paciente { font-size: 10px; letter-spacing: .14em; padding: 0 0 2px; border: 0; border-bottom: 1px solid var(--rose); border-radius: 0; white-space: nowrap; line-height: 1.4; }
   .nav__paciente:hover { background: none; color: var(--vinho-texto); }
 
