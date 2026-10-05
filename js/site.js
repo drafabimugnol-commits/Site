@@ -98,6 +98,11 @@ function tick(t) {
   // botão "Agendar": aparece depois do topo e some no contato
   const on = window.scrollY > pin.offsetHeight - H + H * 0.3 && ultimo < 0.3;
   if (on !== pilulaOn) { pilulaOn = on; pilula.classList.toggle("on", on); }
+  // sobre fundo escuro (Parcerias) o botão fica claro
+  if (on) {
+    const sob = secs.find(({ el }) => { const r = el.getBoundingClientRect(); return r.top < H - 40 && r.bottom > H - 40; });
+    pilula.classList.toggle("sobre-escuro", !!(sob && sob.el.classList.contains("escura")));
+  }
 
   if (particulas) particulas.tick();
 }
