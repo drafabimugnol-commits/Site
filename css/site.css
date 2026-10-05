@@ -264,6 +264,11 @@ em { font-style: italic; }
 .escura .h2, .escura .h3, .escura .lead, .escura .texto, .escura .linha__rotulo, .escura .linha__texto { color: var(--nude); }
 .escura .h2 em, .escura .h3 em, .escura .lead em { color: var(--rose-claro-2); }
 .escura .linhas, .escura .linha { border-color: var(--linha-vinho); }
+/* seção que pinta o próprio fundo: degradês suaves nos respiros de cima e de baixo */
+.fundo-proprio {
+  --faixa: clamp(90px, 11vw, 170px);
+  background: linear-gradient(to bottom, var(--de) 0, var(--vinho) var(--faixa), var(--vinho) calc(100% - var(--faixa)), var(--para) 100%);
+}
 .escura .rotulo { color: var(--claro-sobre-escuro); }
 .escura .btn { background: var(--nude); color: var(--vinho); }
 .escura .btn:hover { background: var(--branco-quente); color: var(--vinho); }

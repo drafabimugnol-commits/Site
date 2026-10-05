@@ -65,7 +65,7 @@ if (window.Lenis && !calmo) {
 })();
 
 // ---------- Elementos acompanhados a cada quadro ----------
-const secs = [...document.querySelectorAll("[data-tom]")].map((el) => ({ el, c: hex(el.dataset.tom) }));
+const secs = [...document.querySelectorAll("[data-tom]")].map((el) => ({ el, c: hex(el.dataset.tom), proprio: el.classList.contains("fundo-proprio") }));
 const fio = document.getElementById("fio");
 const fioFill = document.getElementById("fio-fill");
 const pilula = document.getElementById("pilula");
@@ -79,11 +79,17 @@ function tick(t) {
   if (lenis) lenis.raf(t);
   const H = window.innerHeight;
 
-  // fundo: interpola para o tom da seção quando o topo dela cruza 60% da tela
+  // fundo: interpola para o tom da seção quando o topo dela cruza 60% da tela.
+  // Seções com fundo próprio (Parcerias) pintam a si mesmas e ficam de fora;
+  // a seção seguinte a elas só muda o fundo da página depois que o topo da
+  // seção pintada saiu da tela, para o texto anterior nunca ficar sobre a cor errada.
   let c = secs[0].c.slice(), ultimo = 0;
   for (let i = 1; i < secs.length; i++) {
-    const top = secs[i].el.getBoundingClientRect().top;
-    const k = Math.min(1, Math.max(0, (H * 0.6 - top) / (H * 0.16)));
+    if (secs[i].proprio) continue;
+    const ant = secs[i - 1];
+    const k = ant.proprio
+      ? Math.min(1, Math.max(0, -ant.el.getBoundingClientRect().top / (H * 0.16)))
+      : Math.min(1, Math.max(0, (H * 0.6 - secs[i].el.getBoundingClientRect().top) / (H * 0.16)));
     if (k > 0) {
       c = c.map((v, j) => v + (secs[i].c[j] - v) * k);
       if (i === secs.length - 1) ultimo = k;
