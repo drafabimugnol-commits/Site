@@ -698,10 +698,10 @@ em { font-style: italic; }
   .rodas__fim, .rodas__fim .texto, .rodas__verbos { text-align: left; margin-left: 0; align-items: flex-start; }
 }
 
-/* ---------- convite a rolar no topo (versões em teste) ---------- */
-.convite { position: absolute; inset: 0; pointer-events: none; display: none; --some: calc(1 - min(1, var(--hero-p, 0) * 4)); }
-.versao-1 .convite, .versao-3 .convite { display: block; }
-.convite__botao { display: none; }
+/* ---------- convite a rolar no topo ----------
+   a magnólia desenhada bem suave onde ela vai se formar + "Role e veja florescer";
+   os dois somem conforme as pétalas chegam (--hero-p vem de js/site.js) */
+.convite { position: absolute; inset: 0; pointer-events: none; --some: calc(1 - min(1, var(--hero-p, 0) * 4)); }
 .convite__texto {
   position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 12px; white-space: nowrap;
@@ -717,36 +717,17 @@ em { font-style: italic; }
   25% { opacity: .85; }
   100% { transform: translateY(14px) rotate(40deg); opacity: 0; }
 }
-
-/* 1 · silhueta: a magnólia desenhada bem suave onde ela vai se formar */
-.versao-1 .hero__slot img {
+.hero__slot img {
   opacity: calc(.14 * (1 - min(1, var(--hero-p, 0) * 2.2))); transition: none;
   transform: scale(.96); filter: saturate(.5);
 }
-
-/* 3 · botão: um botão de magnólia fechado, respirando no centro, que se abre ao rolar */
-.versao-3 .convite__texto { display: none; }
-.versao-3 .convite__botao {
-  display: block; position: absolute; left: 50%; top: 50%; width: 96px; height: 96px; overflow: visible;
-  transform: translate(-50%, -50%) scale(calc(1 + var(--hero-p, 0) * 5));
-  opacity: var(--some);
-}
-.versao-3 .convite__botao .cb-p { fill: var(--rose); stroke: var(--nude); stroke-width: .8; transform-origin: 24px 37.5px; }
-.versao-3 .convite__botao .cb-haste { fill: var(--rose); stroke: var(--rose); stroke-width: 1.1; opacity: .5; }
-.versao-3 .convite__botao .cb-fe { opacity: .55; transform: rotate(calc(18deg - var(--hero-p, 0) * 160deg)); }
-.versao-3 .convite__botao .cb-fd { opacity: .55; transform: rotate(calc(-18deg + var(--hero-p, 0) * 160deg)); }
-.versao-3 .convite__botao .cb-e { opacity: .8; transform: rotate(calc(10deg - var(--hero-p, 0) * 120deg)); }
-.versao-3 .convite__botao .cb-d { opacity: .8; transform: rotate(calc(-10deg + var(--hero-p, 0) * 120deg)); }
-.versao-3 .convite__botao { animation: botao-respira 3.4s ease-in-out infinite; }
-@keyframes botao-respira { 50% { filter: brightness(1.08) drop-shadow(0 0 10px rgba(168, 119, 118, .35)); } }
-
-/* 2 · as palavras "mesma língua" soltam pétalas (canvas em js/flor-menu.js) e clareiam ao rolar */
-.versao-2 .hero h1 em { opacity: calc(1 - min(.4, var(--hero-p, 0) * 1.1)); }
+/* sem WebGL: a ilustração aparece inteira e o convite não faz sentido */
+.sem-webgl .hero__slot img { opacity: 1; transform: none; filter: none; }
+.sem-webgl .convite { display: none; }
 
 @media (max-width: 759px) {
-  .versao-1 .hero__slot img { transform: scale(.82); }
-  .versao-3 .convite__botao { width: 80px; height: 80px; }
+  .hero__slot img { transform: scale(.82); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .convite__petala, .versao-3 .convite__botao { animation: none; }
+  .convite__petala { animation: none; }
 }

@@ -380,59 +380,6 @@ if (canto && menu && cv) {
     aplicarLugar(true, false);
   }
 
-  // ---------- versão 2 do topo: "mesma língua" solta pétalas que vão formar a magnólia ----------
-  if (document.documentElement.classList.contains("versao-2") && ctx && !calmo) {
-    const palavras = document.querySelector(".hero h1 em"), slot = document.getElementById("slot-flor");
-    if (palavras && slot) {
-      tela();
-      window.addEventListener("resize", tela);
-      // pétalas guiadas pela rolagem: saem das palavras e pousam na área da flor (voltam ao rolar para cima)
-      const guiadas = Array.from({ length: W < 760 ? 70 : 110 }, () => ({
-        cor: sorteiaCor(), sx: Math.random(), sy: rand(0.25, 0.8),
-        ex: rand(-0.32, 0.32), ey: rand(-0.42, 0.42), arco: rand(-140, 140),
-        atraso: rand(0, 0.3), r0: rand(0, 6.28), giro: rand(2, 5) * Math.PI, f0: rand(0, 6.28), tam: rand(8, 13),
-      }));
-      // convite: com a página parada no topo, as palavras soltam uma pétala de vez em quando, rumo ao centro
-      const soltas = [];
-      let ultimaSolta = 0, limpo = true;
-      const passoV2 = (agora) => {
-        requestAnimationFrame(passoV2);
-        if (estado !== "fechado" || rafV) { limpo = false; return; }
-        const p = window.__heroP || 0;
-        const a = palavras.getBoundingClientRect(), b = slot.getBoundingClientRect();
-        const visivel = a.bottom > 0 && b.top < H && p < 0.75;
-        if (!visivel && !soltas.length) { if (!limpo) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); limpo = true; } return; }
-        ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); limpo = false;
-        const cx = b.left + b.width / 2, cy = b.top + b.height / 2;
-        const t = agora / 1000;
-        if (p < 0.03 && t - ultimaSolta > 0.55 && soltas.length < 10) {
-          ultimaSolta = t;
-          soltas.push({ cor: sorteiaCor(), t0: t, dur: rand(2.2, 3.2), x0: a.left + Math.random() * a.width, y0: a.top + a.height * rand(0.3, 0.8),
-            dx: rand(-0.25, 0.25) * b.width, dy: rand(-0.25, 0.3) * b.height, arco: rand(-90, 90), r0: rand(0, 6.28), giro: rand(1.5, 3) * Math.PI, f0: rand(0, 6.28), tam: rand(9, 13) });
-        }
-        for (let i = soltas.length - 1; i >= 0; i--) {
-          const q = soltas[i], u = (t - q.t0) / q.dur;
-          if (u >= 1) { soltas.splice(i, 1); continue; }
-          const e = inOut(u), x1 = cx + q.dx, y1 = cy + q.dy;
-          const x = lerp(q.x0, x1, e) + Math.sin(Math.PI * e) * q.arco, y = lerp(q.y0, y1, e) - Math.sin(Math.PI * e) * 30;
-          desenha(q, x, y, q.tam, q.r0 + q.giro * u, q.f0 + 3 * Math.PI * u, sstep(0, 0.12, u) * (1 - sstep(0.6, 1, u)) * (1 - clamp(p * 20)));
-        }
-        if (p > 0.005 && p < 0.75) {
-          for (const g of guiadas) {
-            const u = clamp((p - g.atraso) / 0.3);
-            if (u <= 0 || u >= 1) continue;
-            const e = inOut(u);
-            const x0 = a.left + g.sx * a.width, y0 = a.top + g.sy * a.height;
-            const x1 = cx + g.ex * b.width, y1 = cy + g.ey * b.height;
-            const x = lerp(x0, x1, e) + Math.sin(Math.PI * e) * g.arco, y = lerp(y0, y1, e) - Math.sin(Math.PI * e) * 50;
-            desenha(g, x, y, g.tam * (1 - 0.35 * e), g.r0 + g.giro * e, g.f0 + 4 * Math.PI * e, sstep(0, 0.12, u) * (1 - sstep(0.7, 1, u)));
-          }
-        }
-      };
-      requestAnimationFrame(passoV2);
-    }
-  }
-
   window.addEventListener("resize", () => {
     if (estado === "aberto") semRecorte();
   });

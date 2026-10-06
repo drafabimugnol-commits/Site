@@ -42,9 +42,6 @@ if (!calmo && "IntersectionObserver" in window) {
 }
 
 // ---------- Rolagem suave ----------
-// versões do convite no topo, em teste: ?versao=1 (silhueta), 2 (palavras soltam pétalas), 3 (botão)
-const versaoTopo = new URLSearchParams(location.search).get("versao");
-if (/^[123]$/.test(versaoTopo || "")) document.documentElement.classList.add("versao-" + versaoTopo);
 let lenis = null;
 if (window.Lenis && !calmo) {
   lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true, anchors: true });
