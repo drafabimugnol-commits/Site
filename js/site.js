@@ -210,7 +210,9 @@ async function iniciarParticulas() {
 
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
   const t0 = performance.now();
-  let dormindo = false;
+  let dormindo = false, respiro0 = -1;
+  // comparação: ?antes mostra o fim do topo sem respiro e sem despedida
+  const semDespedida = /[?&]antes\b/.test(location.search);
   let cur = 0, curL = 0, ss = 1, rt = null, compScene, compCam, points = null, fm = null, larguraAnterior = 0;
 
   // fragmentos: grade com jitter (um a cada `passo` px) + mapa de espessura para o relevo 3D,
@@ -335,12 +337,12 @@ async function iniciarParticulas() {
         uOrigin: { value: new THREE.Vector2() }, uHalf: { value: new THREE.Vector2() }, uMouse: { value: new THREE.Vector2() },
         uDpr: { value: 1 }, uDepth: { value: MAGNOLIA.profundidade }, uSpin: { value: MAGNOLIA.giro }, uForce: { value: MAGNOLIA.forca },
         uWind: { value: MAGNOLIA.vento }, uVeil: { value: MAGNOLIA.intensidade }, uSize: { value: MAGNOLIA.tamanho },
-        uFly: { value: MAGNOLIA.voando }, uFormSize: { value: MAGNOLIA.tamanhoForma },
+        uFly: { value: MAGNOLIA.voando }, uFormSize: { value: MAGNOLIA.tamanhoForma }, uBreath: { value: 0 }, uLeave: { value: 0 },
         c0: { value: col("#5f454e") }, c1: { value: col("#a87776") }, c2: { value: col("#52594e") }, c3: { value: col("#96625f") }, c4: { value: col("#d8a8a2") },
       },
       vertexShader: `
         attribute vec4 aSeed; attribute float aAlpha; attribute vec3 aCloud; attribute vec2 aForma; attribute vec3 aCor;
-        uniform float uTime, uP, uDpr, uDepth, uSpin, uSize, uForce, uWind, uVeil, uFly, uFormSize;
+        uniform float uTime, uP, uDpr, uDepth, uSpin, uSize, uForce, uWind, uVeil, uFly, uFormSize, uBreath, uLeave;
         uniform vec2 uOrigin, uHalf, uMouse;
         uniform vec3 c0, c1, c2, c3, c4;
         varying vec3 vCol; varying float vA, vRot, vFill, vPx, vFlip, vE;
@@ -359,6 +361,12 @@ async function iniciarParticulas() {
           cl.y += cos(uTime*0.15 + aSeed.y*20.) * 40. * uWind;
           vec3 q = mix(cl, p, e);
           q.xz = rot((1. - e) * (aSeed.z - 0.5) * 4. * uForce) * q.xz;
+
+          // respiro: ao assentar, a flor se abre de leve (o relevo aprofunda) e volta a repousar
+          q *= vec3(vec2(1. + 0.035 * uBreath), 1. + 0.7 * uBreath);
+          // despedida: ao voltar a rolar, recua para o fundo e diminui um pouco
+          q.xy *= 1. - 0.08 * uLeave;
+          q.z -= 160. * uLeave;
 
           // giro 3D: uma volta inteira que assenta de frente + mouse
           float gp = clamp(uP, 0., 1.);
@@ -382,7 +390,7 @@ async function iniciarParticulas() {
           float fog = clamp(0.55 + q.z / (uDepth * 3. + 1.) * 0.45, 0.3, 1.);
           float aOn = aAlpha * (0.7 + aSeed.x * 0.3) * fog;
           float aOff = (0.16 + aSeed.x * 0.22) * uVeil;
-          vA = mix(aOff, aOn, e) * mix(voa, 1., pousa);
+          vA = mix(aOff, aOn, e) * mix(voa, 1., pousa) * (1. - 0.6 * uLeave);
           vCol = mix(pal, aCor, pousa);
           // pousadas, as pétalas apontam a ponta para a borda mais próxima, como pinceladas que seguem o desenho
           float voo = aSeed.y * 6.2832 + uTime * (aSeed.z - 0.5) * (1.2 - e);
@@ -591,10 +599,15 @@ async function iniciarParticulas() {
       const W = window.innerWidth, H = window.innerHeight;
       const u = points.material.uniforms;
       const r = slotFlor.getBoundingClientRect(), lr = slotFM.getBoundingClientRect();
-      u.uOrigin.value.set(r.left + r.width / 2 - W / 2, H / 2 - (r.top + r.height / 2));
-
       // progresso do surgimento: enquanto o topo está fixo na tela
       const pr = pin.getBoundingClientRect();
+
+      // despedida: quando o topo solta e a página volta a rolar, a flor não é arrancada junto;
+      // começa a subir a 40% da velocidade do texto e vai alcançando, enquanto recua e esmaece
+      const solto = semDespedida ? 0 : Math.max(0, H - pr.bottom);
+      const L = H * 0.3, atraso = 0.5 * L * (1 - Math.exp(-solto / L));
+      u.uOrigin.value.set(r.left + r.width / 2 - W / 2, H / 2 - (r.top + r.height / 2) - atraso);
+      u.uLeave.value = semDespedida ? 0 : Math.min(1, solto / (H * 0.6)) ** 1.3;
       const tP = Math.min(1, Math.max(0, -pr.top / Math.max(1, (pr.height - H) * 0.85)));
       // monograma: quando o centro do slot passa de 105% para 55% da altura da tela
       const tL = Math.min(1, Math.max(0, (H * 1.05 - (lr.top + lr.height / 2)) / (H * 0.5)));
@@ -607,6 +620,13 @@ async function iniciarParticulas() {
       mouse.y += (mouse.ty - mouse.y) * 0.04;
       u.uMouse.value.set(calmo ? 0 : mouse.x, calmo ? 0 : mouse.y);
       u.uP.value = cur;
+      // respiro: dispara uma vez quando a flor termina de assentar (≈1,8 s, inspira e solta)
+      if (!semDespedida) {
+        if (cur > 0.995 && respiro0 < 0) respiro0 = performance.now();
+        if (cur < 0.9) respiro0 = -1;
+        const kb = respiro0 < 0 ? 0 : Math.min(1, (performance.now() - respiro0) / 1800);
+        u.uBreath.value = calmo ? 0 : Math.sin(Math.PI * kb) * (1 - kb * 0.15);
+      }
       const tempo = calmo ? 0 : (performance.now() - t0) / 1000;
       u.uTime.value = tempo;
       if (fm) {
@@ -616,7 +636,7 @@ async function iniciarParticulas() {
         f.uTime.value = tempo;
       }
       // fora da tela (entre o topo e o contato) não há o que desenhar: limpa uma vez e descansa
-      const ativo = pr.bottom > 0 || (lr.top < H * 1.6 && lr.bottom > -H * 0.6);
+      const ativo = pr.bottom > -H * 0.4 || (lr.top < H * 1.6 && lr.bottom > -H * 0.6);
       if (!ativo) {
         if (!dormindo) { dormindo = true; renderer.setRenderTarget(null); renderer.clear(); }
         return;
