@@ -1,6 +1,6 @@
 // Dra. Fabiana Mugnol — comportamento da página
 // Rolagem suave (Lenis), revelação de texto, fundo por seção, fio do Caminhar Juntos,
-// botão "Entrar em contato" e as partículas (magnólia no topo, monograma FM no contato).
+// botão "Contatos" e as partículas (magnólia no topo, monograma FM no contato).
 
 // Ajustes finos das partículas (equivalem aos controles do protótipo)
 const MAGNOLIA = { profundidade: 90, giro: 1, forca: 1.3, vento: 1.5, fragmento: 2, tamanhoForma: 9, voando: 0.03, intensidade: 1.4, tamanho: 13.5, escalaCelular: 0.85 };
@@ -47,24 +47,9 @@ if (window.Lenis && !calmo) {
   lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true, anchors: true });
 }
 
-// ---------- Menu do celular ----------
-(() => {
-  const btn = document.querySelector(".nav__menu");
-  const links = document.getElementById("nav-links");
-  if (!btn || !links) return;
-  const set = (aberto) => {
-    document.documentElement.classList.toggle("menu-aberto", aberto);
-    btn.setAttribute("aria-expanded", String(aberto));
-    btn.textContent = aberto ? "Fechar" : "Menu";
-    if (lenis) aberto ? lenis.stop() : lenis.start();
-    document.body.style.overflow = aberto ? "hidden" : "";
-  };
-  btn.addEventListener("click", () => set(btn.getAttribute("aria-expanded") !== "true"));
-  links.addEventListener("click", (e) => { if (e.target.closest("a")) set(false); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
-})();
+// ---------- Menu: o painel de pétalas fica em js/flor-menu.js (botão do topo e flor do canto) ----------
 
-// ---------- Botão "Entrar em contato": escolha entre os 3 WhatsApps ----------
+// ---------- Botão "Contatos": escolha entre os 3 WhatsApps ----------
 const escolha = document.getElementById("escolha-contato");
 const abrirEscolha = (aberto) => {
   escolha.hidden = !aberto;
@@ -89,7 +74,7 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscol
     cancelAnimationFrame(fade);
     const v0 = audio.volume, t0 = performance.now();
     const passo = (t) => {
-      const k = Math.min(1, (t - t0) / ms);
+      const k = Math.max(0, Math.min(1, (t - t0) / ms));
       audio.volume = v0 + (alvo - v0) * k;
       if (k < 1) fade = requestAnimationFrame(passo); else if (fim) fim();
     };
@@ -100,6 +85,7 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscol
     const rot = ligado ? "Desligar a música" : "Ligar a música";
     btn.setAttribute("aria-label", rot); btn.title = rot;
     btn.classList.toggle("tocando", ligado && !audio.paused);
+    document.documentElement.classList.toggle("musica-tocando", ligado && !audio.paused);
   };
   const tocar = () => {
     if (!ligado || document.hidden || !audio.paused) return;
