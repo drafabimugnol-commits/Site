@@ -335,12 +335,12 @@ async function iniciarParticulas() {
         uOrigin: { value: new THREE.Vector2() }, uHalf: { value: new THREE.Vector2() }, uMouse: { value: new THREE.Vector2() },
         uDpr: { value: 1 }, uDepth: { value: MAGNOLIA.profundidade }, uSpin: { value: MAGNOLIA.giro }, uForce: { value: MAGNOLIA.forca },
         uWind: { value: MAGNOLIA.vento }, uVeil: { value: MAGNOLIA.intensidade }, uSize: { value: MAGNOLIA.tamanho },
-        uFly: { value: MAGNOLIA.voando }, uFormSize: { value: MAGNOLIA.tamanhoForma },
+        uFly: { value: MAGNOLIA.voando }, uFormSize: { value: MAGNOLIA.tamanhoForma }, uLeave: { value: 0 },
         c0: { value: col("#5f454e") }, c1: { value: col("#a87776") }, c2: { value: col("#52594e") }, c3: { value: col("#96625f") }, c4: { value: col("#d8a8a2") },
       },
       vertexShader: `
         attribute vec4 aSeed; attribute float aAlpha; attribute vec3 aCloud; attribute vec2 aForma; attribute vec3 aCor;
-        uniform float uTime, uP, uDpr, uDepth, uSpin, uSize, uForce, uWind, uVeil, uFly, uFormSize;
+        uniform float uTime, uP, uDpr, uDepth, uSpin, uSize, uForce, uWind, uVeil, uFly, uFormSize, uLeave;
         uniform vec2 uOrigin, uHalf, uMouse;
         uniform vec3 c0, c1, c2, c3, c4;
         varying vec3 vCol; varying float vA, vRot, vFill, vPx, vFlip, vE;
@@ -367,6 +367,14 @@ async function iniciarParticulas() {
           float ax = sin(uTime*0.17 + 1.) * 0.07 + uMouse.y * 0.16;
           q.xz = rot(ay) * q.xz;
           q.yz = rot(ax) * q.yz;
+
+          // desfazer: rolando adiante, as pétalas se soltam (de cima para baixo, cada uma no seu tempo)
+          // e o vento as leva para o alto, girando; rolando de volta, o ramo se refaz
+          float dd = clamp(uLeave * 1.8 - (aSeed.w * 0.55 + (1. - h) * 0.25), 0., 1.);
+          float d2 = dd * dd;
+          q.x += (40. + aSeed.x * 760.) * d2 + sin(uTime * 0.7 + aSeed.z * 30.) * 30. * dd;
+          q.y += (80. + aSeed.y * 820.) * d2 + cos(uTime * 0.6 + aSeed.y * 30.) * 30. * dd;
+          q.z += (aSeed.z - 0.3) * 700. * d2;
           float persp = 1500. / (1500. - q.z);
           vec2 sp = q.xy * persp + uOrigin;
 
@@ -378,20 +386,22 @@ async function iniciarParticulas() {
           // junto às linhas do desenho as pétalas afinam, e os contornos internos reaparecem
           float borda = mix(0.45, 1., smoothstep(0.6, 3.5, aForma.x));
           float px = mix(uSize * (0.7 + aSeed.x * 0.75), uFormSize * (0.8 + aSeed.x * 0.4) * borda, pousa) * persp;
+          // ao se soltar, as poucas que voam crescem de volta ao tamanho do voo; as demais se dissolvem no ar
+          px = mix(px, uSize * (0.7 + aSeed.x * 0.75) * persp, voa * smoothstep(0., 0.6, dd));
           vec3 pal = aSeed.y < 0.34 ? c0 : (aSeed.y < 0.56 ? c1 : (aSeed.y < 0.72 ? c3 : (aSeed.y < 0.86 ? c4 : c2)));
           float fog = clamp(0.55 + q.z / (uDepth * 3. + 1.) * 0.45, 0.3, 1.);
           float aOn = aAlpha * (0.7 + aSeed.x * 0.3) * fog;
           float aOff = (0.16 + aSeed.x * 0.22) * uVeil;
-          vA = mix(aOff, aOn, e) * mix(voa, 1., pousa);
+          vA = mix(aOff, aOn, e) * mix(voa, 1., pousa) * mix(1. - smoothstep(0.08, 0.55, dd), 1. - smoothstep(0.7, 1., dd), voa);
           vCol = mix(pal, aCor, pousa);
           // pousadas, as pétalas apontam a ponta para a borda mais próxima, como pinceladas que seguem o desenho
           float voo = aSeed.y * 6.2832 + uTime * (aSeed.z - 0.5) * (1.2 - e);
           // junto ao contorno deitam ao longo da linha (borda nítida); no miolo apontam para fora
           float deita = (1. - smoothstep(1., 4., aForma.x)) * 1.5708 * (aSeed.y < 0.5 ? 1. : -1.);
           float assento = aForma.y + deita + (aSeed.w - 0.5) * 0.4 + sin(uTime * 0.6 + aSeed.x * 20.) * 0.06;
-          vRot = mix(voo, assento, pousa);
+          vRot = mix(voo, assento, pousa) + dd * (aSeed.z - 0.5) * 9.;
           vFill = aSeed.z;
-          vFlip = mix(aSeed.x * 6.2832 + uTime * (0.7 + aSeed.w * 1.3), (aSeed.x - 0.5) * 0.7 + sin(uTime * 0.8 + aSeed.w * 12.) * 0.18, e);
+          vFlip = mix(aSeed.x * 6.2832 + uTime * (0.7 + aSeed.w * 1.3), (aSeed.x - 0.5) * 0.7 + sin(uTime * 0.8 + aSeed.w * 12.) * 0.18, e) + dd * (2. + aSeed.w * 6.);
           vE = e;
           vPx = px;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(sp, 0., 1.);
@@ -591,10 +601,14 @@ async function iniciarParticulas() {
       const W = window.innerWidth, H = window.innerHeight;
       const u = points.material.uniforms;
       const r = slotFlor.getBoundingClientRect(), lr = slotFM.getBoundingClientRect();
-      u.uOrigin.value.set(r.left + r.width / 2 - W / 2, H / 2 - (r.top + r.height / 2));
-
       // progresso do surgimento: enquanto o topo está fixo na tela
       const pr = pin.getBoundingClientRect();
+
+      // desfazer: quando o topo solta, a flor sobe junto com ele (a composição não se desfaz,
+      // nenhum texto a atravessa) e se desfaz ao longo de ~60% de uma tela de rolagem
+      const solto = Math.max(0, H - pr.bottom);
+      u.uOrigin.value.set(r.left + r.width / 2 - W / 2, H / 2 - (r.top + r.height / 2));
+      u.uLeave.value = Math.min(1, solto / (H * 0.6));
       const tP = Math.min(1, Math.max(0, -pr.top / Math.max(1, (pr.height - H) * 0.85)));
       // monograma: quando o centro do slot passa de 105% para 55% da altura da tela
       const tL = Math.min(1, Math.max(0, (H * 1.05 - (lr.top + lr.height / 2)) / (H * 0.5)));
