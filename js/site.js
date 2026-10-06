@@ -75,6 +75,59 @@ escolha.addEventListener("click", (e) => { if (e.target.closest("a")) abrirEscol
 document.addEventListener("click", (e) => { if (!e.target.closest(".contato-flutuante")) abrirEscolha(false); });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscolha(false); });
 
+// ---------- Trilha sonora: ligada por padrão; quem desligar fica desligado nas próximas visitas ----------
+// Os navegadores só liberam som depois do primeiro toque/clique/tecla do visitante:
+// tenta tocar ao abrir e, se for bloqueado, começa no primeiro gesto.
+(() => {
+  const btn = document.getElementById("som"), audio = document.getElementById("trilha");
+  if (!btn || !audio) return;
+  const VOL = 0.7; // o arquivo já vem baixo (iPhone ignora volume)
+  let ligado = true;
+  try { ligado = localStorage.getItem("som") !== "desligado"; } catch (e) {}
+  let fade = 0;
+  const rampa = (alvo, ms, fim) => {
+    cancelAnimationFrame(fade);
+    const v0 = audio.volume, t0 = performance.now();
+    const passo = (t) => {
+      const k = Math.min(1, (t - t0) / ms);
+      audio.volume = v0 + (alvo - v0) * k;
+      if (k < 1) fade = requestAnimationFrame(passo); else if (fim) fim();
+    };
+    fade = requestAnimationFrame(passo);
+  };
+  const mostrar = () => {
+    btn.setAttribute("aria-pressed", String(ligado));
+    const rot = ligado ? "Desligar a música" : "Ligar a música";
+    btn.setAttribute("aria-label", rot); btn.title = rot;
+    btn.classList.toggle("tocando", ligado && !audio.paused);
+  };
+  const tocar = () => {
+    if (!ligado || document.hidden || !audio.paused) return;
+    audio.volume = 0;
+    const p = audio.play();
+    if (p) p.then(() => { rampa(VOL, 3000); mostrar(); }).catch(() => {});
+  };
+  const parar = () => rampa(0, 600, () => { audio.pause(); mostrar(); });
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    ligado = !ligado;
+    try { localStorage.setItem("som", ligado ? "ligado" : "desligado"); } catch (err) {}
+    if (ligado) tocar(); else parar();
+    mostrar();
+  });
+  // primeiro gesto em qualquer lugar da página libera o som
+  const gesto = (e) => { if (e.target.closest && e.target.closest("#som")) return; tocar(); };
+  ["pointerdown", "keydown", "touchend"].forEach((ev) => document.addEventListener(ev, gesto, { passive: true }));
+  audio.addEventListener("playing", mostrar);
+  audio.addEventListener("pause", mostrar);
+  // pausa com a aba escondida e retoma ao voltar
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) { if (!audio.paused) audio.pause(); } else tocar();
+  });
+  mostrar();
+  tocar();
+})();
+
 // ---------- Elementos acompanhados a cada quadro ----------
 const secs = [...document.querySelectorAll("[data-tom]")].map((el) => ({ el, c: hex(el.dataset.tom) }));
 const fio = document.getElementById("fio");
@@ -157,9 +210,11 @@ async function iniciarParticulas() {
 
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
   const t0 = performance.now();
+  let dormindo = false;
   let cur = 0, curL = 0, ss = 1, rt = null, compScene, compCam, points = null, fm = null, larguraAnterior = 0;
 
-  // fragmentos: grade com jitter (um a cada `passo` px) + mapa de espessura para o relevo 3D
+  // fragmentos: grade com jitter (um a cada `passo` px) + mapa de espessura para o relevo 3D,
+  // distância até a borda mais próxima do desenho e a direção que aponta para essa borda
   function amostrar(im, cssW, cssH, passo) {
     const pw = Math.max(1, Math.round(cssW)), ph = Math.max(1, Math.round(cssH));
     const c = document.createElement("canvas"); c.width = pw; c.height = ph;
@@ -171,6 +226,22 @@ async function iniciarParticulas() {
     const bx = b.getContext("2d", { willReadFrequently: true });
     bx.filter = "blur(2.5px)"; bx.drawImage(im, 0, 0, sw, sh);
     const bd = bx.getImageData(0, 0, sw, sh).data;
+    // mapa de distância (chanfro 1/√2): 0 fora do desenho e nas linhas internas, cresce para dentro
+    const N = pw * ph, dist = new Float32Array(N), R2 = Math.SQRT2;
+    for (let i = 0; i < N; i++) dist[i] = d[i * 4 + 3] < 102 ? 0 : 1e6;
+    for (let y = 0; y < ph; y++) for (let x = 0; x < pw; x++) {
+      const i = y * pw + x; let v = dist[i]; if (!v) continue;
+      if (x > 0) v = Math.min(v, dist[i - 1] + 1);
+      if (y > 0) { v = Math.min(v, dist[i - pw] + 1); if (x > 0) v = Math.min(v, dist[i - pw - 1] + R2); if (x < pw - 1) v = Math.min(v, dist[i - pw + 1] + R2); }
+      dist[i] = v;
+    }
+    for (let y = ph - 1; y >= 0; y--) for (let x = pw - 1; x >= 0; x--) {
+      const i = y * pw + x; let v = dist[i]; if (!v) continue;
+      if (x < pw - 1) v = Math.min(v, dist[i + 1] + 1);
+      if (y < ph - 1) { v = Math.min(v, dist[i + pw] + 1); if (x < pw - 1) v = Math.min(v, dist[i + pw + 1] + R2); if (x > 0) v = Math.min(v, dist[i + pw - 1] + R2); }
+      dist[i] = v;
+    }
+    const D = (x, y) => dist[Math.min(ph - 1, Math.max(0, y)) * pw + Math.min(pw - 1, Math.max(0, x))];
     const out = [];
     for (let y = passo / 2; y < ph; y += passo) for (let x = passo / 2; x < pw; x += passo) {
       const jx = Math.min(pw - 1, Math.max(0, Math.round(x + (Math.random() - 0.5) * passo * 0.9)));
@@ -178,7 +249,12 @@ async function iniciarParticulas() {
       const al = d[(jy * pw + jx) * 4 + 3] / 255;
       if (al < 0.4) continue;
       const th = bd[(Math.min(sh - 1, Math.floor(jy / ph * sh)) * sw + Math.min(sw - 1, Math.floor(jx / pw * sw))) * 4 + 3] / 255;
-      out.push(jx - cssW / 2, cssH / 2 - jy, th, al);
+      // direção para a borda mais próxima (contrária ao gradiente da distância), em coordenadas da imagem
+      const ox = D(jx - 2, jy) - D(jx + 2, jy), oy = D(jx, jy - 2) - D(jx, jy + 2);
+      // galho: região estreita (nenhum ponto vizinho fica longe da borda)
+      let larg = 0;
+      for (let v = -6; v <= 6; v += 3) for (let u = -6; u <= 6; u += 3) larg = Math.max(larg, D(jx + u, jy + v));
+      out.push(jx - cssW / 2, cssH / 2 - jy, th, al, D(jx, jy), Math.atan2(ox, -oy), larg);
     }
     return out;
   }
@@ -216,18 +292,28 @@ async function iniciarParticulas() {
     dimensionar();
     const W = window.innerWidth, H = window.innerHeight;
 
-    const passo = MAGNOLIA.fragmento;
+    // celulares mais modestos: metade das pétalas, para manter a fluidez
+    const modesto = window.innerWidth < 760 && (navigator.hardwareConcurrency || 8) <= 4;
+    const passo = modesto ? MAGNOLIA.fragmento + 1 : MAGNOLIA.fragmento;
     // no celular o ramo fica ~15% menor, centralizado no mesmo espaço
     const escala = window.innerWidth < 760 ? MAGNOLIA.escalaCelular : 1;
     const cssH = Math.min(r.height * 0.96, r.width * 0.96 * img.height / img.width) * escala;
     const cssW = cssH * img.width / img.height;
     const flor = amostrar(img, cssW, cssH, passo);
 
-    const n = flor.length / 4;
+    const n = flor.length / 7;
     const pos = new Float32Array(n * 3), seed = new Float32Array(n * 4), alpha = new Float32Array(n), cloud = new Float32Array(n * 3);
+    const forma = new Float32Array(n * 2), cor = new Float32Array(n * 3);
+    // cor ao pousar: galhos escuros; pétalas claras junto às bordas e mais fundas no miolo
+    const tons = ["#5f454e", "#52594e", "#d8a8a2", "#a87776", "#96625f"].map((h) => new THREE.Color().setStyle(h, THREE.LinearSRGBColorSpace));
     for (let k = 0; k < n; k++) {
-      pos[k * 3] = flor[k * 4]; pos[k * 3 + 1] = flor[k * 4 + 1]; pos[k * 3 + 2] = flor[k * 4 + 2]; alpha[k] = flor[k * 4 + 3];
+      const f = k * 7;
+      pos[k * 3] = flor[f]; pos[k * 3 + 1] = flor[f + 1]; pos[k * 3 + 2] = flor[f + 2]; alpha[k] = flor[f + 3];
       for (let q = 0; q < 4; q++) seed[k * 4 + q] = Math.random();
+      forma[k * 2] = flor[f + 4]; forma[k * 2 + 1] = flor[f + 5];
+      const fundo = Math.min(1, flor[f + 4] / 9) + (Math.random() - 0.5) * 0.35;
+      const t = flor[f + 6] < 4.6 ? tons[Math.random() < 0.8 ? 0 : 1] : tons[fundo < 0.3 ? 2 : fundo < 0.68 ? 3 : 4];
+      cor[k * 3] = t.r; cor[k * 3 + 1] = t.g; cor[k * 3 + 2] = t.b;
       // nuvem inicial: espalhada pela tela e em profundidade
       cloud[k * 3] = (Math.random() - 0.5) * W * 1.2;
       cloud[k * 3 + 1] = (Math.random() - 0.5) * H * 1.2;
@@ -238,6 +324,8 @@ async function iniciarParticulas() {
     g.setAttribute("aSeed", new THREE.BufferAttribute(seed, 4));
     g.setAttribute("aAlpha", new THREE.BufferAttribute(alpha, 1));
     g.setAttribute("aCloud", new THREE.BufferAttribute(cloud, 3));
+    g.setAttribute("aForma", new THREE.BufferAttribute(forma, 2));
+    g.setAttribute("aCor", new THREE.BufferAttribute(cor, 3));
 
     const prev = points;
     const mat = prev ? prev.material : new THREE.ShaderMaterial({
@@ -251,7 +339,7 @@ async function iniciarParticulas() {
         c0: { value: col("#5f454e") }, c1: { value: col("#a87776") }, c2: { value: col("#52594e") }, c3: { value: col("#96625f") }, c4: { value: col("#d8a8a2") },
       },
       vertexShader: `
-        attribute vec4 aSeed; attribute float aAlpha; attribute vec3 aCloud;
+        attribute vec4 aSeed; attribute float aAlpha; attribute vec3 aCloud; attribute vec2 aForma; attribute vec3 aCor;
         uniform float uTime, uP, uDpr, uDepth, uSpin, uSize, uForce, uWind, uVeil, uFly, uFormSize;
         uniform vec2 uOrigin, uHalf, uMouse;
         uniform vec3 c0, c1, c2, c3, c4;
@@ -284,15 +372,24 @@ async function iniciarParticulas() {
 
           // em voo só uma parte das pétalas aparece, grandes; ao assentar todas surgem, finas, e desenham o contorno
           float voa = step(fract(aSeed.x * 13.7 + aSeed.w * 7.13), uFly);
-          float pousa = smoothstep(0.55, 1., e);
-          float px = mix(uSize * (0.7 + aSeed.x * 0.75), uFormSize * (0.8 + aSeed.x * 0.4), pousa) * persp;
+          // cada pétala só aparece quando já está chegando ao seu lugar, em momentos diferentes:
+          // o ramo vai se desenhando, sem formar uma nuvem antes
+          float pousa = smoothstep(0.72 + aSeed.z * 0.18, 1., e);
+          // junto às linhas do desenho as pétalas afinam, e os contornos internos reaparecem
+          float borda = mix(0.45, 1., smoothstep(0.6, 3.5, aForma.x));
+          float px = mix(uSize * (0.7 + aSeed.x * 0.75), uFormSize * (0.8 + aSeed.x * 0.4) * borda, pousa) * persp;
           vec3 pal = aSeed.y < 0.34 ? c0 : (aSeed.y < 0.56 ? c1 : (aSeed.y < 0.72 ? c3 : (aSeed.y < 0.86 ? c4 : c2)));
           float fog = clamp(0.55 + q.z / (uDepth * 3. + 1.) * 0.45, 0.3, 1.);
           float aOn = aAlpha * (0.7 + aSeed.x * 0.3) * fog;
           float aOff = (0.16 + aSeed.x * 0.22) * uVeil;
           vA = mix(aOff, aOn, e) * mix(voa, 1., pousa);
-          vCol = pal;
-          vRot = aSeed.y * 6.2832 + uTime * (aSeed.z - 0.5) * (1.2 - e);
+          vCol = mix(pal, aCor, pousa);
+          // pousadas, as pétalas apontam a ponta para a borda mais próxima, como pinceladas que seguem o desenho
+          float voo = aSeed.y * 6.2832 + uTime * (aSeed.z - 0.5) * (1.2 - e);
+          // junto ao contorno deitam ao longo da linha (borda nítida); no miolo apontam para fora
+          float deita = (1. - smoothstep(1., 4., aForma.x)) * 1.5708 * (aSeed.y < 0.5 ? 1. : -1.);
+          float assento = aForma.y + deita + (aSeed.w - 0.5) * 0.4 + sin(uTime * 0.6 + aSeed.x * 20.) * 0.06;
+          vRot = mix(voo, assento, pousa);
           vFill = aSeed.z;
           vFlip = mix(aSeed.x * 6.2832 + uTime * (0.7 + aSeed.w * 1.3), (aSeed.x - 0.5) * 0.7 + sin(uTime * 0.8 + aSeed.w * 12.) * 0.18, e);
           vE = e;
@@ -518,6 +615,13 @@ async function iniciarParticulas() {
         f.uL.value = curL;
         f.uTime.value = tempo;
       }
+      // fora da tela (entre o topo e o contato) não há o que desenhar: limpa uma vez e descansa
+      const ativo = pr.bottom > 0 || (lr.top < H * 1.6 && lr.bottom > -H * 0.6);
+      if (!ativo) {
+        if (!dormindo) { dormindo = true; renderer.setRenderTarget(null); renderer.clear(); }
+        return;
+      }
+      dormindo = false;
       renderer.setRenderTarget(rt);
       renderer.clear();
       renderer.render(scene, camera);
