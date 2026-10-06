@@ -60,60 +60,6 @@ escolha.addEventListener("click", (e) => { if (e.target.closest("a")) abrirEscol
 document.addEventListener("click", (e) => { if (!e.target.closest(".contato-flutuante")) abrirEscolha(false); });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscolha(false); });
 
-// ---------- Trilha sonora: desligada por padrão; quem ligar (no menu) fica ligado nas próximas visitas ----------
-// Os navegadores só liberam som depois do primeiro toque/clique/tecla do visitante:
-// tenta tocar ao abrir e, se for bloqueado, começa no primeiro gesto.
-(() => {
-  const btn = document.getElementById("som"), audio = document.getElementById("trilha");
-  if (!btn || !audio) return;
-  const VOL = 0.7; // o arquivo já vem baixo (iPhone ignora volume)
-  let ligado = false;
-  try { ligado = localStorage.getItem("som") === "ligado"; } catch (e) {}
-  let fade = 0;
-  const rampa = (alvo, ms, fim) => {
-    cancelAnimationFrame(fade);
-    const v0 = audio.volume, t0 = performance.now();
-    const passo = (t) => {
-      const k = Math.max(0, Math.min(1, (t - t0) / ms));
-      audio.volume = v0 + (alvo - v0) * k;
-      if (k < 1) fade = requestAnimationFrame(passo); else if (fim) fim();
-    };
-    fade = requestAnimationFrame(passo);
-  };
-  const mostrar = () => {
-    btn.setAttribute("aria-pressed", String(ligado));
-    const rot = ligado ? "Desligar a música" : "Ligar a música";
-    btn.setAttribute("aria-label", rot); btn.title = rot;
-    btn.classList.toggle("tocando", ligado && !audio.paused);
-    document.documentElement.classList.toggle("musica-tocando", ligado && !audio.paused);
-  };
-  const tocar = () => {
-    if (!ligado || document.hidden || !audio.paused) return;
-    audio.volume = 0;
-    const p = audio.play();
-    if (p) p.then(() => { rampa(VOL, 3000); mostrar(); }).catch(() => {});
-  };
-  const parar = () => rampa(0, 600, () => { audio.pause(); mostrar(); });
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    ligado = !ligado;
-    try { localStorage.setItem("som", ligado ? "ligado" : "desligado"); } catch (err) {}
-    if (ligado) tocar(); else parar();
-    mostrar();
-  });
-  // primeiro gesto em qualquer lugar da página libera o som
-  const gesto = (e) => { if (e.target.closest && e.target.closest("#som")) return; tocar(); };
-  ["pointerdown", "keydown", "touchend"].forEach((ev) => document.addEventListener(ev, gesto, { passive: true }));
-  audio.addEventListener("playing", mostrar);
-  audio.addEventListener("pause", mostrar);
-  // pausa com a aba escondida e retoma ao voltar
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) { if (!audio.paused) audio.pause(); } else tocar();
-  });
-  mostrar();
-  tocar();
-})();
-
 // ---------- Elementos acompanhados a cada quadro ----------
 const secs = [...document.querySelectorAll("[data-tom]")].map((el) => ({ el, c: hex(el.dataset.tom) }));
 const fio = document.getElementById("fio");
