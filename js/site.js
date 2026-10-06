@@ -1,6 +1,6 @@
 // Dra. Fabiana Mugnol — comportamento da página
 // Rolagem suave (Lenis), revelação de texto, fundo por seção, fio do Caminhar Juntos,
-// botão "Entrar em contato" e as partículas (magnólia no topo, monograma FM no contato).
+// botão "Contatos" e as partículas (magnólia no topo, monograma FM no contato).
 
 // Ajustes finos das partículas (equivalem aos controles do protótipo)
 const MAGNOLIA = { profundidade: 90, giro: 1, forca: 1.3, vento: 1.5, fragmento: 2, tamanhoForma: 9, voando: 0.03, intensidade: 1.4, tamanho: 13.5, escalaCelular: 0.85 };
@@ -49,7 +49,7 @@ if (window.Lenis && !calmo) {
 
 // ---------- Menu: o painel de pétalas fica em js/flor-menu.js (botão do topo e flor do canto) ----------
 
-// ---------- Botão "Entrar em contato": escolha entre os 3 WhatsApps ----------
+// ---------- Botão "Contatos": escolha entre os 3 WhatsApps ----------
 const escolha = document.getElementById("escolha-contato");
 const abrirEscolha = (aberto) => {
   escolha.hidden = !aberto;
