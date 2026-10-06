@@ -211,6 +211,7 @@ em { font-style: italic; }
 /* botão do topo: a mesma magnólia, pequena, com a palavra Menu */
 .nav__menu.flor-topo {
   display: inline-flex; align-items: center; gap: 10px; color: var(--rose);
+  background: none; border: 0; padding: 0; margin: 0; font-family: inherit; cursor: pointer; -webkit-appearance: none; appearance: none;
   font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
 }
 .flor-topo__flor { width: 30px; height: 30px; overflow: visible; margin: -6px 0 -6px -4px; }
@@ -627,7 +628,7 @@ em { font-style: italic; }
 @media (min-width: 1400px) {
   .nav { flex-wrap: nowrap; }
   .nav__links { gap: 20px; flex-wrap: nowrap; white-space: nowrap; }
-  .nav__menu { display: none; }
+  .nav__menu, .nav__menu.flor-topo { display: none; }
 }
 @media (max-height: 759px) {
   .hero__faixa { display: none; }
