@@ -211,8 +211,6 @@ async function iniciarParticulas() {
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
   const t0 = performance.now();
   let dormindo = false;
-  // comparação: ?antes mostra o fim do topo como era (a flor sobe junto com a página)
-  const semDesfazer = /[?&]antes\b/.test(location.search);
   let cur = 0, curL = 0, ss = 1, rt = null, compScene, compCam, points = null, fm = null, larguraAnterior = 0;
 
   // fragmentos: grade com jitter (um a cada `passo` px) + mapa de espessura para o relevo 3D,
@@ -608,7 +606,7 @@ async function iniciarParticulas() {
 
       // desfazer: quando o topo solta, a flor sobe junto com ele (a composição não se desfaz,
       // nenhum texto a atravessa) e se desfaz ao longo de ~60% de uma tela de rolagem
-      const solto = semDesfazer ? 0 : Math.max(0, H - pr.bottom);
+      const solto = Math.max(0, H - pr.bottom);
       u.uOrigin.value.set(r.left + r.width / 2 - W / 2, H / 2 - (r.top + r.height / 2));
       u.uLeave.value = Math.min(1, solto / (H * 0.6));
       const tP = Math.min(1, Math.max(0, -pr.top / Math.max(1, (pr.height - H) * 0.85)));
