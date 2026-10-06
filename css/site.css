@@ -205,9 +205,6 @@ em { font-style: italic; }
 .flor-gatilho[aria-expanded="true"] .flor-botao__p--e, .flor-gatilho[aria-expanded="true"] .flor-botao__p--d { transition-delay: .03s; }
 .flor-gatilho[aria-expanded="true"] .flor-botao__haste { opacity: 0; }
 .flor-gatilho[aria-expanded="true"] .flor-botao__x { opacity: .9; transform: none; transition-delay: .25s; }
-/* com a música tocando, a flor respira devagar */
-.musica-tocando .flor-botao[aria-expanded="false"] svg { animation: flor-respira 3.6s ease-in-out infinite; }
-@keyframes flor-respira { 50% { transform: scale(1.07); } }
 .fundo-escuro .flor-botao { background: var(--nude); color: var(--rose); }
 .fundo-escuro .flor-menu { background: #46323a; }
 .fundo-escuro .flor-botao__p { stroke: var(--nude); }
@@ -289,35 +286,10 @@ em { font-style: italic; }
 }
 .flor-menu__paciente:hover { background: var(--nude); color: var(--vinho); }
 
-/* música: linha dentro do painel; barras dançam enquanto toca */
-.som {
-  display: flex; align-items: center; gap: 14px; width: 100%; padding: 10px 14px; border: 0; border-radius: 16px; cursor: pointer;
-  background: rgba(227, 211, 202, .08); color: var(--nude); font-family: inherit; text-align: left;
-  transition: background .4s;
-}
-.som:hover { background: rgba(227, 211, 202, .14); }
-.som:focus-visible { outline: 2px solid var(--rose-claro); outline-offset: 2px; }
-.som__barras { display: flex; align-items: flex-end; gap: 3px; height: 14px; flex: none; }
-.som__barras i { display: block; width: 2px; height: 4px; border-radius: 1px; background: var(--rose-claro); transition: height .4s var(--ease); }
-.som.tocando .som__barras i { animation: som-barra 1.2s ease-in-out infinite alternate; }
-.som.tocando .som__barras i:nth-child(2) { animation-delay: -.4s; animation-duration: 1s; }
-.som.tocando .som__barras i:nth-child(3) { animation-delay: -.8s; animation-duration: 1.4s; }
-.som.tocando .som__barras i:nth-child(4) { animation-delay: -.2s; animation-duration: 1.1s; }
-@keyframes som-barra { from { height: 3px; } to { height: 14px; } }
-.som__texto { display: flex; flex-direction: column; gap: 1px; flex: 1; }
-.som__titulo { font-size: 10.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; }
-.som__obra { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--rose-claro); }
-.som__estado { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; opacity: .7; }
-.som__estado::after { content: "ligada"; }
-.som[aria-pressed="false"] .som__estado::after { content: "desligada"; }
-.som[aria-pressed="false"] .som__barras { opacity: .45; }
-
 /* pétalas que constroem e desfazem o painel */
 .flor-petalas { position: fixed; inset: 0; z-index: 8; width: 100%; height: 100%; pointer-events: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .som.tocando .som__barras i { animation: none; height: 9px; }
-  .musica-tocando .flor-botao svg { animation: none; }
 }
 
 /* escolha entre os 3 WhatsApps */
