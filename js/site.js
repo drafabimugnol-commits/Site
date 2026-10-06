@@ -60,15 +60,15 @@ escolha.addEventListener("click", (e) => { if (e.target.closest("a")) abrirEscol
 document.addEventListener("click", (e) => { if (!e.target.closest(".contato-flutuante")) abrirEscolha(false); });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscolha(false); });
 
-// ---------- Trilha sonora: ligada por padrão; quem desligar fica desligado nas próximas visitas ----------
+// ---------- Trilha sonora: desligada por padrão; quem ligar (no menu) fica ligado nas próximas visitas ----------
 // Os navegadores só liberam som depois do primeiro toque/clique/tecla do visitante:
 // tenta tocar ao abrir e, se for bloqueado, começa no primeiro gesto.
 (() => {
   const btn = document.getElementById("som"), audio = document.getElementById("trilha");
   if (!btn || !audio) return;
   const VOL = 0.7; // o arquivo já vem baixo (iPhone ignora volume)
-  let ligado = true;
-  try { ligado = localStorage.getItem("som") !== "desligado"; } catch (e) {}
+  let ligado = false;
+  try { ligado = localStorage.getItem("som") === "ligado"; } catch (e) {}
   let fade = 0;
   const rampa = (alvo, ms, fim) => {
     cancelAnimationFrame(fade);
