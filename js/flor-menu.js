@@ -2,11 +2,13 @@
 // sólido com as seções do site; ao fechar, o painel se solta em pétalas e o vento as leva.
 // Canvas 2D próprio (acima do conteúdo, sem cliques), ligado só durante as transições.
 
-const btn = document.getElementById("flor-botao");
+const canto = document.getElementById("flor-botao");
+const topo = document.getElementById("flor-topo");
 const menu = document.getElementById("flor-menu");
 const cv = document.getElementById("flor-petalas");
 
-if (btn && menu && cv) {
+if (canto && menu && cv) {
+  let btn = canto; // gatilho que abriu o painel (a flor do canto ou a do topo)
   const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const ctx = cv.getContext("2d");
   if (calmo || !ctx) menu.classList.add("simples");
@@ -130,8 +132,18 @@ if (btn && menu && cv) {
   // ---------- estado ----------
   let estado = "fechado", raf = 0, t0 = 0, petalas = [], raioAtual = 0;
 
-  function abrir(viaTeclado) {
-    cancelAnimationFrame(raf);
+  // aberto pelo topo, o painel desce logo abaixo da flor do cabeçalho; pelo canto, sobe do canto
+  function posicionar() {
+    if (btn === canto) { menu.style.top = ""; menu.style.bottom = ""; menu.style.maxHeight = ""; return; }
+    const r = btn.getBoundingClientRect(), y = Math.max(12, r.bottom + 14);
+    menu.style.top = `${y}px`; menu.style.bottom = "auto";
+    menu.style.maxHeight = `${Math.max(240, window.innerHeight - y - 16)}px`;
+  }
+
+  function abrir(viaTeclado, gatilho) {
+    cancelAnimationFrame(raf); pararVoo();
+    btn = gatilho || canto;
+    posicionar();
     btn.setAttribute("aria-expanded", "true");
     btn.setAttribute("aria-label", "Fechar o menu do site");
     menu.inert = false;
@@ -146,10 +158,12 @@ if (btn && menu && cv) {
     geo = medir();
     recorte(0); raioAtual = 0;
     const { O, maxR } = geo;
+    const rumo = Math.atan2(geo.m.top + geo.m.height / 2 - O.y, geo.m.left + geo.m.width / 2 - O.x);
     petalas = geo.pts.map((T) => {
       const d = Math.hypot(T.x - O.x, T.y - O.y);
       // sai da flor num leque para o alto e chega ao ponto de pouso em curva
-      const ang = -Math.PI / 2 + rand(-1.25, 1.25), alc = rand(40, 120);
+      // leque voltado para o painel (para cima no canto, para baixo no topo)
+      const ang = rumo + rand(-1.25, 1.25), alc = rand(40, 120);
       const perp = { x: -(T.y - O.y) / (d || 1), y: (T.x - O.x) / (d || 1) }, torce = rand(-1, 1) * Math.min(90, d * 0.45);
       return {
         T, d, cor: sorteiaCor(),
@@ -207,7 +221,7 @@ if (btn && menu && cv) {
     menu.classList.remove("mostrar");
     menu.inert = true;
     if (devolverFoco) btn.focus();
-    if (menu.classList.contains("simples")) { menu.classList.remove("aberta"); estado = "fechado"; return; }
+    if (menu.classList.contains("simples")) { menu.classList.remove("aberta"); estado = "fechado"; aposFechar(); return; }
     tela();
     const vindoDeAberto = estado === "aberto";
     geo = medir();
@@ -259,7 +273,7 @@ if (btn && menu && cv) {
       }
       if (vivas === 0) {
         ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
-        menu.classList.remove("aberta"); semRecorte(); estado = "fechado";
+        menu.classList.remove("aberta"); semRecorte(); estado = "fechado"; aposFechar();
         return;
       }
       raf = requestAnimationFrame(passo);
@@ -281,18 +295,91 @@ if (btn && menu && cv) {
   function focarPrimeiro() { const a = links.find((l) => l.getAttribute("aria-current") === "true") || links[0]; a && a.focus(); }
 
   // ---------- interação ----------
-  btn.addEventListener("click", (e) => {
-    if (estado === "fechado" || estado === "fechando") abrir(e.detail === 0);
+  [canto, topo].filter(Boolean).forEach((g) => g.addEventListener("click", (e) => {
+    if (estado === "fechado" || estado === "fechando") abrir(e.detail === 0, g);
     else fechar(false);
-  });
+  }));
   links.forEach((a) => a.addEventListener("click", () => fechar(false)));
   menu.querySelector(".flor-menu__paciente")?.addEventListener("click", () => fechar(false));
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && estado !== "fechado") fechar(true); });
   document.addEventListener("pointerdown", (e) => {
     if (estado === "fechado" || estado === "fechando") return;
-    if (menu.contains(e.target) || btn.contains(e.target)) return;
+    if (menu.contains(e.target) || canto.contains(e.target) || (topo && topo.contains(e.target))) return;
     fechar(false);
   });
+  // ---------- a flor muda de lugar: do cabeçalho para o canto (e de volta) ----------
+  let rafV = 0;
+  function pararVoo() { if (rafV) { cancelAnimationFrame(rafV); rafV = 0; ctx && (ctx.setTransform(1, 0, 0, 1, 0, 0), ctx.clearRect(0, 0, cv.width, cv.height)); } }
+  function voarFlor(descendo) {
+    if (calmo || !ctx || !topo || estado !== "fechado") return;
+    pararVoo(); tela();
+    const a = topo.querySelector("svg").getBoundingClientRect(), b = canto.getBoundingClientRect();
+    const A = { x: a.left + a.width / 2, y: a.top + a.height / 2 }, B = { x: b.left + b.width / 2, y: b.top + b.height / 2 };
+    const [de, para] = descendo ? [A, B] : [B, A];
+    const sinal = descendo ? 1 : -1;
+    const voo = Array.from({ length: W < 760 ? 26 : 38 }, () => ({
+      cor: sorteiaCor(), atraso: rand(0, 0.28), dur: rand(0.75, 1.05),
+      x0: de.x + rand(-8, 8), y0: de.y + rand(-8, 8),
+      c1x: de.x + rand(-70, 90), c1y: de.y + sinal * rand(40, 140),
+      c2x: para.x + rand(-60, 110), c2y: para.y - sinal * rand(60, 180),
+      x1: para.x + rand(-6, 6), y1: para.y + rand(-6, 6),
+      pico: rand(9, 15), r0: rand(0, 6.28), giro: rand(2, 5) * Math.PI * (Math.random() < 0.5 ? -1 : 1),
+      f0: rand(0, 6.28), virada: rand(3, 6) * Math.PI,
+    }));
+    const ini = performance.now();
+    const passo = () => {
+      const t = (performance.now() - ini) / 1000;
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+      let vivas = 0;
+      for (const p of voo) {
+        const u = clamp((t - p.atraso) / p.dur);
+        if (u < 1) vivas++;
+        if (u <= 0) continue;
+        const e = inOut(u);
+        const x = bez(p.x0, p.c1x, p.c2x, p.x1, e), y = bez(p.y0, p.c1y, p.c2y, p.y1, e);
+        const tam = p.pico * Math.sin(Math.PI * Math.min(1, u * 1.1)) + 4;
+        desenha(p, x, y, tam, p.r0 + p.giro * outCubic(u), p.f0 + p.virada * u, sstep(0, 0.12, u) * (1 - sstep(0.82, 1, u)));
+      }
+      if (vivas === 0) { pararVoo(); return; }
+      rafV = requestAnimationFrame(passo);
+    };
+    rafV = requestAnimationFrame(passo);
+    if (!descendo) { topo.classList.remove("chegando"); void topo.offsetWidth; topo.classList.add("chegando"); setTimeout(() => topo.classList.remove("chegando"), 1600); }
+  }
+
+  // o cabeçalho está na tela? (no computador largo não há flor no topo: vale o cabeçalho inteiro)
+  const nav = document.querySelector(".nav");
+  const temFlorNoTopo = () => topo && getComputedStyle(topo).display !== "none";
+  let noCanto = null, pendente = null;
+  function aplicarLugar(canto_, animar) {
+    if (canto_ === noCanto) return;
+    if (estado !== "fechado") { pendente = canto_; return; }
+    noCanto = canto_;
+    document.documentElement.classList.toggle("flor-no-canto", canto_);
+    if (animar && temFlorNoTopo()) voarFlor(canto_);
+  }
+  function aposFechar() {
+    menu.style.top = ""; menu.style.bottom = ""; menu.style.maxHeight = "";
+    if (pendente !== null) { const p = pendente; pendente = null; aplicarLugar(p, false); }
+  }
+  if (nav && "IntersectionObserver" in window) {
+    let primeira = true;
+    new IntersectionObserver(([en]) => {
+      // a flor do topo conta como "na tela" só enquanto ela mesma estiver visível
+      const alvo = temFlorNoTopo() ? topo.getBoundingClientRect() : en.boundingClientRect;
+      const fora = alvo.bottom < 4 || !en.isIntersecting;
+      aplicarLugar(fora, !primeira); primeira = false;
+    }, { threshold: [0, 0.01, 0.5, 1] }).observe(nav);
+    // a flor do topo pode sair antes do cabeçalho inteiro: confere também ao rolar
+    window.addEventListener("scroll", () => {
+      if (!temFlorNoTopo()) return;
+      const r = topo.getBoundingClientRect();
+      aplicarLugar(r.bottom < 4 || r.top > window.innerHeight, true);
+    }, { passive: true });
+  } else {
+    aplicarLugar(true, false);
+  }
+
   window.addEventListener("resize", () => {
     if (estado === "aberto") semRecorte();
   });

@@ -47,22 +47,7 @@ if (window.Lenis && !calmo) {
   lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true, anchors: true });
 }
 
-// ---------- Menu do celular ----------
-(() => {
-  const btn = document.querySelector(".nav__menu");
-  const links = document.getElementById("nav-links");
-  if (!btn || !links) return;
-  const set = (aberto) => {
-    document.documentElement.classList.toggle("menu-aberto", aberto);
-    btn.setAttribute("aria-expanded", String(aberto));
-    btn.textContent = aberto ? "Fechar" : "Menu";
-    if (lenis) aberto ? lenis.stop() : lenis.start();
-    document.body.style.overflow = aberto ? "hidden" : "";
-  };
-  btn.addEventListener("click", () => set(btn.getAttribute("aria-expanded") !== "true"));
-  links.addEventListener("click", (e) => { if (e.target.closest("a")) set(false); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
-})();
+// ---------- Menu: o painel de pétalas fica em js/flor-menu.js (botão do topo e flor do canto) ----------
 
 // ---------- Botão "Entrar em contato": escolha entre os 3 WhatsApps ----------
 const escolha = document.getElementById("escolha-contato");
