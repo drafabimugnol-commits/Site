@@ -607,6 +607,11 @@ async function iniciarParticulas() {
       mouse.y += (mouse.ty - mouse.y) * 0.04;
       u.uMouse.value.set(calmo ? 0 : mouse.x, calmo ? 0 : mouse.y);
       u.uP.value = cur;
+      // progresso do surgimento disponível para o CSS e para o convite (só quando muda)
+      if (Math.abs(cur - (window.__heroP ?? -1)) > 0.0015) {
+        window.__heroP = cur;
+        document.documentElement.style.setProperty("--hero-p", cur.toFixed(3));
+      }
       const tempo = calmo ? 0 : (performance.now() - t0) / 1000;
       u.uTime.value = tempo;
       if (fm) {
