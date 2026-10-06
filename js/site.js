@@ -606,11 +606,11 @@ async function iniciarParticulas() {
       // progresso do surgimento: enquanto o topo está fixo na tela
       const pr = pin.getBoundingClientRect();
 
-      // desfazer: quando o topo solta, a flor fica onde está (o texto sobe por cima)
-      // e se desfaz ao longo de ~85% de uma tela de rolagem
+      // desfazer: quando o topo solta, a flor sobe junto com ele (a composição não se desfaz,
+      // nenhum texto a atravessa) e se desfaz ao longo de ~60% de uma tela de rolagem
       const solto = semDesfazer ? 0 : Math.max(0, H - pr.bottom);
-      u.uOrigin.value.set(r.left + r.width / 2 - W / 2, H / 2 - (r.top + r.height / 2) - solto);
-      u.uLeave.value = Math.min(1, solto / (H * 0.85));
+      u.uOrigin.value.set(r.left + r.width / 2 - W / 2, H / 2 - (r.top + r.height / 2));
+      u.uLeave.value = Math.min(1, solto / (H * 0.6));
       const tP = Math.min(1, Math.max(0, -pr.top / Math.max(1, (pr.height - H) * 0.85)));
       // monograma: quando o centro do slot passa de 105% para 55% da altura da tela
       const tL = Math.min(1, Math.max(0, (H * 1.05 - (lr.top + lr.height / 2)) / (H * 0.5)));
