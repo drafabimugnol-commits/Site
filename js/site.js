@@ -3,7 +3,7 @@
 // botão "Entrar em contato" e as partículas (magnólia no topo, monograma FM no contato).
 
 // Ajustes finos das partículas (equivalem aos controles do protótipo)
-const MAGNOLIA = { profundidade: 70, giro: 0.5, forca: 0.8, vento: 3, fragmento: 3, intensidade: 0.7, tamanho: 7, escalaCelular: 0.85 };
+const MAGNOLIA = { profundidade: 90, giro: 1, forca: 1.3, vento: 1.5, fragmento: 2, tamanhoForma: 9, voando: 0.03, intensidade: 1.4, tamanho: 13.5, escalaCelular: 0.85 };
 const MONOGRAMA = { forca: 0, vento: 1, densidade: 0, intensidade: 0.6, tamanho: 4.5 };
 
 const raiz = document.getElementById("raiz");
@@ -247,14 +247,15 @@ async function iniciarParticulas() {
         uOrigin: { value: new THREE.Vector2() }, uHalf: { value: new THREE.Vector2() }, uMouse: { value: new THREE.Vector2() },
         uDpr: { value: 1 }, uDepth: { value: MAGNOLIA.profundidade }, uSpin: { value: MAGNOLIA.giro }, uForce: { value: MAGNOLIA.forca },
         uWind: { value: MAGNOLIA.vento }, uVeil: { value: MAGNOLIA.intensidade }, uSize: { value: MAGNOLIA.tamanho },
+        uFly: { value: MAGNOLIA.voando }, uFormSize: { value: MAGNOLIA.tamanhoForma },
         c0: { value: col("#5f454e") }, c1: { value: col("#a87776") }, c2: { value: col("#52594e") }, c3: { value: col("#96625f") }, c4: { value: col("#d8a8a2") },
       },
       vertexShader: `
         attribute vec4 aSeed; attribute float aAlpha; attribute vec3 aCloud;
-        uniform float uTime, uP, uDpr, uDepth, uSpin, uSize, uForce, uWind, uVeil;
+        uniform float uTime, uP, uDpr, uDepth, uSpin, uSize, uForce, uWind, uVeil, uFly, uFormSize;
         uniform vec2 uOrigin, uHalf, uMouse;
         uniform vec3 c0, c1, c2, c3, c4;
-        varying vec3 vCol; varying float vA, vRot, vFill, vPx;
+        varying vec3 vCol; varying float vA, vRot, vFill, vPx, vFlip, vE;
         mat2 rot(float a){ float s=sin(a), c=cos(a); return mat2(c,-s,s,c); }
         void main(){
           float h = clamp((position.y + uHalf.y) / (2.*uHalf.y), 0., 1.);
@@ -281,35 +282,64 @@ async function iniciarParticulas() {
           float persp = 1500. / (1500. - q.z);
           vec2 sp = q.xy * persp + uOrigin;
 
-          float px = uSize * (0.7 + aSeed.x * 0.75) * persp;
+          // em voo só uma parte das pétalas aparece, grandes; ao assentar todas surgem, finas, e desenham o contorno
+          float voa = step(fract(aSeed.x * 13.7 + aSeed.w * 7.13), uFly);
+          float pousa = smoothstep(0.55, 1., e);
+          float px = mix(uSize * (0.7 + aSeed.x * 0.75), uFormSize * (0.8 + aSeed.x * 0.4), pousa) * persp;
           vec3 pal = aSeed.y < 0.34 ? c0 : (aSeed.y < 0.56 ? c1 : (aSeed.y < 0.72 ? c3 : (aSeed.y < 0.86 ? c4 : c2)));
           float fog = clamp(0.55 + q.z / (uDepth * 3. + 1.) * 0.45, 0.3, 1.);
           float aOn = aAlpha * (0.7 + aSeed.x * 0.3) * fog;
           float aOff = (0.16 + aSeed.x * 0.22) * uVeil;
-          vA = mix(aOff, aOn, e);
+          vA = mix(aOff, aOn, e) * mix(voa, 1., pousa);
           vCol = pal;
           vRot = aSeed.y * 6.2832 + uTime * (aSeed.z - 0.5) * (1.2 - e);
           vFill = aSeed.z;
+          vFlip = mix(aSeed.x * 6.2832 + uTime * (0.7 + aSeed.w * 1.3), (aSeed.x - 0.5) * 0.7 + sin(uTime * 0.8 + aSeed.w * 12.) * 0.18, e);
+          vE = e;
           vPx = px;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(sp, 0., 1.);
           gl_PointSize = px * uDpr;
         }`,
-      // cada fragmento é uma pétala: oval alongado, base estreita, nervura clara
+      // cada fragmento é uma pétala com volume, girando em 3D
       fragmentShader: `
-        varying vec3 vCol; varying float vA, vRot, vFill, vPx;
+        varying vec3 vCol; varying float vA, vRot, vFill, vPx, vFlip, vE;
+        // pétala de magnólia: obovada, base estreita, ponta suave; convexa (luz e sombra),
+        // base mais funda e ponta clara; gira em 3D (encurta ao virar de perfil, verso mais escuro)
+        vec4 petala(vec2 pc, float rotA, float flip, float fill, float px, vec3 col, float tint){
+          vec2 uv = (pc - 0.5) * 2.;
+          float c = cos(rotA), s = sin(rotA);
+          uv = mat2(c, -s, s, c) * uv; uv.y = -uv.y;
+          float cf = cos(flip), sq = max(abs(cf), 0.14), face = cf >= 0. ? 1. : -1.;
+          float t = (uv.y * 1.05 + 1.) * 0.5;
+          float tc = clamp(t, 0., 1.);
+          float w = 0.5 * sin(3.14159 * pow(tc, 1.4)) * (0.8 + fill * 0.3);
+          float x = (uv.x + (1. - sq) * 0.22 * face * (tc - 0.5)) / sq;
+          float sd = max(abs(x) - w, max(-t, t - 1.) * 1.6) * sq;
+          float a = 1. - smoothstep(-0.6, 0.6, sd * px * 0.5);
+          float nx = clamp(x / max(w, 0.001), -1., 1.);
+          // volume: pétala em concha (curva forte na largura) e arqueada no comprimento
+          float arco = (tc - 0.42) * 1.5;
+          vec3 n = normalize(vec3(nx * 1.25 * face, arco, sqrt(max(0.04, 1. - nx * nx * 0.9))));
+          vec3 L = normalize(vec3(-0.5, 0.6, 0.62));
+          float dif = max(0., dot(n, L));
+          float spec = pow(max(0., dot(n, normalize(L + vec3(0., 0., 1.)))), 22.) * (face > 0. ? 0.55 : 0.25);
+          float ao = mix(0.58, 1., smoothstep(0., 0.45, tc)) * (1. - 0.28 * pow(abs(nx), 3.));
+          vec3 cream = vec3(0.965, 0.93, 0.905);
+          vec3 base = col * 0.6;
+          vec3 ponta = mix(col, cream, face > 0. ? 0.42 : 0.14);
+          vec3 cor = mix(base, ponta, smoothstep(0.02, 0.85, tc));
+          cor *= (0.5 + 0.72 * dif) * ao;
+          cor *= 1. - 0.22 * (1. - smoothstep(0., 0.1, abs(nx))) * (1. - tc * 0.6);
+          cor += cream * spec;
+          cor = mix(cor, cream, 0.18 * smoothstep(0.78, 1., abs(nx)) * dif);
+          cor *= face > 0. ? 1. : 0.8;
+          return vec4(mix(col, cor, tint), a);
+        }
         void main(){
-          vec2 uv = (gl_PointCoord - 0.5) * 2.;
-          float c = cos(vRot), s = sin(vRot);
-          uv = mat2(c, -s, s, c) * uv;
-          uv.y = -uv.y * 1.06;
-          float w = 0.44 * (0.55 + 0.45 * smoothstep(-1., 0.55, uv.y)) * (0.85 + vFill * 0.3);
-          float f = length(vec2(uv.x / w, uv.y));
-          float d = (f - 1.) * w * vPx * 0.5;
-          float shape = 1. - smoothstep(-0.55, 0.55, d);
-          float veio = 0.82 + 0.18 * smoothstep(0., 0.8, abs(uv.x) / w);
-          float a = vA * shape * veio;
+          vec4 p = petala(gl_PointCoord, vRot, vFlip, vFill, vPx, vCol, mix(1., 0.75, vE));
+          float a = vA * p.a;
           if (a < 0.01) discard;
-          gl_FragColor = vec4(vCol, a);
+          gl_FragColor = vec4(p.rgb, a);
         }`,
     });
     mat.uniforms.uHalf.value.set(cssW / 2, cssH / 2);
@@ -358,7 +388,7 @@ async function iniciarParticulas() {
         uniform float uTime, uL, uDpr, uForce, uWind, uVeil, uSize;
         uniform vec2 uOrigin, uView;
         uniform vec3 cNude, cRose;
-        varying vec3 vCol; varying float vA, vRot, vFill, vPx;
+        varying vec3 vCol; varying float vA, vRot, vFill, vPx, vFlip, vE;
         void main(){
           vec2 home = position.xy;
           // halo: poeira mais densa junto ao traço, rarefeita ao longe
@@ -391,19 +421,49 @@ async function iniciarParticulas() {
           vCol = mix(voo, vec3(0.984, 0.969, 0.957), smoothstep(0.55, 1., e));
           vRot = aSeed.y * 6.2832 + uTime * (aSeed.z - 0.5) * 0.5;
           vFill = aSeed.z;
+          vFlip = mix(aSeed.x * 6.2832 + uTime * (0.7 + aSeed.w * 1.3), (aSeed.x - 0.5) * 0.6, e);
+          vE = e;
         }`,
+      // pétalas coloridas e com volume em voo, brancas e lisas ao assentar
       fragmentShader: `
-        varying vec3 vCol; varying float vA, vRot, vFill, vPx;
+        varying vec3 vCol; varying float vA, vRot, vFill, vPx, vFlip, vE;
+        // pétala de magnólia: obovada, base estreita, ponta suave; convexa (luz e sombra),
+        // base mais funda e ponta clara; gira em 3D (encurta ao virar de perfil, verso mais escuro)
+        vec4 petala(vec2 pc, float rotA, float flip, float fill, float px, vec3 col, float tint){
+          vec2 uv = (pc - 0.5) * 2.;
+          float c = cos(rotA), s = sin(rotA);
+          uv = mat2(c, -s, s, c) * uv; uv.y = -uv.y;
+          float cf = cos(flip), sq = max(abs(cf), 0.14), face = cf >= 0. ? 1. : -1.;
+          float t = (uv.y * 1.05 + 1.) * 0.5;
+          float tc = clamp(t, 0., 1.);
+          float w = 0.5 * sin(3.14159 * pow(tc, 1.4)) * (0.8 + fill * 0.3);
+          float x = (uv.x + (1. - sq) * 0.22 * face * (tc - 0.5)) / sq;
+          float sd = max(abs(x) - w, max(-t, t - 1.) * 1.6) * sq;
+          float a = 1. - smoothstep(-0.6, 0.6, sd * px * 0.5);
+          float nx = clamp(x / max(w, 0.001), -1., 1.);
+          // volume: pétala em concha (curva forte na largura) e arqueada no comprimento
+          float arco = (tc - 0.42) * 1.5;
+          vec3 n = normalize(vec3(nx * 1.25 * face, arco, sqrt(max(0.04, 1. - nx * nx * 0.9))));
+          vec3 L = normalize(vec3(-0.5, 0.6, 0.62));
+          float dif = max(0., dot(n, L));
+          float spec = pow(max(0., dot(n, normalize(L + vec3(0., 0., 1.)))), 22.) * (face > 0. ? 0.55 : 0.25);
+          float ao = mix(0.58, 1., smoothstep(0., 0.45, tc)) * (1. - 0.28 * pow(abs(nx), 3.));
+          vec3 cream = vec3(0.965, 0.93, 0.905);
+          vec3 base = col * 0.6;
+          vec3 ponta = mix(col, cream, face > 0. ? 0.42 : 0.14);
+          vec3 cor = mix(base, ponta, smoothstep(0.02, 0.85, tc));
+          cor *= (0.5 + 0.72 * dif) * ao;
+          cor *= 1. - 0.22 * (1. - smoothstep(0., 0.1, abs(nx))) * (1. - tc * 0.6);
+          cor += cream * spec;
+          cor = mix(cor, cream, 0.18 * smoothstep(0.78, 1., abs(nx)) * dif);
+          cor *= face > 0. ? 1. : 0.8;
+          return vec4(mix(col, cor, tint), a);
+        }
         void main(){
-          vec2 uv = (gl_PointCoord - 0.5) * 2.;
-          float c = cos(vRot), s = sin(vRot);
-          uv = mat2(c, -s, s, c) * uv;
-          uv.y = -uv.y * 1.06;
-          float w = 0.44 * (0.55 + 0.45 * smoothstep(-1., 0.55, uv.y)) * (0.85 + vFill * 0.3);
-          float d = (length(vec2(uv.x / w, uv.y)) - 1.) * w * vPx * 0.5;
-          float a = vA * (1. - smoothstep(-0.55, 0.55, d));
+          vec4 p = petala(gl_PointCoord, vRot, vFlip, vFill, vPx, vCol, 1. - smoothstep(0.6, 1., vE));
+          float a = vA * p.a;
           if (a < 0.01) discard;
-          gl_FragColor = vec4(vCol, a);
+          gl_FragColor = vec4(p.rgb, a);
         }`,
     });
     mat.uniforms.uView.value.set(W, H);
