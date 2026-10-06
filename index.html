@@ -80,10 +80,43 @@
     <button class="pilula" id="pilula" type="button" aria-expanded="false" aria-controls="escolha-contato"><span>Entrar em contato</span></button>
   </div>
 
-  <!-- trilha: Chopin, Berceuse op. 57 (gravação Musopen, domínio público CC0) -->
-  <button class="som" id="som" type="button" aria-pressed="true" aria-label="Desligar a música" title="Desligar a música">
-    <span class="som__barras" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+  <!-- menu-flor: a magnólia abre um painel construído por pétalas (js/flor-menu.js) -->
+  <button class="flor-botao" id="flor-botao" type="button" aria-expanded="false" aria-controls="flor-menu" aria-label="Abrir o menu do site">
+    <svg viewBox="4 5 40 40" aria-hidden="true">
+      <path class="flor-botao__haste" d="M24 37.6c.3 2.9-.4 5.3-2 7.4M23.2 41.6c-2.3-.5-4-1.8-4.8-3.6 2.2.1 4 1.3 4.8 3.6z"/>
+      <path class="flor-botao__p flor-botao__p--fe" d="M23.6 37.4C17.4 38 11.8 35.4 9.2 30.4c5.2-1.7 11 1 14.4 7z"/>
+      <path class="flor-botao__p flor-botao__p--fd" d="M24.4 37.4c6.2.6 11.8-2 14.4-7-5.2-1.7-11 1-14.4 7z"/>
+      <path class="flor-botao__p flor-botao__p--e" d="M23.8 37.6C16.6 36.2 13 28.6 14.8 16.4c5.6 1.6 9.6 10.4 9 21.2z"/>
+      <path class="flor-botao__p flor-botao__p--d" d="M24.2 37.6c7.2-1.4 10.8-9 9-21.2-5.6 1.6-9.6 10.4-9 21.2z"/>
+      <path class="flor-botao__p flor-botao__p--c" d="M24 37.6c-5.8-4-6.8-15.4 0-27.2 6.8 11.8 5.8 23.2 0 27.2z"/>
+      <path class="flor-botao__x" d="M18 18l12 12M30 18L18 30"/>
+    </svg>
   </button>
+  <nav class="flor-menu" id="flor-menu" aria-label="Seções do site" inert>
+    <p class="flor-menu__rotulo">Navegar</p>
+    <ol class="flor-menu__lista">
+      <li style="--i:0"><a href="#topo"><span class="flor-menu__n">01</span><span class="flor-menu__nome">Início</span></a></li>
+      <li style="--i:1"><a href="#sobre"><span class="flor-menu__n">02</span><span class="flor-menu__nome">Quem sou</span></a></li>
+      <li style="--i:2"><a href="#caminhar"><span class="flor-menu__n">03</span><span class="flor-menu__nome">Caminhar Juntos</span></a></li>
+      <li style="--i:3"><a href="#rodas"><span class="flor-menu__n">04</span><span class="flor-menu__nome">Rodas de Anil</span></a></li>
+      <li style="--i:4"><a href="#cursos"><span class="flor-menu__n">05</span><span class="flor-menu__nome">Cursos</span></a></li>
+      <li style="--i:5"><a href="#palestras"><span class="flor-menu__n">06</span><span class="flor-menu__nome">Palestras</span></a></li>
+      <li style="--i:6"><a href="#mutirao"><span class="flor-menu__n">07</span><span class="flor-menu__nome">Mutirão Florescer</span></a></li>
+      <li style="--i:7"><a href="#conteudos"><span class="flor-menu__n">08</span><span class="flor-menu__nome">Conteúdos</span></a></li>
+      <li style="--i:8"><a href="#parcerias"><span class="flor-menu__n">09</span><span class="flor-menu__nome">Parcerias</span></a></li>
+      <li style="--i:9"><a href="#contato"><span class="flor-menu__n">10</span><span class="flor-menu__nome">Contato</span></a></li>
+    </ol>
+    <div class="flor-menu__rodape" style="--i:10">
+      <!-- trilha: Chopin, Berceuse op. 57 (gravação Musopen, domínio público CC0) -->
+      <button class="som" id="som" type="button" aria-pressed="true" aria-label="Desligar a música" title="Desligar a música">
+        <span class="som__barras" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="som__texto"><span class="som__titulo">Música</span><span class="som__obra">Chopin · Berceuse</span></span>
+        <span class="som__estado" aria-hidden="true"></span>
+      </button>
+      <a class="flor-menu__paciente" href="/planos/">Área do paciente</a>
+    </div>
+  </nav>
+  <canvas class="flor-petalas" id="flor-petalas" aria-hidden="true"></canvas>
   <audio id="trilha" src="/assets/audio/berceuse.mp3" loop preload="none"></audio>
 
   <div class="conteudo">
@@ -567,5 +600,6 @@
 
 <script src="/js/vendor/lenis.min.js" defer></script>
 <script type="module" src="/js/site.js"></script>
+<script type="module" src="/js/flor-menu.js"></script>
 </body>
 </html>

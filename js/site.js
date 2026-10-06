@@ -89,7 +89,7 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscol
     cancelAnimationFrame(fade);
     const v0 = audio.volume, t0 = performance.now();
     const passo = (t) => {
-      const k = Math.min(1, (t - t0) / ms);
+      const k = Math.max(0, Math.min(1, (t - t0) / ms));
       audio.volume = v0 + (alvo - v0) * k;
       if (k < 1) fade = requestAnimationFrame(passo); else if (fim) fim();
     };
@@ -100,6 +100,7 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscol
     const rot = ligado ? "Desligar a música" : "Ligar a música";
     btn.setAttribute("aria-label", rot); btn.title = rot;
     btn.classList.toggle("tocando", ligado && !audio.paused);
+    document.documentElement.classList.toggle("musica-tocando", ligado && !audio.paused);
   };
   const tocar = () => {
     if (!ligado || document.hidden || !audio.paused) return;
