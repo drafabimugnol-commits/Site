@@ -185,7 +185,16 @@ em { font-style: italic; }
 .flor-no-canto .flor-botao { transition-delay: .5s, .5s, 0s, 0s; }
 .flor-no-canto .flor-botao:hover { transform: scale(1.06); transition-delay: 0s; }
 .flor-botao:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
-.flor-botao svg { width: 40px; height: 40px; overflow: visible; }
+/* desenho do botão do canto: ramo de magnólia em silhueta, ocupando o círculo todo */
+.flor-botao { overflow: hidden; }
+.flor-botao svg { width: 100%; height: 100%; }
+.flor-botao__ramo {
+  fill: var(--flor-ramo, #46303a);
+  transform-origin: 50px 50px; transition: transform .9s var(--ease), opacity .5s var(--ease), fill .6s;
+}
+.flor-botao:hover .flor-botao__ramo { transform: rotate(-6deg) scale(1.05); }
+.flor-botao[aria-expanded="true"] .flor-botao__ramo { opacity: 0; transform: scale(.6) rotate(12deg); }
+#flor-botao .flor-botao__x { stroke-width: 3.2; transform-origin: 50px 50px; }
 .flor-botao__haste { fill: currentColor; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; opacity: .5; transition: opacity .5s; }
 .flor-botao__p {
   fill: currentColor; stroke: var(--vinho); stroke-width: .8; stroke-linejoin: round;
@@ -205,7 +214,7 @@ em { font-style: italic; }
 .flor-gatilho[aria-expanded="true"] .flor-botao__p--e, .flor-gatilho[aria-expanded="true"] .flor-botao__p--d { transition-delay: .03s; }
 .flor-gatilho[aria-expanded="true"] .flor-botao__haste { opacity: 0; }
 .flor-gatilho[aria-expanded="true"] .flor-botao__x { opacity: .9; transform: none; transition-delay: .25s; }
-.fundo-escuro .flor-botao { background: var(--nude); color: var(--rose); }
+.fundo-escuro .flor-botao { background: var(--nude); color: var(--rose); --flor-ramo: #c4a69f; }
 .fundo-escuro .flor-menu { background: #46323a; }
 .fundo-escuro .flor-botao__p { stroke: var(--nude); }
 .fundo-escuro .flor-botao__x { stroke: var(--vinho); }
