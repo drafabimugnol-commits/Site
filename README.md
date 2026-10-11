@@ -6,10 +6,10 @@ de build**: o que está no repositório é exatamente o que vai ao ar.
 
 ## Estrutura
 - `index.html` — página principal (todos os textos ficam aqui)
-- `planos/index.html` — Área do paciente (entrada no portal Florescer + modalidades)
+- `planos/index.html` — Área do paciente: carta à família, entrada no portal Florescer e o guia
+  do acompanhamento (A dinâmica do acolhimento · Fluxos, canais e prazos · Caminhando juntos)
 - `css/site.css` — estilos; cores e fontes da marca em variáveis no topo
-- `js/site.js` — rolagem suave, revelação de texto, fundo por seção, fio do
-  Caminhar Juntos, botão "Agendar" e as partículas (magnólia e monograma FM).
+- `js/site.js` — rolagem suave, revelação de texto, fundo por seção, botão "Agendar" e as partículas (magnólia e monograma FM).
   Os ajustes das partículas ficam nos objetos `MAGNOLIA` e `MONOGRAMA` no topo.
 - `js/area-paciente.js` — entrada no portal do paciente (fala com o Armetz)
 - `js/vendor/` — three.js 0.170 e Lenis 1.3.4 (cópias locais, sem CDN)
@@ -20,7 +20,7 @@ de build**: o que está no repositório é exatamente o que vai ao ar.
 
 ## Pendências de conteúdo
 - **Concierge**: número provisório `51 99999-9999` (`5551999999999` nos links). Buscar e
-  substituir em `index.html` e `planos/index.html`.
+  substituir em `index.html`.
 - **YouTube**: link marcado com `data-pendente` em `index.html`.
 
 ## Área do paciente (`/planos`)
@@ -36,7 +36,10 @@ uso único; o navegador vai para lá e cai dentro do espaço da família.
   responsável escolhem o nome na tela.
 - Erros, bloqueio por tentativas (5 em 15 min) e o aviso "entrada expirada"
   (`/planos/?erro=expirado`) são tratados em `js/area-paciente.js`.
-- O conteúdo das modalidades é público; nada sigiloso fica neste repositório.
+- O guia do acompanhamento (fluxos, prazos, modalidades) é público; nada sigiloso fica
+  neste repositório. Os botões de autocadastro e de solicitação apontam para
+  `app.armetz.com/autocadastro/drafabi` e `app.armetz.com/solicitar/drafabi`.
+- O Caminhar Juntos saiu da página principal e vive só aqui.
 - Lado do Armetz: `docs/PORTAL_PACIENTE.md` §9 naquele repositório.
 
 ## Visualizar localmente

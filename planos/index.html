@@ -20,17 +20,22 @@
     <nav class="nav" aria-label="Principal">
       <a class="nav__logo" href="/"><img src="/assets/img/logo.webp" alt="Fabiana Mugnol — Neurologista" width="600" height="117" style="width:auto"></a>
       <div class="nav__acoes">
-        <a href="/#caminhar"><span aria-hidden="true">←</span> Voltar ao site</a>
+        <a href="/"><span aria-hidden="true">←</span> Voltar ao site</a>
       </div>
     </nav>
 
+    <!-- ===== Carta + entrada no portal ===== -->
     <section class="login" id="tela-login">
-      <div class="login__texto">
+      <div class="login__texto carta">
         <span class="eyebrow">Área do paciente</span>
-        <h1>Acesso para <em>famílias</em> em acompanhamento</h1>
-        <p class="texto texto--16" style="max-width:44ch">Entre com o CPF do paciente (ou do responsável) e a data de nascimento da mesma pessoa. Você será levado ao seu espaço no portal Florescer.</p>
+        <h1>Querida <em>família</em>,</h1>
+        <p class="texto">Quem convive com o meu trabalho sabe que ele se sustenta em três pilares: ciência, cuidado e afeto. Nada disso muda. O que muda é a forma como organizo o tempo, o registro e a comunicação para que esses três pilares continuem de pé à medida que as demandas aumentam.</p>
+        <p class="texto">Todos os dias precisamos legitimar as necessidades que não são vistas. As dores que não são ditas.</p>
+        <p class="carta__assinatura">Fabiana Mugnol</p>
       </div>
-      <form id="form-login" novalidate>
+      <form id="form-login" novalidate aria-labelledby="form-login-titulo">
+        <p class="login__titulo" id="form-login-titulo">Portal Florescer</p>
+        <p class="login__intro">Entre com o CPF do paciente (ou do responsável) e a data de nascimento da mesma pessoa.</p>
         <label for="cpf">CPF
           <input id="cpf" type="text" name="cpf" required inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14" aria-describedby="ajuda-cpf">
           <span class="ajuda" id="ajuda-cpf">Do paciente ou do responsável que fez o cadastro.</span>
@@ -49,17 +54,342 @@
       </form>
     </section>
 
-    <section class="modalidades" id="tela-planos">
-      <span class="eyebrow">Caminhar Juntos · Modalidades</span>
-      <div class="modalidades__card">
-        <h1>Quando maior proximidade é <em>imprescindível</em></h1>
-        <p class="texto" style="max-width:60ch">Casos de maior complexidade precisam de presença. Dessa forma, o acompanhamento é oferecido em três modalidades: Essencial, Integrado e Intensivo, que se diferenciam pela frequência dos encontros e pela intensidade do suporte entre eles. Nosso concierge está à disposição para auxiliar nas melhores decisões.</p>
-        <div class="etiquetas">
-          <span>Essencial</span>
-          <span>Integrado</span>
-          <span>Intensivo</span>
-        </div>
-        <a class="btn" href="https://wa.me/5551999999999?text=Ol%C3%A1!%20Gostaria%20de%20saber%20sobre%20as%20modalidades%20de%20acompanhamento." target="_blank" rel="noopener">Falar com o Concierge</a>
+    <nav class="sumario" aria-label="Nesta página">
+      <a href="#acolhimento"><span>01</span>A dinâmica do acolhimento</a>
+      <a href="#fluxos"><span>02</span>Fluxos, canais e prazos</a>
+      <a href="#caminhando"><span>03</span>Caminhando juntos</a>
+    </nav>
+
+    <!-- ===== 01 · A dinâmica do acolhimento ===== -->
+    <section class="guia" id="acolhimento" aria-labelledby="t-acolhimento">
+      <header class="guia__cabeca">
+        <span class="eyebrow">01</span>
+        <h2 class="h2" id="t-acolhimento">A dinâmica do <em>acolhimento</em></h2>
+      </header>
+
+      <ol class="trilha">
+        <li class="passo">
+          <span class="passo__n">01</span>
+          <h3>Primeiro contato</h3>
+          <p>A família solicita atendimento pelo canal de agendamento (secretariado presencial). Em seguida, o secretariado remoto encaminha orientações para o envio de dados de identificação, documentos, exames e demais informações importantes para a primeira consulta.</p>
+          <div class="acoes">
+            <a class="btn" href="https://app.armetz.com/autocadastro/drafabi" target="_blank" rel="noopener">Fazer o autocadastro</a>
+            <a class="btn btn--linha" href="https://app.armetz.com/solicitar/drafabi" target="_blank" rel="noopener">Abrir uma solicitação</a>
+          </div>
+        </li>
+
+        <li class="passo">
+          <span class="passo__n">02</span>
+          <h3>Consulta e compreensão</h3>
+          <p>O neurodesenvolvimento não pode ser avaliado somente no espaço de tempo de uma consulta. Ele é dinâmico. E está na escola que pede um relatório, na terapeuta que precisa de uma orientação, no ajuste de medicação que repercute por várias semanas, na noite em que o sono desmonta, na empresa que percebe a entrega, mas não o custo. É exatamente esse intervalo, o tempo entre uma consulta e outra, que determina a qualidade do desfecho.</p>
+          <p>Durante anos, esse intervalo foi atendido através de longos áudios e mensagens. Sempre foi generoso, mas frágil. Informação dispersa em canais diferentes não vira prontuário, não vira histórico e não protege ninguém. Nas auditorias, quando temos tempo apertado para resposta, todos ganham quando há clareza e agilidade nos processos.</p>
+        </li>
+
+        <li class="passo">
+          <span class="passo__n">03</span>
+          <h3>Prescrever fora da consulta não é gentileza: é risco</h3>
+          <p>A prescrição é um ato médico e, assim, exige avaliação. O Código de Ética Médica veda expressamente prescrever tratamento ou outros procedimentos sem avaliação do paciente (Resolução CFM nº 2.217/2018, art. 37). O atendimento à distância só é lícito nos moldes regulamentados pelo Conselho Federal de Medicina.</p>
+          <p>A Resolução CFM nº 2.314/2022 estabelece, no art. 6º, § 2º, que nos atendimentos de doenças crônicas ou que requeiram acompanhamento por longo tempo, deve ser realizada consulta presencial com a médica assistente, em intervalos não superiores a 180 dias. O § 1º do mesmo artigo é ainda mais direto: a consulta presencial é o padrão-ouro; a telemedicina é ato complementar.</p>
+        </li>
+
+        <li class="passo">
+          <span class="passo__n">04</span>
+          <h3>Por que os relatórios deixaram de ser “troca de data”</h3>
+          <p>Historicamente, muitas famílias pediam a atualização de um relatório, “apenas trocando a data”. Esse formato não se sustenta por razões técnicas e normativas.</p>
+          <p>A avaliação em neurodesenvolvimento é, por definição, funcional e biopsicossocial. Ela descreve o que o indivíduo faz, em que contextos, com que suporte e diante de que barreiras. É essa compreensão da funcionalidade atual, e não apenas o rótulo diagnóstico, que orienta a tomada de decisões nos diferentes contextos de vida. É ela que permite aos ambientes acadêmicos e laborais desenhar adaptações, às operadoras avaliar a necessidade de terapias e aos juízos compreender os elementos necessários para suas decisões. A CIF e a CID-11 dão suporte a essa abordagem ao priorizarem a descrição da funcionalidade e de seus contextos, para além do diagnóstico isolado.</p>
+          <p>Descrever funcionalidade atual é trabalho clínico: exige releitura do caso, integração dos relatórios da equipe, exame dos instrumentos aplicados e redação técnica. Quando esse trabalho está vinculado a uma consulta, ele integra o que você já contratou. Quando não está, ele é um ato médico autônomo e, como tal, gera honorário. Isso está previsto na Resolução CFM nº 2.381/2024, que reconhece expressamente a possibilidade de cobrança de honorários, bem como o que é imprescindível em cada documento médico.</p>
+          <blockquote class="citacao"><p>“Um documento médico precisa representar o dia de hoje, não a fotografia de quem era aquele indivíduo.”</p></blockquote>
+        </li>
+
+        <li class="passo">
+          <span class="passo__n">05</span>
+          <h3>As reuniões multiprofissionais como parte importante do acompanhamento</h3>
+          <p>Nenhum indivíduo em acompanhamento neurológico melhora apenas com a minha conduta. As melhores respostas estão relacionadas quando família, equipe profissional e demais contextos de convivência estão olhando para os mesmos objetivos, na mesma ordem de prioridade.</p>
+          <p>As reuniões de equipe organizam objetivos, evitam sobreposição de intervenções, interrompem terapias que já cumpriram seu papel e redirecionam a família para o que de fato importa naquele momento do desenvolvimento. Elas não são um extra: são o instrumento que impede que a família gaste tempo, dinheiro e esperança em intervenções desalinhadas.</p>
+          <p>Por isso, a partir desta versão, sugere-se que as reuniões multiprofissionais integrem o acompanhamento, com periodicidade mínima definida.</p>
+        </li>
+
+        <li class="passo">
+          <span class="passo__n">06</span>
+          <h3>O que muda entre as consultas</h3>
+          <dl class="mudancas">
+            <div><dt>Um único registro.</dt><dd>Toda solicitação passa pelo sistema do consultório, gerando protocolo e registro em prontuário, conforme exige a Resolução CFM nº 2.314/2022.</dd></div>
+            <div><dt>Uma primeira triagem administrativa.</dt><dd>O Secretariado Remoto recebe, organiza e instrui a demanda e a encaminha à médica para resolução. O Secretariado Remoto não faz triagem clínica.</dd></div>
+            <div><dt>Prazos escritos.</dt><dd>Cada tipo de solicitação tem prazo declarado.</dd></div>
+            <div><dt>Urgência tem endereço.</dt><dd>Situações de urgência e emergência vão para o serviço hospitalar imediatamente. Depois do primeiro atendimento, com calma, faça contato.</dd></div>
+            <div><dt>Um caminhar juntos contratado.</dt><dd>Maior clareza e agilidade para todos.</dd></div>
+          </dl>
+        </li>
+      </ol>
+
+      <blockquote class="citacao citacao--grande"><p>“Cuidar é, antes de tudo, conhecer todas as dores: as que conversamos em consulta, as que não são ditas e as que são vividas. E a ciência só transforma vidas quando é atravessada pelo <em>afeto</em>.”</p></blockquote>
+    </section>
+
+    <!-- ===== 02 · Fluxos, canais e prazos ===== -->
+    <section class="guia" id="fluxos" aria-labelledby="t-fluxos">
+      <header class="guia__cabeca">
+        <span class="eyebrow">02</span>
+        <h2 class="h2" id="t-fluxos">Fluxos, canais e <em>prazos</em></h2>
+      </header>
+
+      <div class="itens">
+        <article class="item">
+          <span class="item__n">01</span>
+          <div class="item__corpo">
+            <h3>Quem faz o quê</h3>
+            <p>Há três interlocutores, com competências que não se confundem. Encaminhar a demanda ao interlocutor correto é a forma mais eficaz de obter uma resposta com rapidez.</p>
+            <div class="tabela">
+              <table>
+                <caption class="so-leitor">Interlocutores, o que cada um cuida e por qual canal</caption>
+                <thead><tr><th scope="col">Interlocutor</th><th scope="col">Cuida de</th><th scope="col">Canal</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Secretariado presencial</th>
+                    <td data-rotulo="Cuida de">Agendamento e cancelamento de consultas · agendamento de reuniões multiprofissionais · gestão financeira, pagamentos e notas fiscais · retirada presencial de documentos e de receituários físicos (azul e amarelo).</td>
+                    <td data-rotulo="Canal">Sistema do consultório e WhatsApp: <a href="https://wa.me/5551992179578" target="_blank" rel="noopener">(51) 99217-9578</a>.<br>Horário comercial.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Secretariado remoto</th>
+                    <td data-rotulo="Cuida de">Demandas que não envolvem atividade presencial: solicitação de documentos e de receitas · pedidos em caráter de urgência administrativa · dúvidas sobre o funcionamento do acompanhamento · organização e instrução da demanda antes de chegar à médica.</td>
+                    <td data-rotulo="Canal">Sistema do consultório e WhatsApp: <a href="https://wa.me/5551974019090" target="_blank" rel="noopener">(51) 97401-9090</a>.<br>Horário comercial.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Médica assistente</th>
+                    <td data-rotulo="Cuida de">Todo e qualquer conteúdo clínico: conduta, diagnóstico, prescrição, orientação terapêutica, decisão sobre documentos e sobre a necessidade de nova avaliação.</td>
+                    <td data-rotulo="Canal">Recebe as demandas já instruídas, pelo sistema.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+
+        <article class="item item--alerta">
+          <span class="item__n">02</span>
+          <div class="item__corpo">
+            <h3>Urgência e emergência: procure um hospital</h3>
+            <p class="item__destaque">Procure imediatamente um serviço de pronto-atendimento hospitalar.</p>
+            <p>As situações abaixo <strong>não</strong> devem ser comunicadas pelo sistema, pelo WhatsApp, por e-mail ou por telefone do consultório. Elas exigem avaliação presencial imediata em pronto-atendimento:</p>
+            <ul class="lista">
+              <li>Trauma, em especial traumatismo craniano, com ou sem perda de consciência.</li>
+              <li>Alteração do nível de consciência: sonolência excessiva, torpor, confusão, não responsividade, dificuldade de despertar.</li>
+              <li>Crise convulsiva: primeira crise, crise prolongada, crises repetidas ou crise diferente do padrão habitual.</li>
+              <li>Mudança súbita e inexplicada de comportamento, incluindo agitação intensa, agressividade abrupta, perda aguda de habilidades, alteração da fala ou da marcha.</li>
+              <li>Qualquer quadro com risco imediato à vida ou à integridade física.</li>
+            </ul>
+            <p>O consultório não presta atendimento de urgência e não opera em regime de plantão. Aguardar resposta de mensagem em situação de urgência atrasa o cuidado e agrava o risco.</p>
+            <p>Após o atendimento hospitalar, comunique o ocorrido via sistema e anexe os documentos do atendimento, para que tudo seja incorporado ao prontuário e considerado na reavaliação.</p>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">03</span>
+          <div class="item__corpo">
+            <h3>Uso racional do WhatsApp</h3>
+            <p>O WhatsApp é um canal de envio, não um canal de decisão. Ele existe no consultório para que você receba com agilidade aquilo que já foi resolvido: avisos, confirmações, links de receita e orientações formalizadas. Ele não é o lugar onde a demanda nasce.</p>
+            <p>A razão é normativa antes de ser operacional: todo ato médico realizado a distância deve ser registrado em prontuário (Resolução CFM nº 2.314/2022). Mensagens dispersas em aplicativo não geram protocolo, não se integram ao prontuário, não permitem auditoria e não podem ser recuperadas de forma confiável quando a família mais precisa. Lapsos entre as mensagens podem comprometer o histórico de acompanhamento em uma perícia, em um pedido de reembolso ou em situações de adequação no ambiente acadêmico e laboral.</p>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">04</span>
+          <div class="item__corpo">
+            <h3>Como solicitar e em quanto tempo você recebe</h3>
+            <p>Toda solicitação é aberta no sistema do consultório, recebe número de protocolo e tem status acompanhável. Ao abrir a solicitação, informe sempre a finalidade do documento (escola, operadora, órgão público, processo judicial, benefício): a finalidade determina o tipo de documento e o seu conteúdo. Caso não tenha sua demanda atendida no tempo previsto, faça contato com o secretariado remoto.</p>
+            <div class="tabela">
+              <table>
+                <caption class="so-leitor">Prazos por tipo de solicitação</caption>
+                <thead><tr><th scope="col">Solicitação</th><th scope="col">Prazo</th><th scope="col">Observação</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Receita de uso contínuo (dentro dos 180 dias da última consulta presencial)</th><td data-rotulo="Prazo">Até 7 dias úteis</td><td data-rotulo="Observação">Solicitar com antecedência. Receituários especiais (azul e amarelo) exigem retirada presencial, por exigência legal de via física.</td></tr>
+                  <tr><th scope="row">Orientação escrita entre consultas</th><td data-rotulo="Prazo">Até 7 dias úteis</td><td data-rotulo="Observação">Registrada em prontuário, conferindo possibilidade de releitura e envio de materiais complementares: a responsabilidade sempre será compartilhada.</td></tr>
+                  <tr><th scope="row">Documento assistencial — atestado de comparecimento e acompanhamento</th><td data-rotulo="Prazo">Até 7 dias úteis</td><td data-rotulo="Observação">Sempre incluído, nunca cobrado.</td></tr>
+                  <tr><th scope="row">Documento técnico — vinculado à consulta</th><td data-rotulo="Prazo">Até 30 dias úteis</td><td data-rotulo="Observação">Sempre incluído, nunca cobrado.</td></tr>
+                  <tr><th scope="row">Documento técnico — não vinculado à consulta</th><td data-rotulo="Prazo">Até 30 dias após o aceite do orçamento</td><td data-rotulo="Observação">Exige análise funcional atual e pode gerar honorários.</td></tr>
+                  <tr><th scope="row">Parecer técnico e relatório especializado</th><td data-rotulo="Prazo">Prazo informado caso a caso</td><td data-rotulo="Observação">Complexidade variável, pois pode gerar acompanhamento de processo pericial.</td></tr>
+                  <tr><th scope="row">Documento com prazo judicial</th><td data-rotulo="Prazo">Comunicar com antecedência mínima de 10 dias</td><td data-rotulo="Observação">Prazos inferiores só serão atendidos mediante disponibilidade e regime de urgência.</td></tr>
+                  <tr><th scope="row">Solicitação em caráter de urgência administrativa</th><td data-rotulo="Prazo">Conforme disponibilidade</td><td data-rotulo="Observação">Sujeita ao acréscimo previsto no Anexo II.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <a class="link-seta" href="https://app.armetz.com/solicitar/drafabi" target="_blank" rel="noopener">Abrir uma solicitação <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">05</span>
+          <div class="item__corpo">
+            <h3>Como você recebe cada demanda solicitada</h3>
+            <div class="tabela">
+              <table>
+                <caption class="so-leitor">Meio de envio e garantias de cada item</caption>
+                <thead><tr><th scope="col">Item</th><th scope="col">Meio de envio</th><th scope="col">Garantias</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Orientações e receitas</th><td data-rotulo="Meio de envio">SMS, WhatsApp ou e-mail</td><td data-rotulo="Garantias">Registro simultâneo em prontuário; link seguro com código de validação.</td></tr>
+                  <tr><th scope="row">Documentos médicos</th><td data-rotulo="Meio de envio">Exclusivamente por e-mail</td><td data-rotulo="Garantias">Assinatura digital qualificada ICP-Brasil; QR Code de validação; código de verificação impresso em todas as páginas.</td></tr>
+                  <tr><th scope="row">Receituários especiais (azul e amarelo)</th><td data-rotulo="Meio de envio">Retirada presencial na Sinapse Clínica durante a implantação digital</td><td data-rotulo="Garantias">Exigência legal de via física.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">06</span>
+          <div class="item__corpo">
+            <h3>Formulários e papéis timbrados de terceiros</h3>
+            <p class="item__destaque">Não preenchemos formulários de operadoras, órgãos públicos ou instituições.</p>
+            <p>Formulários próprios de operadoras de saúde, órgãos públicos, escolas, seguradoras e demais instituições não são preenchidos. Todo o conteúdo solicitado será transposto para documento médico próprio, emitido em papel timbrado da Sinapse Clínica, com identificação completa da médica, registros profissionais, assinatura digital qualificada e código de verificação.</p>
+            <p>A Resolução CFM nº 2.381/2024, em seu art. 6º, veda expressamente essa prática. O parágrafo único do mesmo artigo estabelece a via correta: nesses casos, emite-se relatório médico circunstanciado ou relatório técnico especializado.</p>
+            <p>O documento emitido atende integralmente à finalidade pretendida e tem a mesma validade perante a instituição destinatária.</p>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">07</span>
+          <div class="item__corpo">
+            <h3>Exames e relatórios anexados pela própria família</h3>
+            <p>A partir desta versão, os exames, relatórios de terapeutas, relatórios escolares e demais materiais devem ser anexados ao prontuário pela própria família, diretamente no sistema, antes da consulta.</p>
+            <dl class="mudancas">
+              <div><dt>Prazo:</dt><dd>até 48 horas antes da consulta, para que possam ser estudados antes do nosso encontro.</dd></div>
+              <div><dt>Nomenclatura:</dt><dd>Nome_Tipo do Documento_Mês-Ano (exemplo: <span class="exemplo">Fabiana Mugnol_EEG_Agosto-2026</span>).</dd></div>
+            </dl>
+            <p>Quando a família anexa materiais, não representa transferência de trabalho: é garantia de fidedignidade. Quem viveu o exame sabe a que ele se refere, em que contexto foi feito e o que motivou a solicitação. Esse cuidado reduz erro de arquivamento e perda de informação.</p>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">08</span>
+          <div class="item__corpo">
+            <h3>Gravação da consulta e resumo clínico assistido</h3>
+            <p>Com a sua autorização expressa, a consulta é gravada em áudio exclusivamente para a geração de notas clínicas. A finalidade é uma só: permitir que minha atenção seja ainda maior durante todo o encontro, em vez de olhar para a tela e digitar.</p>
+            <ul class="lista">
+              <li>O áudio é utilizado apenas para gerar o resumo clínico que será revisado e validado por mim e incorporado ao prontuário.</li>
+              <li>Concluída a geração e a validação do resumo, o áudio é eliminado de forma definitiva e irreversível.</li>
+              <li>O áudio não é compartilhado, não é utilizado para qualquer outra finalidade e não integra o prontuário: o que integra o prontuário é o resumo clínico validado.</li>
+              <li>A autorização é livre e revogável a qualquer tempo, sem qualquer prejuízo ao atendimento. Recusar a gravação não altera a duração, a qualidade ou o custo da consulta.</li>
+            </ul>
+            <p>A gravação da consulta pela família, por qualquer meio, depende de autorização prévia e expressa da médica, assim como a gravação pela médica depende da sua autorização. A reciprocidade é a condição do vínculo de confiança.</p>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">09</span>
+          <div class="item__corpo">
+            <h3>Reuniões de equipe</h3>
+            <p>As reuniões multiprofissionais compreendem a participação da família e dos profissionais que acompanham a jornada do desenvolvimento.</p>
+            <dl class="mudancas">
+              <div><dt>Objetivo:</dt><dd>alinhar objetivos terapêuticos, hierarquizar prioridades, revisar intervenções em curso e orientar a família sobre o que deve ser mantido, iniciado ou encerrado.</dd></div>
+              <div><dt>Modalidade:</dt><dd>presencial ou por videoconferência, conforme combinação prévia.</dd></div>
+              <div><dt>Duração:</dt><dd>60 minutos.</dd></div>
+              <div><dt>Agendamento:</dt><dd>pela secretaria da Sinapse Clínica, com a Srta. Gabriela.</dd></div>
+              <div><dt>Registro:</dt><dd>toda reunião gera registro em prontuário.</dd></div>
+              <div><dt>Honorários:</dt><dd>geram honorários.</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">10</span>
+          <div class="item__corpo">
+            <h3>Dados cadastrais sempre atualizados</h3>
+            <p>Endereço, telefones, e-mail, escola, plano de saúde, composição familiar, guarda e equipe terapêutica compõem a base sobre a qual documentos são emitidos. Documento com dado desatualizado é documento inútil e, em contexto pericial ou judicial, pode ser documento contestável.</p>
+            <p>A família deve comunicar toda alteração cadastral pelo sistema.</p>
+            <p>A cada alteração, o sistema disponibilizará a ficha atualizada para ratificação independente pelo responsável legal, que confirma a exatidão dos dados. Essa ratificação é registrada com data e hora e integra o prontuário.</p>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">11</span>
+          <div class="item__corpo">
+            <h3>Faltas, atrasos e cancelamentos</h3>
+            <dl class="mudancas">
+              <div><dt>Cancelamento ou remarcação:</dt><dd>comunicar à secretaria da Sinapse Clínica com antecedência mínima de 24 horas.</dd></div>
+              <div><dt>Não comparecimento:</dt><dd>o não comparecimento à consulta confirmada terá cobrança de R$&nbsp;400,00 pela reserva do horário, conforme despacho CFM de junho de 2026.</dd></div>
+              <div><dt>Alteração de modalidade (presencial ↔ videoconferência):</dt><dd>comunicar com antecedência mínima de 48 horas, pois segundas e sextas são dias dedicados aos atendimentos virtuais.</dd></div>
+            </dl>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== 03 · Caminhando juntos ===== -->
+    <section class="guia" id="caminhando" aria-labelledby="t-caminhando">
+      <header class="guia__cabeca">
+        <span class="eyebrow">03</span>
+        <h2 class="h2" id="t-caminhando">Caminhando <em>juntos</em></h2>
+      </header>
+
+      <div class="itens">
+        <article class="item">
+          <span class="item__n">01</span>
+          <div class="item__corpo">
+            <h3>As duas camadas de documentos médicos</h3>
+            <p>A Resolução CFM nº 2.381/2024 organiza os documentos médicos por finalidade, exigência técnica e implicação de honorários. O consultório adota, com base nela, uma classificação em duas camadas, e essa distinção é a espinha dorsal de tudo o que se segue.</p>
+            <div class="camadas">
+              <div class="camada">
+                <span class="rotulo">Camada 1</span>
+                <h4>Documentos assistenciais inclusos no honorário da consulta</h4>
+                <p>São inerentes ao ato médico, constituem direito do paciente e não são cobrados individualmente:</p>
+                <ul class="lista">
+                  <li>Receituário e prescrição, inclusive renovação de uso contínuo dentro do período regular de acompanhamento.</li>
+                  <li>Atestado médico e declaração de comparecimento.</li>
+                  <li>Solicitação de exames e encaminhamento a outros profissionais.</li>
+                  <li>Relatório médico circunstanciado decorrente da consulta.</li>
+                </ul>
+              </div>
+              <div class="camada">
+                <span class="rotulo">Camada 2</span>
+                <h4>Documentos técnicos remuneráveis</h4>
+                <p>Os documentos com custo extra são aqueles que não decorrem da consulta e exigem estudo do caso, integração de fontes, análise funcional atual e redação técnica dirigida a uma finalidade específica (laudo técnico, pericial, curatela, documentos para órgãos públicos e formulários destinados a outros fins).</p>
+              </div>
+            </div>
+            <h4 class="item__sub">A regra do vínculo com a consulta</h4>
+            <p>Documento assistencial cuja finalidade foi pactuada em consulta realizada nos últimos 180 dias é emitido dentro da cota do programa, sem custo adicional.</p>
+            <p>Documento solicitado fora desse vínculo exige nova análise funcional e, portanto, novo ato médico. Não são emitidos documentos que descrevam quadro clínico não avaliado ou desatualizado, conforme a Resolução CFM nº 2.381/2024 e o Código de Ética Médica.</p>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">02</span>
+          <div class="item__corpo">
+            <h3>Caminhar juntos</h3>
+            <p>Há situações que funcionam melhor com previsibilidade financeira e de datas. Assim, pensamos nos agendamentos ao longo de doze meses, buscando encontros com temporalidade bem definida, prazos diferenciados e oportunidade de flexibilização dos honorários.</p>
+            <div class="tabela tabela--planos">
+              <table>
+                <caption class="so-leitor">Comparação entre as modalidades Essencial, Integrado e Intensivo</caption>
+                <thead>
+                  <tr><td></td><th scope="col">Caminhar Juntos <em>Essencial</em></th><th scope="col">Caminhar Juntos <em>Integrado</em></th><th scope="col">Caminhar Juntos <em>Intensivo</em></th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Perfil</th><td data-rotulo="Essencial">Quadros estáveis, seguimento regular, baixa demanda documental</td><td data-rotulo="Integrado">Quadros em ajuste terapêutico, interlocução ativa com escola e equipe</td><td data-rotulo="Intensivo">Alta complexidade, múltiplas comorbidades, demanda pericial ou judicial</td></tr>
+                  <tr><th scope="row">Consultas ao ano</th><td data-rotulo="Essencial">Duas</td><td data-rotulo="Integrado">Três</td><td data-rotulo="Intensivo">Quatro</td></tr>
+                  <tr><th scope="row">Reuniões multiprofissionais ao ano</th><td data-rotulo="Essencial">Uma</td><td data-rotulo="Integrado">Duas</td><td data-rotulo="Intensivo">Três</td></tr>
+                  <tr><th scope="row">Prazo de resposta do Secretariado Remoto</th><td data-rotulo="Essencial">Até 48 h para urgências, até 7 dias úteis para outras demandas</td><td data-rotulo="Integrado">Até 48 h para urgências, até 5 dias úteis para outras demandas</td><td data-rotulo="Intensivo">Até 24 h para urgências, até 3 dias úteis para outras demandas</td></tr>
+                  <tr><th scope="row">Renovação de receita de uso contínuo</th><td data-rotulo="Essencial">Até 7 dias úteis</td><td data-rotulo="Integrado">Até 5 dias úteis</td><td data-rotulo="Intensivo">Até 3 dias úteis</td></tr>
+                  <tr><th scope="row">Revisão estruturada do plano terapêutico</th><td data-rotulo="Essencial">A cada 4 meses</td><td data-rotulo="Integrado">A cada 3 meses</td><td data-rotulo="Intensivo">A cada 2 meses</td></tr>
+                  <tr><th scope="row">Acesso ao site</th><td data-rotulo="Essencial">Acesso livre</td><td data-rotulo="Integrado">Acesso livre</td><td data-rotulo="Intensivo">Acesso livre</td></tr>
+                  <tr><th scope="row">Documentos assistenciais</th><td data-rotulo="Essencial">Sempre incluídos</td><td data-rotulo="Integrado">Sempre incluídos</td><td data-rotulo="Intensivo">Sempre incluídos</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <span class="item__n">03</span>
+          <div class="item__corpo">
+            <h3>Pagamento</h3>
+            <ul class="lista">
+              <li>O número de vagas no Caminhar Juntos Intensivo é limitado para preservar o padrão de resposta contratado.</li>
+              <li>Pensando em acompanhamento recorrente (famílias que aderiram ao Caminhar Juntos), oferecemos a possibilidade exclusiva de distribuir os custos ao longo do ano em até doze parcelas sem juros.</li>
+              <li>Os atendimentos presenciais e online têm o mesmo valor de honorários médicos.</li>
+              <li>Relatório médico extra, não decorrente do atendimento médico, será cobrado o equivalente ao valor da metade da consulta.</li>
+              <li>Reunião multiprofissional: honorários idênticos aos da consulta.</li>
+            </ul>
+            <a class="btn" href="https://wa.me/5551992179578?text=Ol%C3%A1!%20Gostaria%20de%20saber%20sobre%20o%20Caminhar%20Juntos." target="_blank" rel="noopener">Falar com o secretariado</a>
+          </div>
+        </article>
       </div>
     </section>
   </div>
