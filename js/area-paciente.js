@@ -1,4 +1,4 @@
-// Área do paciente — entrada no Portal do Paciente (Florescer), que vive no
+// Área do paciente — entrada no portal do paciente, que vive no
 // Armetz (app.armetz.com). Este site é estático: ele NÃO guarda nem confere
 // dado nenhum. O formulário manda CPF + data de nascimento para o Armetz, que
 // confere no servidor e devolve um endereço de entrada de uso único; o

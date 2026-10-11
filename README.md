@@ -6,7 +6,7 @@ de build**: o que está no repositório é exatamente o que vai ao ar.
 
 ## Estrutura
 - `index.html` — página principal (todos os textos ficam aqui)
-- `planos/index.html` — Área do paciente: carta à família, entrada no portal Florescer e o guia
+- `planos/index.html` — Área do paciente: carta à família, entrada no portal do paciente e o guia
   do acompanhamento (A dinâmica do acolhimento · Fluxos, canais e prazos · Caminhando juntos)
 - `css/site.css` — estilos; cores e fontes da marca em variáveis no topo
 - `js/site.js` — rolagem suave, revelação de texto, fundo por seção, botão "Agendar" e as partículas (magnólia e monograma FM).
@@ -24,7 +24,7 @@ de build**: o que está no repositório é exatamente o que vai ao ar.
 - **YouTube**: link marcado com `data-pendente` em `index.html`.
 
 ## Área do paciente (`/planos`)
-A "Área do paciente" é a porta de entrada do **portal Florescer**, que vive no
+A "Área do paciente" é a porta de entrada do **portal do paciente**, que vive no
 Armetz (`app.armetz.com`). O site é estático e **não guarda nem confere dado
 nenhum**: `js/area-paciente.js` manda CPF + data de nascimento para
 `POST https://app.armetz.com/api/public/portal/entrar` (CORS liberado só para
