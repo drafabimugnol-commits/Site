@@ -1,5 +1,5 @@
 // Dra. Fabiana Mugnol — comportamento da página
-// Rolagem suave (Lenis), revelação de texto, fundo por seção, fio do Caminhar Juntos,
+// Rolagem suave (Lenis), revelação de texto, fundo por seção,
 // botão "Contatos" e as partículas (magnólia no topo, monograma FM no contato).
 
 // Ajustes finos das partículas (equivalem aos controles do protótipo)
@@ -62,8 +62,6 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirEscol
 
 // ---------- Elementos acompanhados a cada quadro ----------
 const secs = [...document.querySelectorAll("[data-tom]")].map((el) => ({ el, c: hex(el.dataset.tom) }));
-const fio = document.getElementById("fio");
-const fioFill = document.getElementById("fio-fill");
 const pilula = document.getElementById("pilula");
 const pin = document.getElementById("pin");
 const slotFlor = document.getElementById("slot-flor");
@@ -92,10 +90,6 @@ function tick(t) {
   const escuro = (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255 < 0.55;
   if (escuro !== fundoEscuro) { fundoEscuro = escuro; document.documentElement.classList.toggle("fundo-escuro", escuro); }
   raiz.style.background = `rgb(${c.map(Math.round).join(",")})`;
-
-  // fio do Caminhar Juntos
-  const fr = fio.getBoundingClientRect();
-  fioFill.style.transform = `scaleY(${Math.min(1, Math.max(0, (H * 0.6 - fr.top) / fr.height)).toFixed(4)})`;
 
   // visível desde o topo; some só no Contato, onde os números já estão na tela
   const on = ultimo < 0.3;
