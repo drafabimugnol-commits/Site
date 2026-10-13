@@ -1,6 +1,7 @@
 # Site — Dra. Fabiana Mugnol
 
-Site institucional de página única (drafabimugnol.com.br), feito a partir do
+Site institucional de página única (www.fabianamugnol.com.br; o antigo
+drafabimugnol.com.br redireciona para ele), feito a partir do
 handoff de design v8 (`design/handoff-v8/`). HTML + CSS + JS puros, **sem etapa
 de build**: o que está no repositório é exatamente o que vai ao ar.
 
@@ -27,7 +28,7 @@ A "Área do paciente" é a porta de entrada do **portal do paciente**, que vive 
 Armetz (`app.armetz.com`). O site é estático e **não guarda nem confere dado
 nenhum**: `js/area-paciente.js` manda CPF + data de nascimento para
 `POST https://app.armetz.com/api/public/portal/entrar` (CORS liberado só para
-este domínio), o Armetz confere no servidor e devolve um endereço de entrada de
+os domínios do site — lista em `lib/portal/origens.ts` no Armetz), o Armetz confere no servidor e devolve um endereço de entrada de
 uso único; o navegador vai para lá e cai dentro do espaço da família.
 
 - Quem entra: qualquer paciente ativo da clínica, pelo CPF do paciente **ou** do
@@ -40,6 +41,9 @@ uso único; o navegador vai para lá e cai dentro do espaço da família.
   canais, prazos, modalidades, honorários) vivem no portal do Armetz, como cartões
   "página de texto" (Configurações › Portal do Paciente), e só aparecem depois da
   entrada. Não trazer esse conteúdo de volta para cá.
+- **Mudou o domínio do site? Atualize a lista de origens no Armetz no mesmo dia**
+  (`lib/portal/origens.ts`, e a env `PORTAL_ORIGENS_SITE` se existir na Vercel).
+  Sem isso o portal recusa a entrada e a família vê "verifique sua conexão".
 - Lado do Armetz: `docs/PORTAL_PACIENTE.md` §9 naquele repositório.
 
 ## Visualizar localmente
@@ -52,8 +56,9 @@ direto no navegador não funciona).
 ## Publicação (GitHub → Vercel → registro.br)
 1. Vercel → **Add New → Project → Import** este repositório. Framework: *Other*,
    sem comando de build, diretório de saída: raiz. Deploy.
-2. Vercel → Project → **Settings → Domains**: adicionar `drafabimugnol.com.br` e
-   `www.drafabimugnol.com.br` (redirecionar um para o outro).
+2. Vercel → Project → **Settings → Domains**: `www.fabianamugnol.com.br` (principal),
+   com `fabianamugnol.com.br`, `drafabimugnol.com.br` e `www.drafabimugnol.com.br`
+   redirecionando para ele.
 3. registro.br → domínio → **DNS** → "Editar zona":
    - `A` · nome em branco · `76.76.21.21`
    - `CNAME` · `www` · `cname.vercel-dns.com.`
