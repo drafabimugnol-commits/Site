@@ -19,8 +19,6 @@ de build**: o que está no repositório é exatamente o que vai ao ar.
 - `design/claude-design/`, `design/marca/` — versões anteriores e manual de marca
 
 ## Pendências de conteúdo
-- **Concierge**: número provisório `51 99999-9999` (`5551999999999` nos links). Buscar e
-  substituir em `index.html`.
 - **YouTube**: link marcado com `data-pendente` em `index.html`.
 
 ## Área do paciente (`/planos`)
