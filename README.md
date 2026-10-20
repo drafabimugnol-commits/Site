@@ -62,3 +62,12 @@ direto no navegador não funciona).
    - `CNAME` · `www` · `cname.vercel-dns.com.`
    Confirme os valores na tela de Domains da Vercel.
 4. Aguardar a propagação; a Vercel emite o HTTPS sozinha.
+
+## Contador de acessos
+O site usa o **Vercel Web Analytics** (script `/_vercel/insights/script.js` no
+fim de `index.html` e `planos/index.html`). Não usa cookies nem guarda dado
+pessoal, então não precisa de aviso de cookies. Os números (visitantes, páginas
+vistas, origem, país, aparelho) ficam só no painel: Vercel → Project →
+**Analytics**. Na primeira vez, clique em **Enable** nessa aba; até isso ser
+feito o script não registra nada. Fora da Vercel (ex.: `python3 -m http.server`)
+o script dá 404 no console, o que é esperado e não afeta a página.
